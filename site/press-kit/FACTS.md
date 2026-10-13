@@ -23,12 +23,12 @@ by one developer.
 | Name | OpenMaps, or OpenMaps. Named for the constellation "the Sails". |
 | Platform | Android 8 and newer. No iOS version. |
 | Price | Free. No ads, no account, no paid tier. |
-| License | GPLv3 |
+| License | MIT |
 | Status | Beta |
 | Started | June 2026 |
 | Who makes it | One developer, who goes by Arafath. Outside contributors send fixes and volunteers translate it. |
 | Languages | 15 |
-| Where to get it | GitHub releases, Obtainium, or OpenMaps's own F-Droid repository. Not on Google Play. |
+| Where to get it | GitHub releases. Not on Google Play. |
 | Source | https://github.com/smartworldarafath/OpenMaps |
 | Website | https://openmaps.org/ |
 

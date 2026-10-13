@@ -120,7 +120,7 @@ app's is not built yet.
 
 ## Where do updates come from?
 
-GitHub releases, through Obtainium, the F-Droid repo or a manual APK. There is a weekly
+GitHub releases, through Obtainium or a manual APK. There is a weekly
 stable channel, a nightly one, and a canary channel for testers in the in-app updater only.
 The in-app updater follows the one you pick under Settings > About > "Update channel". Every
 channel is signed with the same key, so switching never needs a reinstall.

@@ -56,8 +56,7 @@ debug keystore, so `adb install` still works. Do not hand out a local build with
 
 Every push to `main` or `canary` builds and tests. A push to `canary` replaces the rolling
 canary build. A daily job publishes a signed nightly prerelease (`v0.5.<run>`) when `main` has
-moved, and a weekly job (Mondays) promotes the newest nightly to stable. The F-Droid repository
-index is rebuilt after both. Docs-only pushes skip CI. [Chapter 12 of the book](book/12-releases.md)
+moved, and a weekly job (Mondays) promotes the newest nightly to stable. Docs-only pushes skip CI. [Chapter 12 of the book](book/12-releases.md)
 has the details.
 
 ## Architecture

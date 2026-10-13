@@ -94,8 +94,7 @@ nav:
   - Using OpenMaps:
       - Questions and answers: faq.md
       - What reaches Google: privacy.md
-      - Install with F-Droid: fdroid.md
-      - Every feature: features.md
+            - Every feature: features.md
       - Android Auto: android-auto.md
       - D-pad and keypad phones: dpad.md
   - The book:

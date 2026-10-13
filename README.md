@@ -10,7 +10,7 @@ Live traffic, real place data and turn-by-turn navigation, with no Google accoun
 
 [![Stable release](https://img.shields.io/github/v/release/smartworldarafath/OpenMaps?label=stable&color=149387)](https://github.com/smartworldarafath/OpenMaps/releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/smartworldarafath/OpenMaps/ci.yml?branch=main&label=build)](https://github.com/smartworldarafath/OpenMaps/actions/workflows/ci.yml)
-[![License: GPL v3](https://img.shields.io/github/license/smartworldarafath/OpenMaps?color=blue)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/smartworldarafath/OpenMaps?style=flat&color=ffd43b)](https://github.com/smartworldarafath/OpenMaps/stargazers)
 [![Translation status](https://hosted.weblate.org/widget/OpenMaps-maps/app/svg-badge.svg)](https://hosted.weblate.org/engage/OpenMaps-maps/)
 
@@ -113,15 +113,11 @@ different key is refused, so a build that installs over your existing OpenMaps c
 from the same place this one did.
 
 This is the certificate the app is signed with, and it stays the same across
-releases. It is not a checksum of a particular APK, and it is not the same as
-the F-Droid repo fingerprint in [FDROID.md](FDROID.md), which signs the repo
-index rather than the app.
+releases. It is not a checksum of a particular APK.
 
 The website is **[openmaps.org](https://openmaps.org/)**, and the docs in this
 repository are published as a searchable site at
 **[smartworldarafath.github.io/OpenMaps/docs](https://smartworldarafath.github.io/OpenMaps/docs/)**.
-
-[![Support OpenMaps on Buy Me a Coffee](https://img.shields.io/badge/support%20vela-buy%20me%20a%20coffee-ffdd00)](https://buymeacoffee.com/Arafath)
 
 ---
 
@@ -280,10 +276,9 @@ plainer words.
 Still open (details in [ROADMAP.md](ROADMAP.md)):
 
 - [ ] Android Auto without a Google Play listing.
-- [ ] F-Droid's own catalog, which needs a build with no prebuilt parts.
 - [ ] A Google Play listing, so Android Auto works on factory head units: a separate
-      build with the Google half compiled out, while the full app stays on GitHub,
-      Obtainium and F-Droid. A big job. On the radar, not started.
+      build with the Google half compiled out, while the full app stays on GitHub.
+      A big job. On the radar, not started.
 - [ ] An iOS build. The engine module is plain Kotlin and would move to Kotlin
       Multiplatform; the interface would be rewritten. On the radar, not started.
 
@@ -320,9 +315,7 @@ Satellite imagery is Esri World Imagery, with Google imagery where Esri has none
 at close zoom.
 
 ## License
-
-[![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
-
-OpenMaps is Free Software: you can use, study, share and improve it at your will. You may use, modify and redistribute this project only if your modifications remain open source under the same license.
-
+ 
+This project is licensed under the [MIT License](LICENSE).
+ 
 The app bundles the Google Sans Flex font, copyright The Google Sans Flex Authors, under the [SIL Open Font License 1.1](app/src/main/assets/licenses/GoogleSansFlex-OFL.txt). Google Sans Flex is a trademark of Google LLC; OpenMaps is not affiliated with or endorsed by Google.
