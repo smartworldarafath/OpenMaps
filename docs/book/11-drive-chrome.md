@@ -109,7 +109,7 @@ The pass runs once per 400 m of progress, or when the next two turns change. Eac
 loaded road name onto the main thread, so it never runs on a short timer. A pass that places
 nothing retries every 2 seconds, four more times, for tiles that land late.
 
-Each callout is a point Vela places (`crossLabelPoint`), because the basemap's own label sits
+Each callout is a point OpenMaps places (`crossLabelPoint`), because the basemap's own label sits
 mid-tile, often a block from the route. It goes `NAV_XLABEL_OFFSET_M = 35` m up the street from
 the crossing, or further out, up to 105 m, until its anchor is `NAV_XLABEL_CLEAR_M = 44` m clear
 of the route. A spot within 30 m of a drawn light, stop sign or camera is skipped. With less

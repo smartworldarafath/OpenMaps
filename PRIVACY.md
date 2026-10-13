@@ -1,6 +1,6 @@
-# Vela Maps - Privacy
+# OpenMaps - Privacy
 
-What leaves your phone, where it goes, and what does not. Vela asks Google's public web
+What leaves your phone, where it goes, and what does not. OpenMaps asks Google's public web
 endpoints for some things, so Google does see some of your requests, the way it sees a
 logged-out browser's. They are not tied to an account.
 
@@ -9,19 +9,19 @@ logged-out browser's. They are not tied to an account.
 - **Nothing of Google's runs on your phone.** No Play Services, no Google SDK, no account, no
   API key. Google's public servers answer the app's anonymous requests. That is the design, the
   same as NewPipe's for YouTube. It is not a claim of zero Google contact.
-- **There is no Vela server.** No backend, no account, no analytics, no crash reporting, no ad
+- **There is no OpenMaps server.** No backend, no account, no analytics, no crash reporting, no ad
   SDK. Nothing you do is sent to the project.
 - **Browsing the map does not reach Google, by default.** The businesses you pan past are
-  Vela data: Overture Maps and AllThePlaces, positioned with OpenStreetMap, built in Vela's
+  OpenMaps data: Overture Maps and AllThePlaces, positioned with OpenStreetMap, built in OpenMaps's
   repository and streamed from its releases, or read from a downloaded region. Settings >
-  Places > "Place icons on the map" is set to **Vela data** out of the box. **Both** adds one
+  Places > "Place icons on the map" is set to **OpenMaps data** out of the box. **Both** adds one
   Google request each time the map settles, and **Google** asks on every pan.
-- **Vela asks Google directly from your phone** for searching (autocomplete as you type, and
+- **OpenMaps asks Google directly from your phone** for searching (autocomplete as you type, and
   the search when you submit), for opening a place (hours, reviews, photos, busy times), and
   for driving routes and their traffic. Google sees your IP address, the search text, and the
   map area or the trip's endpoints. It does not see a Google account, and no key labels the
-  traffic as Vela's. The one possible label is a header Android's WebView adds; see below.
-- **One switch turns Google off:** Settings > Privacy > "Use Vela without Google". The first run
+  traffic as OpenMaps's. The one possible label is a header Android's WebView adds; see below.
+- **One switch turns Google off:** Settings > Privacy > "Use OpenMaps without Google". The first run
   asks the same question before the map loads. With Google on, the Privacy page lists every
   smaller switch in one place: reviews, photos, tapped-place lookups, the traffic requests.
   With the main switch on, search
@@ -38,8 +38,8 @@ logged-out browser's. They are not tied to an account.
 
 | Service | When | What it gets |
 |---|---|---|
-| **Vela's own place data** (GitHub releases) | browsing the map with "Vela data" | your IP, and which byte ranges of a file you read, which implies your rough map area |
-| **google.com** (autocomplete) | as you type in the search box, each time you pause, from the second character | your IP, the text so far, the map view (center and span), and a cookie that lasts only while Vela runs. When the map shows somewhere 50 km or more from you, a second request centered on your position |
+| **OpenMaps's own place data** (GitHub releases) | browsing the map with "OpenMaps data" | your IP, and which byte ranges of a file you read, which implies your rough map area |
+| **google.com** (autocomplete) | as you type in the search box, each time you pause, from the second character | your IP, the text so far, the map view (center and span), and a cookie that lasts only while OpenMaps runs. When the map shows somewhere 50 km or more from you, a second request centered on your position |
 | **google.com** (search) | every search you submit, and a tap on a place on the map | your IP, the query (for a tap, the place's name), the map view (for a tap, the tapped spot). When you search from inside the view, a second request over about 2.5 km around your position so nearby places rank first. The same short-lived cookie |
 | **google.com** (places on the map) | only with "Place icons on the map" on **Both** (one request after you stop panning) or **Google** (as you pan) | your IP, the map area |
 | **google.com** (place details, photos, reviews) | opening a place | your IP, the place's name and address or Google's id for it, and the Google session cookie (below) |
@@ -52,7 +52,7 @@ logged-out browser's. They are not tied to an account.
 | **maps.app.goo.gl** | opening a shared short Google Maps link | your IP and that link. No cookies |
 | **OpenFreeMap** | viewing the map | your IP, which map tiles you pan over |
 | **Esri World Imagery** | satellite view (off by default) | your IP, tile coordinates, and the view's bounds (to label the imagery date) |
-| **Photon** (komoot's OpenStreetMap geocoder) | typing text that starts with a house number, and every search with "Use Vela without Google" on | your IP, the typed text, a bias point (the map center or your position) |
+| **Photon** (komoot's OpenStreetMap geocoder) | typing text that starts with a house number, and every search with "Use OpenMaps without Google" on | your IP, the typed text, a bias point (the map center or your position) |
 | **OSM Nominatim** | long-pressing to drop a pin, tapping a house number, a building or an unnamed icon | your IP, that one coordinate |
 | **Transitous** (open transit data) | transit stops at street zoom, colored rail lines while "Highlight transit lines" is on, every departure board (refreshed every 30 s while open), and the real path of a transit trip you expand | your IP, the map area, a stop's id or coordinate, or the trip's two stops |
 | **AWS** (terrain tiles) | hillshade relief | your IP, tile coordinates |
@@ -61,7 +61,7 @@ logged-out browser's. They are not tied to an account.
 | **NDW** (Dutch national road data) | a drive whose route enters the Netherlands, with "Bridge openings" on (the default), then every 5 minutes while a movable bridge is on the route | your IP. A plain file download, the same for everyone |
 | **Overpass** (OpenStreetMap) | only where no baked region file covers the spot: traffic lights and stop signs, the opt-in speed camera layer, and with "Traffic-light guidance" on the lights along a route when its drive starts | your IP, a bounding box |
 | **raw.githubusercontent.com, api.github.com, GitHub Pages** | at launch (settings file, map fonts), about once a day for the update check, once after an update for the What's new notes | your IP. A plain file download |
-| **velamaps.org** (Cloudflare Pages) | at launch, only when GitHub does not answer for the settings file | your IP. A plain file download, the same for everyone |
+| **openmaps.org** (Cloudflare Pages) | at launch, only when GitHub does not answer for the settings file | your IP. A plain file download, the same for everyone |
 | **GitHub release files** | downloading regions, voices and app updates, and streaming the place, building and house-number layers as you browse | your IP, and which file or byte range is fetched, which implies your rough map area |
 | **GitHub release files** (UK fuel prices) | a gas station in the UK shows up in your results or on a place page without a price; at most every 3 hours after that | your IP. The file is the same one nationwide for everyone, so it says only that you looked at a UK gas station |
 
@@ -75,55 +75,55 @@ alone until you tap Show traffic on the route list. Until then Google is not ask
 Google sees the most. Per request it receives your IP address, the search text or the
 coordinates, the map area, a browser's User-Agent, the consent cookies (`SOCS` / `CONSENT`,
 seeded so the EU consent wall does not block you; they carry no identity) and Google's own
-logged-out session cookie. Vela sends these requests over Cronet, Chrome's network stack.
+logged-out session cookie. OpenMaps sends these requests over Cronet, Chrome's network stack.
 
-What Google does not get from Vela:
+What Google does not get from OpenMaps:
 
-- **A Google account.** Vela never signs in.
-- **An API key.** Vela's requests are not stamped as coming from an app. The exception is the
+- **A Google account.** OpenMaps never signs in.
+- **An API key.** OpenMaps's requests are not stamped as coming from an app. The exception is the
   hidden pages below: Android's WebView adds the app's package name
-  (`X-Requested-With: app.vela`) to every request it makes itself, and apps cannot turn that
-  off. Vela sends those pages' requests over its own network stack instead, which leaves the
-  header off. A request Vela cannot carry that way still has it.
+  (`X-Requested-With: app.OpenMaps`) to every request it makes itself, and apps cannot turn that
+  off. OpenMaps sends those pages' requests over its own network stack instead, which leaves the
+  header off. A request OpenMaps cannot carry that way still has it.
 - **A device id.** What Google keeps is its own session cookie, the same thing any logged-out
   browser gets. There are two:
   - Searches, autocomplete and directions carry a cookie that exists only in memory and starts
-    over every time Vela starts.
+    over every time OpenMaps starts.
   - Opening a place and the hidden pages carry the WebView's cookie, which is kept on disk like
     a browser's. While a session lasts, Google can link the places opened under it into one
     history with no name attached. **Settings > Privacy > Google session** starts a new one
-    every week by default, every day, or every time Vela opens, and has a button to start one
+    every week by default, every day, or every time OpenMaps opens, and has a button to start one
     now.
 
 **The limited view.** Google gives some signed-out sessions, new ones especially, a trimmed
 answer: fewer photos per page, popular times missing, and a "More reviews" button that loads
-nothing. It is decided per session, not per IP address. Vela notices and says so in one line on
+nothing. It is decided per session, not per IP address. OpenMaps notices and says so in one line on
 the place sheet and under Settings > Privacy > Google session. It usually lifts by itself.
 Starting a new session rarely helps, because new sessions start out limited, which is why the
 default is a week.
 
 **Compared with the Google Maps app:** there you are normally signed in, so Google ties every
-search, route and stop to your account. With Vela it is closer to `google.com/maps` in a
+search, route and stop to your account. With OpenMaps it is closer to `google.com/maps` in a
 private browser window: Google sees the IP and the individual requests and cannot link them to
 an account. Your IP is still visible to Google and to every service in the table. To hide that
-too, run Vela over a VPN or Tor.
+too, run OpenMaps over a VPN or Tor.
 
-| What Google gets | Google Maps app | Google Maps web | Vela |
+| What Google gets | Google Maps app | Google Maps web | OpenMaps |
 | --- | --- | --- | --- |
 | Tied to your Google account | Yes, always signed in | Yes unless incognito | Never. There is no login |
-| A persistent device identifier | Yes (device and ad IDs via Play Services) | Browser cookies | No account, no app key. A logged-out session cookie that Vela replaces weekly by default, and an IP like any website visitor |
+| A persistent device identifier | Yes (device and ad IDs via Play Services) | Browser cookies | No account, no app key. A logged-out session cookie that OpenMaps replaces weekly by default, and an IP like any website visitor |
 | Your precise GPS position | Continuously while open, plus Location History if enabled | While the tab is open | Never while browsing. Searches send the map area and can ask about a small area around you. A route from your location sends that point. During a drive, reroutes and the optional traffic re-check send your current position |
-| Every pan and zoom of the map | Yes, their servers render the map | Yes | No, with "Place icons on the map" on Vela data (the default). On Both, one places request with the map area after you stop panning |
+| Every pan and zoom of the map | Yes, their servers render the map | Yes | No, with "Place icons on the map" on OpenMaps data (the default). On Both, one places request with the map area after you stop panning |
 | Your searches | Yes, saved to your account history | Yes | The text reaches Google anonymously, as you type and when you search |
 | Place pages you open | Yes | Yes | The lookup reaches Google anonymously, under the session cookie above |
 | Turn-by-turn routes | Yes, full trip telemetry | Yes | Google is asked for the route between two points, and again during the drive for reroutes and the optional traffic re-check. Your GPS trail as a whole never leaves the phone |
 | Saved places, home, work | Stored on their servers | Stored on their servers | Stored only on your phone |
 | Ad profile building | Feeds your ads profile | Feeds your ads profile | Nothing to attach it to |
-| Works with no Google contact at all | No | No | Yes: "Use Vela without Google" online, and downloaded regions offline |
+| Works with no Google contact at all | No | No | Yes: "Use OpenMaps without Google" online, and downloaded regions offline |
 
 ## The hidden pages
 
-Some of Google's data is only served to a real browser engine. For these Vela loads a
+Some of Google's data is only served to a real browser engine. For these OpenMaps loads a
 `google.com/maps` page in a hidden, logged-out WebView and reads the result:
 
 - **Reviews:** a place's first reviews, loaded when you scroll to them, and the full-screen
@@ -145,11 +145,11 @@ like any browser visit to Google it can set cookies or fingerprint the browser, 
 Google's usual page telemetry. That telemetry goes out by default, because a browser that never
 sends it looks less like a person, which feeds into whether a session gets the limited view.
 **Settings > Privacy > "Block Google's page telemetry"** answers those calls on the phone
-instead. Nothing Vela shows depends on them. If you never open a Google place, transit
+instead. Nothing OpenMaps shows depends on them. If you never open a Google place, transit
 directions, or a board outside Transitous's coverage, no hidden page loads.
 
 **You can see the numbers.** Settings > Privacy > "Requests to Google" counts every request
-Vela sends to Google, today and over the last week, by purpose, including what the hidden pages
+OpenMaps sends to Google, today and over the last week, by purpose, including what the hidden pages
 load. It is counted on your phone and sent nowhere. The only Google traffic it cannot see is
 map tiles the map draws itself (the traffic layer and some satellite imagery).
 
@@ -169,34 +169,34 @@ Uninstalling the app removes all of it.
 contact's name suggests their saved postal addresses, with the contact's photo and the address
 label from your address book. The contact list is read and matched on the phone; the
 permission is asked when you flip the switch. If you pick a suggestion, the address text is
-looked up as if you had typed it: it goes to Google's search, to Photon with "Use Vela without
+looked up as if you had typed it: it goes to Google's search, to Photon with "Use OpenMaps without
 Google" on, or to the downloaded region's address index offline. The result opens under the
 contact's name on this phone only. The name is never sent anywhere.
 
 ## No tracking
 
-Vela has no analytics, no advertising, no crash reporting, and no telemetry of its own that
+OpenMaps has no analytics, no advertising, no crash reporting, and no telemetry of its own that
 runs without you turning it on. The one telemetry that runs by default is Google's, from inside
-the Google pages Vela loads in hidden WebViews, and Settings > Privacy can block it. The app
+the Google pages OpenMaps loads in hidden WebViews, and Settings > Privacy can block it. The app
 makes network requests only to the services in the table, only when a feature needs them. It is
 GPLv3: every request is in
-[`core/data/google`](core/src/main/java/app/vela/core/data/google),
-[`app/web`](app/src/main/java/app/vela/web) and [`SPEC.md`](SPEC.md).
+[`core/data/google`](core/src/main/java/app/OpenMaps/core/data/google),
+[`app/web`](app/src/main/java/app/OpenMaps/web) and [`SPEC.md`](SPEC.md).
 
 ## Voice search (optional)
 
 The search bar's mic turns speech into a query one of two ways:
 
 - **On your phone.** If you download one of the speech models (Settings > Search; Whisper tiny,
-  about 58 MB, is the default), the mic records into Vela and transcribes on the device. The
-  model is downloaded once from Vela's GitHub releases. The audio is never written to disk and
-  never leaves the phone. Vela asks for the microphone permission the first time you tap the
+  about 58 MB, is the default), the mic records into OpenMaps and transcribes on the device. The
+  model is downloaded once from OpenMaps's GitHub releases. The audio is never written to disk and
+  never leaves the phone. OpenMaps asks for the microphone permission the first time you tap the
   mic.
 - **Another voice app.** With an installed voice-input app (FUTO Voice Input, for example),
   the mic hands off through Android's speech-recognition intent. That app records the audio.
-  Vela gets the recognized text back and needs no microphone permission for this path.
+  OpenMaps gets the recognized text back and needs no microphone permission for this path.
 
-With neither available, the mic offers to download Vela's own model. Settings > Search turns
+With neither available, the mic offers to download OpenMaps's own model. Settings > Search turns
 the feature off.
 
 ## Diagnostics (off by default)
@@ -205,7 +205,7 @@ Settings > Diagnostics > "Share diagnostics" keeps a short local log of what the
 searches, routes computed, parsing failures, navigation events. It exists so you can export it
 and hand it to a developer.
 
-- **Vela uploads nothing.** The log is a small file on your phone. It leaves only when you tap
+- **OpenMaps uploads nothing.** The log is a small file on your phone. It leaves only when you tap
   "Export debug session" and choose where to send it.
 - **It can contain** your search terms, the start and end coordinates of routes, a drive's
   destination name, distance and time, GPS-gap markers, and for the reviews page Google's id
@@ -218,9 +218,9 @@ and hand it to a developer.
 
 Settings > "Save my trips" is a second switch and more revealing than diagnostics.
 
-- When on, Vela records the GPS trace of each drive to a file on your phone, so a trip can be
+- When on, OpenMaps records the GPS trace of each drive to a file on your phone, so a trip can be
   replayed later to test turn-by-turn.
-- This is your exact movement, the most sensitive thing the app stores. Vela never uploads it.
+- This is your exact movement, the most sensitive thing the app stores. OpenMaps never uploads it.
   A trace leaves the phone only when you tap Share on a trip and choose where to send it.
 - **Share trims the private ends first, and that is the default button.** "Share trimmed"
   deletes every recorded point within a distance you pick (200, 400 or 800 m) of the start, the

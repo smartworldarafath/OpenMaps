@@ -13,7 +13,7 @@
 # DRY_RUN=1 writes the manifest to $MANIFEST_OUT (default ./cells-manifest.json), uploads nothing.
 set -euo pipefail
 source "$(dirname "$0")/gh-retry.sh"
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 TAG="grid-cells"
 FRESH="${1:-}"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT

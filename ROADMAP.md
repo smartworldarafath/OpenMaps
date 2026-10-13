@@ -1,4 +1,4 @@
-# Vela Maps roadmap
+# OpenMaps roadmap
 
 What is still open. [`FEATURES.md`](FEATURES.md) lists what the app does and
 [`SPEC.md`](SPEC.md) how it is built. What shipped, and what was tried and does not work, is in
@@ -10,7 +10,7 @@ file in the same commit.
 ## North star
 
 A Google Maps replacement that needs no Google account, key or Play services, matches Google
-Maps feature for feature, and over time depends less on Google by growing Vela's own data.
+Maps feature for feature, and over time depends less on Google by growing OpenMaps's own data.
 GPLv3. Every new data flow is opt-in and documented in [`PRIVACY.md`](PRIVACY.md).
 
 ## The order from here
@@ -25,7 +25,7 @@ Set 2026-10-07.
    1.4 and the newer material3 pull Compose from 1.7 to 1.10 or 1.11 across the whole app. It
    waits until it can be its own job: a full pass over the sheets, the gestures and D-pad
    operation, on both test phones.
-4. Read places from Vela Almanac, a separate open dataset of US places with dated evidence of
+4. Read places from OpenMaps Almanac, a separate open dataset of US places with dated evidence of
    what is still open. It replaces the three closure steps in the places bake and later the
    merge itself. Blocked on its first published files. The bake then reads one file per
    state.
@@ -34,7 +34,7 @@ Set 2026-10-07.
    flavor that compiles or leaves out each of them, and reproducible output. Not started.
 
 Traffic incidents from official feeds (issue #688) are out of this list. They belong in a
-sister project beside Vela Almanac, which Vela would read as data.
+sister project beside OpenMaps Almanac, which OpenMaps would read as data.
 
 ## Less to Google
 
@@ -79,7 +79,7 @@ What is known:
   package and the initiating package stays the shell.
 - It works with a root installer that runs the install as Play, and on stock Android with an
   installer that goes through Google's package installer, which GrapheneOS does not ship.
-  Aftermarket head units with their own receiver list Vela after King Installer plus an ADB
+  Aftermarket head units with their own receiver list OpenMaps after King Installer plus an ADB
   install.
 - An in-app update replaces the install record, so on a phone set up for the car the updater
   offers the APK as a file (`InstallSource.setForCar`).
@@ -87,7 +87,7 @@ What is known:
 
 To do, in order:
 
-1. The ownership experiment. `-PappId=<id>` builds Vela under the id of an app the phone's
+1. The ownership experiment. `-PappId=<id>` builds OpenMaps under the id of an app the phone's
    Play account once installed. If the car lists that sideload, the check is Play's library
    record alone. If not, the signing certificate counts too. Needs a real car and a stock
    phone signed in to Play.
@@ -108,40 +108,40 @@ The sender is Gearslip (Seb3thehacker), a separate project. It can be distribute
 the head unit accepts a certificate we can generate. Key material taken from Google's app or
 from head unit firmware cannot be shipped.
 
-Vela's side of that is a small bound service that hands a projection client frames at a size
+OpenMaps's side of that is a small bound service that hands a projection client frames at a size
 it names, takes input back, and publishes the nav state. `CarMapRenderer` already renders to
 a bitmap and `NavSession` publishes what `ManeuverMapper` reads. Whether to hand out frames
 or a URL for a WebView is open. Nav state and input are the same for both.
 
 ## What reviews and forums keep raising
 
-The same points come back in every review and thread about Vela, in several languages. They are
+The same points come back in every review and thread about OpenMaps, in several languages. They are
 kept here so a decision about wording, defaults or a feature can be checked against them. Where
 one has turned into work, the item is named.
 
-- **It is a copy, not an alternative.** Vela keeps the Google Maps habit (the star rating picks
+- **It is a copy, not an alternative.** OpenMaps keeps the Google Maps habit (the star rating picks
   the restaurant, Google's traffic picks the road) and removes only the account. The dependence
-  is made comfortable, not cut. Position: this is what Vela is for. It is a way off the Google
+  is made comfortable, not cut. Position: this is what OpenMaps is for. It is a way off the Google
   Maps app for someone who would otherwise keep it, and the north star is to need Google less
   over time, not to pretend it is not there. Apps built on open data alone take the other road,
   and for anyone they already serve they are the better choice.
 - **Asking Google should be a visible choice.** Reviewers who accept the trade still object that
-  it happens on a tap, without the user deciding. Before Vela they opened Google Maps in a
+  it happens on a tap, without the user deciding. Before OpenMaps they opened Google Maps in a
   browser, on purpose, and knew they had. Open item: "Google by choice on the place sheet" under
   Less to Google.
 - **It takes from Google's users and gives nothing back.** Google's traffic exists because its
-  users report their position; Vela reads the result and contributes none. True, and it cannot
-  be fixed toward Google without an account. What Vela can give back goes to the open side:
+  users report their position; OpenMaps reads the result and contributes none. True, and it cannot
+  be fixed toward Google without an account. What OpenMaps can give back goes to the open side:
   "Contributing back to OpenStreetMap" under Big bets. One user has already added their local
-  transit agencies to Transitous because Vela showed the gap.
+  transit agencies to Transitous because OpenMaps showed the gap.
 - **Google can turn it off.** By changing its pages, by serving anonymous sessions less, or
-  through its lawyers, given how closely Vela follows the look. The first is handled by the
+  through its lawyers, given how closely OpenMaps follows the look. The first is handled by the
   signed calibration file and the second is shown in the app when it happens. The answer to all
-  three is the same: with Google off Vela is still a working maps app, and every item under
-  "Less to Google" and "Vela's own record of what is still open" makes that version better.
+  three is the same: with Google off OpenMaps is still a working maps app, and every item under
+  "Less to Google" and "OpenMaps's own record of what is still open" makes that version better.
 - **"Degoogled" promises more than the app does.** A packet capture shows Google hosts, so the
   word gets called false. The README and site now say what is not on the phone (Google code, an
-  account, a key) and call Vela a hybrid of open maps and Google. Still to change: the welcome
+  account, a key) and call OpenMaps a hybrid of open maps and Google. Still to change: the welcome
   tagline and the About hint in the app, and the F-Droid repository description. `PRIVACY.md`
   should also list every host a capture will show, including the ones Google's own pages load in
   the hidden WebViews.
@@ -183,7 +183,7 @@ Small items, one pull request each.
   footprints (`downloadOverlayForArea`) and a whole-region download does not, so a downloaded
   state has no houses where OSM is thin. No bake change.
 - More places sources for the open bake: chamber-of-commerce member lists and municipal
-  business-license registers, one scraper per source. The survey under "Vela's own record of
+  business-license registers, one scraper per source. The survey under "OpenMaps's own record of
   what is still open" says how thin those registers are.
 - A Takeout CSV import runs as a plain coroutine: no Cancel, no foreground service, and the
   list is written only at the end, so a 2,000-row file is a quarter hour the process must
@@ -201,12 +201,12 @@ Small items, one pull request each.
   line is read as short and keeps its sign tail.
 - Duplicate names in the open places bake (#742). Overture carries one unbranded name at
   several points with the same confidence, so a pin lands on the wrong one. Two fixes at the
-  bake: one row per unbranded name in a region, and a corrections list Vela maintains.
+  bake: one row per unbranded name in a region, and a corrections list OpenMaps maintains.
 - The neural voice's phonemizer. espeak, in front of the Piper model, misreads text that is
   not prose: "5:49 PM" came out as "five foot nine". `SpeechText` works around it case by
   case. The fix is a model that normalizes its own input and is fast enough on a Pixel 4a.
 - Why one basemap layer stalls a dense city. With Liberty's `poi_r20` layer drawn, New York at
-  100 ft runs at 0 to 25 fps on a Pixel 4a, and at 59 with it hidden. Vela hides it over
+  100 ft runs at 0 to 25 fps on a Pixel 4a, and at 59 with it hidden. OpenMaps hides it over
   region archives of rev 20260923 or later (`placesOneSetRev`). Elsewhere the stall remains.
   The cause is unknown.
 - Offline timetables per region, an open question. Cached boards cover only stops opened
@@ -263,7 +263,7 @@ off the list when it has been.
   `bare=1`, then `recheck upgraded route for names`.
 - A route built past the naming deadline (`StretchNamer.inHand`): tile names where the match was
   late, and a finished match kept. Seen on a phone only with the matcher switched off
-  (`debug.vela.tune.noMatch`), never with a late one.
+  (`debug.OpenMaps.tune.noMatch`), never with a late one.
 - The nudged route line on a street. It was seen on a phone over a parking-lot stretch, where
   Google's line was already near the middle. The totals line says `nudged=<meters>`.
 - Two turns said on one line. Not heard on a phone. Dutch, Swedish and Japanese have no joining
@@ -350,7 +350,7 @@ Found reading everything since 0.4.1912 and not fixed yet.
 - One APK per chip type. Built and off (`update/ApkChoice`, SPEC 15). Once a build with
   `ApkChoice` has been the stable for about three weeks, set the repository variable
   `ABI_SPLITS` to `true`, point the README install button at
-  `releases/latest/download/vela-maps-arm64.apk`, and say in the release notes which file to
+  `releases/latest/download/OpenMaps-maps-arm64.apk`, and say in the release notes which file to
   take. An ARM phone then downloads 74 MB instead of 108.
 - Both-mode twins across scripts. With place icons set to Both, the twin pass compares
   Google's English names with the archive's local names. Over Tokyo on an English phone 38%
@@ -379,10 +379,10 @@ Found reading everything since 0.4.1912 and not fixed yet.
 
 ### Serving our own map tiles
 
-Vela already bakes the whole world's basemap: 448 PMTiles archives, about 93 GB, counted on
+OpenMaps already bakes the whole world's basemap: 448 PMTiles archives, about 93 GB, counted on
 the `basemap-tiles` release on 2026-09-25. The app draws from them wherever a downloaded
 region covers the view. With nothing downloaded, the online basemap is OpenFreeMap's. Two
-things stop Vela streaming its own:
+things stop OpenMaps streaming its own:
 
 - Seams. Our archives are per region and OpenFreeMap is one planet, so a pan across a
   boundary would swap sources mid-gesture. The fix is one planet-sized archive. A GitHub
@@ -392,7 +392,7 @@ things stop Vela streaming its own:
 The missing piece is hosting: PMTiles on object storage behind a CDN, with a bill and
 somebody carrying it. Do this when the project is ready to run infrastructure. With it, the
 Microsoft building merge reaches streaming users and the render-time coverage gate
-(`runOvlGate`) can be deleted, downloaded and streamed maps share one schema, and Vela stops
+(`runOvlGate`) can be deleted, downloaded and streamed maps share one schema, and OpenMaps stops
 depending on OpenFreeMap's donated bandwidth.
 
 ### A faster shortest-path search, kept as research
@@ -424,11 +424,11 @@ block shipped. What is left:
 
 ### Contributing back to OpenStreetMap
 
-Vela takes its basemap, routing data, addresses, road features and half its places from OSM
+OpenMaps takes its basemap, routing data, addresses, road features and half its places from OSM
 and gives nothing back. The API is the easy part: notes are a plain POST with no account, and
 editing is OAuth 2.0 with PKCE against the 0.6 API.
 
-The firewall comes first. OSM forbids data derived from Google, and Vela shows Google's
+The firewall comes first. OSM forbids data derived from Google, and OpenMaps shows Google's
 places beside OSM's. No OSM edit may be pre-filled, suggested or autocompleted from anything
 that came from Google, and the code has to enforce it:
 
@@ -444,10 +444,10 @@ The shape follows StreetComplete: bounded questions about something the user is 
 front of, never a free-form tag editor. In order of safety: a note anywhere; "is this still
 here" on a place from the bake; hours, phone and website on a place with no Google listing
 open; a missing house number. Nothing that moves geometry. A later shape is a one-tap fix
-("this place is gone") that a Vela-side service verifies against the business's own website
+("this place is gone") that a OpenMaps-side service verifies against the business's own website
 and files under OSM's automated-edit guidelines.
 
-Every changeset carries `created_by=Vela <version>` and an editable comment, uses the app's
+Every changeset carries `created_by=OpenMaps <version>` and an editable comment, uses the app's
 own OAuth client, and can be undone. Testing runs against `master.apis.dev.openstreetmap.org`.
 Notes alone could ship first.
 
@@ -478,17 +478,17 @@ Work, roughly in order:
 
 ### Opt-in telemetry
 
-Diagnostics and trip recording are local, opt-in and have no upload. What is left is Vela's
+Diagnostics and trip recording are local, opt-in and have no upload. What is left is OpenMaps's
 own traffic data: speed and route traces from opted-in users. This departs from "no
 telemetry, no backend", so:
 
 - Opt-in only, with a clear consent screen, an easy off and "delete my data".
 - No account. A pseudonymous device token at most. Trim the first and last 100 m or so of
   each trace and send speed and heading along road segments.
-- It needs the first Vela backend or a privacy-preserving collector, self-hostable.
+- It needs the first OpenMaps backend or a privacy-preserving collector, self-hostable.
 - [`PRIVACY.md`](PRIVACY.md) changes in the same commit.
 
-### Vela's own record of what is still open
+### OpenMaps's own record of what is still open
 
 The long game for place data, starting in the USA. Overture adds places and almost never
 removes one. The bake removes what Foursquare, OpenStreetMap and Wikidata mark closed (SPEC
@@ -530,7 +530,7 @@ First step: FDIC and SNAP as two adapters in the places bake, confirm and close 
 measured on the District of Columbia and Sacramento. National registers outside the USA
 (France's Sirene, the UK Food Standards Agency's list) come after the US shape is proven.
 
-### Vela traffic layer
+### OpenMaps traffic layer
 
 Depends on the telemetry above. Opted-in traces become per-segment speed against free flow,
 then a traffic overlay and ETAs that need no Google. It starts as a supplement to Google's
@@ -550,7 +550,7 @@ traffic and replaces it where coverage is good.
   Valhalla (decided 2026-10-03): it serves car, bike and foot, the map matching the drive
   route uses, and the avoid options FOSSGIS OSRM refuses. Its tiles are memory-mapped, so a
   free ARM box (4 cores, 24 GB, 200 GB disk) fits North America plus Europe. It would be the
-  first server Vela runs, so `PRIVACY.md` changes the day it ships and request logging stays
+  first server OpenMaps runs, so `PRIVACY.md` changes the day it ships and request logging stays
   off. A free tier can be reclaimed, and someone has to update the tiles.
 
 ### If GitHub goes away
@@ -579,21 +579,21 @@ break, measured 2026-10-11, worst first.
   CodeQL and Scorecard actions. GitLab's free tier is 400 minutes a month. Forgejo Actions runs
   the same YAML nearly unchanged on a self-hosted runner; GitLab means rewriting it.
 - Fonts on Pages fail softly: the app probes the host and falls back to OpenFreeMap's Noto
-  glyphs. The website is on velamaps.org already; the docs would redirect there.
+  glyphs. The website is on openmaps.org already; the docs would redirect there.
 - Issues, pull requests, discussions, every `#123` in commits and docs, the Weblate project,
   issue triage, download stats and the dashboard. Forgejo's importer keeps issue numbers.
 
-Not touched: the three signing keys (local only), velamaps.org, OpenFreeMap, the Piper voices
+Not touched: the three signing keys (local only), openmaps.org, OpenFreeMap, the Piper voices
 (another account's releases), the donation page.
 
 Insurance, cheapest first. The first is built (2026-10-12: the site workflow publishes
-`calibration.json` and its signature to velamaps.org, and `CalibrationStore` reads that copy
+`calibration.json` and its signature to openmaps.org, and `CalibrationStore` reads that copy
 after GitHub's); the rest are not:
 
-1. A second settings-file address off GitHub (velamaps.org), published by the same workflow
+1. A second settings-file address off GitHub (openmaps.org), published by the same workflow
    as the site, so a closed account becomes one signed `links` push. Built. Not yet seen: an
    app reading the copy with GitHub blocked.
-2. The F-Droid repository mirrored on R2 behind a velamaps.org address, listed in the index as
+2. The F-Droid repository mirrored on R2 behind a openmaps.org address, listed in the index as
    a mirror so clients fail over by themselves, and in the README.
 3. Manifest asset URLs rebased app-side onto the `releases` link, so a storage move is a push,
    not a rebake.
@@ -604,11 +604,11 @@ after GitHub's); the rest are not:
 
 Asked for, possible, and not being built. Each says what it would take.
 
-- An arrival time fitted to the driver's own pace (under the limit, or 5 or 10 over). Vela's
+- An arrival time fitted to the driver's own pace (under the limit, or 5 or 10 over). OpenMaps's
   times are Google's: one figure for the route and colored congestion stretches, with no speed
-  per road, and Vela knows the limit only of the road the car is on. A driver's pace matters
+  per road, and OpenMaps knows the limit only of the road the car is on. A driver's pace matters
   only where traffic is free, so a flat percentage is wrong in traffic, and the two-minute
-  re-check pulls the time back to Google's. It becomes possible when Vela computes its own
+  re-check pulls the time back to Google's. It becomes possible when OpenMaps computes its own
   route times (Less to Google, routes computed on the phone).
 - Android 7. The minimum is Android 8.0 (`minSdk` 26). No library is in the way: of the 85 in
   the build the highest minimum is Android 7.0 (`androidx.webkit`), Cronet needs 6.0 and
@@ -621,7 +621,7 @@ Asked for, possible, and not being built. Each says what it would take.
 
 ## Not going to happen
 
-These need a Google login or a Vela server, and the project's promise is that neither exists.
+These need a Google login or a OpenMaps server, and the project's promise is that neither exists.
 
 - Contributing reviews, photos or map edits to Google. Needs a Google account.
 - Live location sharing and shared ETAs. Needs a rendezvous server.

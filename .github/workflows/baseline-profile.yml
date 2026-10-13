@@ -42,11 +42,11 @@ jobs:
         # :core compiles against these (see ci.yml's identical step).
         run: |
           mkdir -p core/libs
-          for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-vela.jar; do
+          for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-OpenMaps.jar; do
             curl -fSL -o "core/libs/$f" \
               "https://github.com/${{ github.repository }}/releases/download/obf-runtime/$f" \
             || curl -fSL -o "core/libs/$f" \
-              "https://github.com/PimpinPumpkin/Vela/releases/download/obf-runtime/$f"
+              "https://github.com/smartworldarafath/OpenMaps/releases/download/obf-runtime/$f"
           done
 
       - name: Fetch Cronet runtime AAR
@@ -54,11 +54,11 @@ jobs:
         # AAR (gitignored). From the `cronet-runtime` infra release, else the upstream repo's, else
         # packed right here from Chromium's bucket by the same script the release uses.
         run: |
-          v=$(sed -n 's/^vela.cronetVersion=//p' gradle.properties)
+          v=$(sed -n 's/^OpenMaps.cronetVersion=//p' gradle.properties)
           f="app/libs/cronet-$v.aar"
           mkdir -p app/libs
           curl -fsSL -o "$f" "https://github.com/${{ github.repository }}/releases/download/cronet-runtime/cronet-$v.aar" \
-          || curl -fsSL -o "$f" "https://github.com/PimpinPumpkin/Vela/releases/download/cronet-runtime/cronet-$v.aar" \
+          || curl -fsSL -o "$f" "https://github.com/smartworldarafath/OpenMaps/releases/download/cronet-runtime/cronet-$v.aar" \
           || bash scripts/build-cronet-aar.sh "$v" app/libs
           test "$(stat -c%s "$f")" -gt 10000000
 
@@ -70,7 +70,7 @@ jobs:
           curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
             "https://github.com/${{ github.repository }}/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar" \
           || curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
-            "https://github.com/PimpinPumpkin/Vela/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar"
+            "https://github.com/smartworldarafath/OpenMaps/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar"
 
       - name: Generate baseline profile
         run: |

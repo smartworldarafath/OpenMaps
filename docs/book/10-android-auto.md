@@ -2,7 +2,7 @@
 
 ## What you see
 
-Connect the phone to a car, by cable or wirelessly, and Vela can appear in the car's launcher as a
+Connect the phone to a car, by cable or wirelessly, and OpenMaps can appear in the car's launcher as a
 navigation app. It opens on a list: Home, Work, recent and saved places, then nearby gas, charging,
 food, coffee and parking. From there you search or pick a place, preview up to three routes with
 their times, and start the drive.
@@ -10,7 +10,7 @@ their times, and start the drive.
 The drive screen is the map with your arrow and the route, a turn card with lane arrows, the
 arrival estimate, and a row of round buttons for mute, pause, search along the route and end. A
 second row on the map recenters, zooms and shows the rest of the route. Your speed sits in the
-bottom corner, with the posted limit beside it when Vela knows it.
+bottom corner, with the posted limit beside it when OpenMaps knows it.
 
 With no route, the map behaves as the phone's does: parked, it is north up and centered on you;
 once you move it turns with the car, tilts and zooms out with speed. The Drive button on the
@@ -18,17 +18,17 @@ landing screen puts the list away and leaves the map alone, with search and your
 tap away and the speed badge in the corner. The traffic layer from the phone's map shows here when
 it is on, and the car's settings have a switch for it.
 
-Whether Vela is listed depends on how it was installed. Android Auto refuses an app that Google
-Play does not own, and Vela is not on Play. [The install gate](#the-install-gate) says what is
+Whether OpenMaps is listed depends on how it was installed. Android Auto refuses an app that Google
+Play does not own, and OpenMaps is not on Play. [The install gate](#the-install-gate) says what is
 known. [docs/ANDROID-AUTO.md](../ANDROID-AUTO.md) is the user guide.
 
-A car that runs Android itself (Android Automotive) involves no projection. Vela runs there as the
+A car that runs Android itself (Android Automotive) involves no projection. OpenMaps runs there as the
 ordinary app and can fill the map panel on the car's home screen.
 
 ## Where the data comes from
 
 Android Auto projects. The phone does all the work and the head unit shows what the phone's
-Android Auto app sends it. Vela's car code is a service inside the ordinary app
+Android Auto app sends it. OpenMaps's car code is a service inside the ordinary app
 (`VelaCarAppService`), bound by Android Auto when the car connects.
 
 - The car screens use the phone's own navigation session, location provider, map data source,
@@ -46,9 +46,9 @@ Android Auto app sends it. Vela's car code is a service inside the ordinary app
 
 ## How it is decided
 
-### What Vela declares
+### What OpenMaps declares
 
-Vela is a navigation-category templated car app. The manifest declares `VelaCarAppService` with
+OpenMaps is a navigation-category templated car app. The manifest declares `VelaCarAppService` with
 the `androidx.car.app.category.NAVIGATION` and `FEATURE_CLUSTER` categories,
 `automotive_app_desc.xml` with `<uses name="template"/>`, the `NAVIGATION_TEMPLATES` and
 `ACCESS_SURFACE` permissions, and `minCarApiLevel` 1, the oldest car API. A second intent filter
@@ -60,7 +60,7 @@ draws it in the car's style and enforces its limits, such as six rows in a place
 draws only the map, on a surface the host provides.
 
 The host validator allows any host (`ALLOW_ALL_HOSTS_VALIDATOR`). The sample allowlist rejects
-head units it does not know, and Vela then shows in the launcher and refuses to open.
+head units it does not know, and OpenMaps then shows in the launcher and refuses to open.
 
 ### One navigation loop
 
@@ -74,10 +74,10 @@ them to the session under the phone's gate: GPS provider only, accuracy 50 m or 
 "Simulate my location" on, the pinned point counts as the fix, and a demo drive started on the
 phone moves the car's arrow too. Guidance
 therefore runs with the phone's screen off and the app never opened. In that case the service
-does what the phone's view model would have done: it attaches the Vela voice, applies the "Spoken
+does what the phone's view model would have done: it attaches the OpenMaps voice, applies the "Spoken
 directions" setting, and opens the downloaded place packs.
 
-A car can connect before Vela was ever opened on the phone, so location was never asked for. Both
+A car can connect before OpenMaps was ever opened on the phone, so location was never asked for. Both
 location collectors, the session's and the map's, wait on `CarLocationAccess.granted`. The landing
 list leads with an "Allow location" row that raises Android's permission prompt on the phone, and
 the map shows the whole world until the first fix.
@@ -100,7 +100,7 @@ its own layers on top:
 The style itself carries what the phone adds to Liberty at runtime. The snapshotter can set a
 layer's properties but cannot add one, so `CarStyle` writes the phone's extra layers into the
 patched style's JSON before it loads: the flat fills for pedestrian areas and parking lots (the
-`vela-plaza` twin of Liberty's dotted pattern), wetlands, sports fields, commercial blocks, park
+`OpenMaps-plaza` twin of Liberty's dotted pattern), wetlands, sports fields, commercial blocks, park
 trails and bike paths, the style light, and Google's traffic raster, hidden until wanted. They
 carry the phone's layer ids, so the palette colors them the same way. The traffic raster is shown
 with no route when the phone's Traffic layer is on, as on the phone, and the place icon tiers take
@@ -178,7 +178,7 @@ applies the palette, discards that frame and renders again.
 | Day and night | follows the sun as the phone computes it |
 | Follow system | the car's own day or night signal |
 
-An explicit choice on the phone holds on the car, so a driver who set Vela to dark does not get a
+An explicit choice on the phone holds on the car, so a driver who set OpenMaps to dark does not get a
 light map because the head unit says day. Before each render the renderer checks that the look it
 applied is still the current one and applies the palette again if it changed, so the map goes
 dark with the car.
@@ -235,7 +235,7 @@ The host draws the turn card, and needs three things first:
    `navigationEnded()`. The screen ends it on arrival, on stop and when it is destroyed, or the
    host stays in a navigating state for the next session.
 2. `updateTrip()` with the current step and the destination. This is the host's navigation data
-   channel. It also feeds the instrument cluster and a head-up display. Vela sends it when
+   channel. It also feeds the instrument cluster and a head-up display. OpenMaps sends it when
    something it shows has changed, and at most once a second. The drive screen is rebuilt on
    every navigation state, several times a second, and the host drops updates sent that fast.
 3. An icon on the step's maneuver. Android Auto draws no card for a maneuver without one, so
@@ -246,7 +246,7 @@ navigation template only. `VelaCarAppService` gives it a `ClusterSession` with o
 `NavigationTemplate`. The turn and the arrival shown there come from the trip data above. The main
 session's place list is not allowed on that display and crashes the app there.
 
-`ManeuverMapper` turns Vela's maneuvers into car maneuvers:
+`ManeuverMapper` turns OpenMaps's maneuvers into car maneuvers:
 
 - A roundabout takes its direction of travel from the route's geometry when it has one, and
   counter-clockwise otherwise. The exit number comes from the router, with a floor of 1 because
@@ -263,12 +263,12 @@ A paused drive shows "Paused" in place of the turn card.
 ### The voice
 
 The voice is the phone's, sent to the car as Android Auto's guidance audio. A drive started from
-the car picks the engine the phone would: the Vela voice when it is installed and no other engine
+the car picks the engine the phone would: the OpenMaps voice when it is installed and no other engine
 is chosen.
 
 ### Android Automotive
 
-Android Automotive is Android running in the car itself. Vela's templated screens belong to
+Android Automotive is Android running in the car itself. OpenMaps's templated screens belong to
 Android Auto, and on Automotive the ordinary app runs. Two manifest declarations serve it:
 
 - Each launcher alias has a second intent filter with `MAIN`, `DEFAULT` and
@@ -276,7 +276,7 @@ Android Auto, and on Automotive the ordinary app runs. Two manifest declarations
   its home screen. The start is an implicit intent, which only matches a filter that declares
   `DEFAULT`, so the category cannot sit on the launcher filter alone. On a phone the same filter
   answers "open maps" requests.
-- `MainActivity` and both aliases carry `distractionOptimized`. Without it the car grays Vela out
+- `MainActivity` and both aliases carry `distractionOptimized`. Without it the car grays OpenMaps out
   of its app list once the car is in gear.
 
 ### The install gate
@@ -287,11 +287,11 @@ What is established:
   refuses an app Play does not own. The phone's log shows both steps:
 
   ```
-  Finsky: PlayGearheadService app.vela, app owners empty
-  CAR.VALIDATOR: Package DENIED; failed all other checks [app.vela]
+  Finsky: PlayGearheadService app.OpenMaps, app owners empty
+  CAR.VALIDATOR: Package DENIED; failed all other checks [app.OpenMaps]
   ```
 
-- Some installers make the install look like Play's work. On some setups the car then lists Vela:
+- Some installers make the install look like Play's work. On some setups the car then lists OpenMaps:
   a rooted phone, or stock Android.
 - Android keeps two records of an install: who performed it (`installingPackageName`) and, from
   Android 11, who started it (`initiatingPackageName`). The car reads the second as well as the
@@ -299,15 +299,15 @@ What is established:
   initiator, and the car still refuses the app. On Android 14 every install made from adb leaves
   the shell as the initiator, whichever installer `-i` names, and `pm set-installer` is refused.
   Shizuku installs as the shell user, so it should leave the same records.
-- An in-app update replaces both records, and the car drops Vela until it is installed the same
+- An in-app update replaces both records, and the car drops OpenMaps until it is installed the same
   way again. So when either record names Play (`InstallSource.setForCar`), the updater holds the
-  downloaded APK back, says "This update will drop Vela from Android Auto", and offers the file to
-  save for that installer. "Update anyway" installs it. Settings > About shows who installed Vela,
+  downloaded APK back, says "This update will drop OpenMaps from Android Auto", and offers the file to
+  save for that installer. "Update anyway" installs it. Settings > About shows who installed OpenMaps,
   and who started the install when that differs.
 - The Desktop Head Unit does not run the ownership check. It lists a plain sideload, so it
   previews the screens and proves nothing about the gate.
 
-Vela has no code that gets past the check. A Google Play listing is not the route for now. The
+OpenMaps has no code that gets past the check. A Google Play listing is not the route for now. The
 open work is in [ROADMAP](../../ROADMAP.md) and the pinned issue #179.
 
 ### Previewing on the Desktop Head Unit
@@ -326,7 +326,7 @@ Google's Desktop Head Unit runs the car screens on a computer.
 
 Turn on "Simulate my location" first. The car map centers on the phone's position, and the
 simulated one is the only way to keep a real address out of a screenshot. The console takes
-`tap <x> <y>`, `screenshot <file>`, `day` and `night`. After reinstalling Vela, quit the head
+`tap <x> <y>`, `screenshot <file>`, `day` and `night`. After reinstalling OpenMaps, quit the head
 unit and start it again.
 
 A config with `instrumentcluster = true` makes Android Auto forward the turn data to the head
@@ -338,7 +338,7 @@ phone. It says nothing about the gate either.
 
 ## Limits
 
-- On a head unit that runs the ownership check, a plain sideload of Vela is not listed.
+- On a head unit that runs the ownership check, a plain sideload of OpenMaps is not listed.
 - The map moves in snapshot steps, well under the phone's frame rate. A live map needs a
   View-backed renderer, which the template surface does not offer.
 - Search along the route searches around the car and sorts by distance. It does not follow the
@@ -353,14 +353,14 @@ phone. It says nothing about the gate either.
   speed yet.
 - Approximate location counts as granted on the car, but guidance takes only GPS fixes of 50 m or
   better.
-- Vela sends the cluster the current step and the destination. What a car's cluster or head-up
+- OpenMaps sends the cluster the current step and the destination. What a car's cluster or head-up
   display does with them is up to the car.
 - Android Auto's guidance stream is 16 kHz mono, so every navigation voice sounds duller in the
   car than on the phone, Google's included. A head unit set to play prompts over the phone-call
-  link makes it 8 kHz. No setting in Vela changes either.
+  link makes it 8 kHz. No setting in OpenMaps changes either.
 - The Automotive declarations were checked on the emulator, which trusts the
   `distractionOptimized` mark from any app. A production car also wants an install source it
-  trusts, so a sideloaded Vela may still be grayed out while driving.
+  trusts, so a sideloaded OpenMaps may still be grayed out while driving.
 
 Not yet seen on a real head unit: the icon-only buttons, the badge and credit in the stable area,
 the palette applied from the first snapshot, category markers on list rows, autocomplete search,

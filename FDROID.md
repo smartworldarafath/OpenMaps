@@ -1,6 +1,6 @@
-# Vela's F-Droid repository
+# OpenMaps's F-Droid repository
 
-Vela publishes its own F-Droid repository, so you can install and update it from
+OpenMaps publishes its own F-Droid repository, so you can install and update it from
 any F-Droid client (F-Droid, Droid-ify, Neo Store) without sideloading.
 
 ## Add the repo
@@ -9,18 +9,18 @@ Paste this one line as the repository address. The official F-Droid client, Droi
 Neo Store all accept it and pick up the fingerprint:
 
 ```
-https://pimpinpumpkin.github.io/Vela/repo?fingerprint=F374920F2F5F38D7508D0B042125B8EAF23CF0F06FA7490280FB77115BB091DE
+https://smartworldarafath.github.io/OpenMaps/repo?fingerprint=F374920F2F5F38D7508D0B042125B8EAF23CF0F06FA7490280FB77115BB091DE
 ```
 
 (In your client: **Settings → Repositories → Add repository**, paste, refresh,
-search for **Vela Maps**, install.)
+search for **OpenMaps**, install.)
 
 If your client wants the address and fingerprint separately, use:
 
 - Address:
 
   ```
-  https://pimpinpumpkin.github.io/Vela/repo
+  https://smartworldarafath.github.io/OpenMaps/repo
   ```
 
 - Fingerprint:
@@ -35,7 +35,7 @@ If your client wants the address and fingerprint separately, use:
   what the repo suggests, so a normal install only ever updates on stables.
 - The newest **nightly** build when it is ahead of stable. Nightlies sit above
   the suggested version, so clients treat them as unstable: to get them, enable
-  unstable/beta updates for Vela in your client (in the official F-Droid client
+  unstable/beta updates for OpenMaps in your client (in the official F-Droid client
   that's Settings -> Expert -> Unstable updates; Droid-ify and Neo Store have a
   per-app release-channel toggle). Or track nightlies straight from GitHub with
   Obtainium's "include prereleases".
@@ -43,12 +43,12 @@ If your client wants the address and fingerprint separately, use:
 The repo index is rebuilt automatically after every successful CI run and
 weekly stable promotion (`.github/workflows/fdroid-repo.yml`) and hosted on
 GitHub Pages. The index is
-signed with a dedicated repo key; the APKs carry the same Vela signing key as
+signed with a dedicated repo key; the APKs carry the same OpenMaps signing key as
 the GitHub releases and the in-app updater, so switching install sources never
 forces a reinstall.
 
 **There are two fingerprints.** The one in the repo URL above signs the repo index, which is
-what tells your F-Droid client the listing is genuine. The APKs themselves are signed with the Vela app key, whose
+what tells your F-Droid client the listing is genuine. The APKs themselves are signed with the OpenMaps app key, whose
 certificate fingerprint is:
 
 ```
@@ -62,7 +62,7 @@ never asks you to uninstall first.
 ## Why not the official f-droid.org catalog?
 
 The main F-Droid catalog builds every app from source on their own servers,
-which requires all dependencies to be free of prebuilt binaries. Vela bundles
+which requires all dependencies to be free of prebuilt binaries. OpenMaps bundles
 prebuilt libraries (the sherpa-onnx voice runtime, Chromium's Cronet network stack and
-OsmAnd's offline router), which does not fit that pipeline today. Vela's own repo has no such
+OsmAnd's offline router), which does not fit that pipeline today. OpenMaps's own repo has no such
 constraint and updates the moment a release is cut.

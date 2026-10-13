@@ -2,13 +2,13 @@ name: Cronet runtime
 
 # Publishes Chromium's own prebuilt Cronet for a Chrome for Android version as one AAR on the
 # `cronet-runtime` release (an INFRA release: never delete it; CI and baseline-profile fetch the
-# version pinned in gradle.properties `vela.cronetVersion` from here). The binaries come from the
+# version pinned in gradle.properties `OpenMaps.cronetVersion` from here). The binaries come from the
 # public `chromium-cronet` bucket Chromium's official Cronet builders upload to; nothing is
 # compiled. scripts/build-cronet-aar.sh does the packing, the same script CI falls back to when the
 # release does not have the pinned version yet.
 #
 # Weekly it publishes the current Android stable, so the AAR is waiting when the claimed Chrome
-# major moves; switching the app to it is a one-line bump of `vela.cronetVersion`.
+# major moves; switching the app to it is a one-line bump of `OpenMaps.cronetVersion`.
 
 on:
   workflow_dispatch:
@@ -43,7 +43,7 @@ jobs:
               | python3 -c 'import json,sys; print(json.load(sys.stdin)[0]["version"])')
           fi
           echo "version=$v" >> "$GITHUB_OUTPUT"
-          echo "Cronet $v (pinned in gradle.properties: $(sed -n 's/^vela.cronetVersion=//p' gradle.properties))" >> "$GITHUB_STEP_SUMMARY"
+          echo "Cronet $v (pinned in gradle.properties: $(sed -n 's/^OpenMaps.cronetVersion=//p' gradle.properties))" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Already published?
         id: have
@@ -72,4 +72,4 @@ jobs:
               --notes "Chromium's own prebuilt Cronet, one AAR per Chrome for Android version, fetched by CI at build time. Infrastructure file hosting: do not delete."
           fi
           gh release upload cronet-runtime "out/cronet-${{ steps.v.outputs.version }}.aar"
-          echo "Published. To ship it, set \`vela.cronetVersion=${{ steps.v.outputs.version }}\` in gradle.properties." >> "$GITHUB_STEP_SUMMARY"
+          echo "Published. To ship it, set \`OpenMaps.cronetVersion=${{ steps.v.outputs.version }}\` in gradle.properties." >> "$GITHUB_STEP_SUMMARY"

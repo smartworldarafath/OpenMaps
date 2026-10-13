@@ -1,6 +1,6 @@
 # D-pad-only operation (no touchscreen required)
 
-Vela works with five keys (up, down, left, right, OK) plus Back, and no touchscreen. That covers
+OpenMaps works with five keys (up, down, left, right, OK) plus Back, and no touchscreen. That covers
 keypad phones, Android TV boxes, and any phone with a remote, a game controller or a keyboard
 attached. Touch behavior is unchanged by any of it.
 
@@ -45,7 +45,7 @@ map target and the key paths on the first key press, but no pre-placed focus and
 
 ### Helpers
 
-All in `app/src/main/java/app/vela/ui/DpadFocus.kt`.
+All in `app/src/main/java/app/OpenMaps/ui/DpadFocus.kt`.
 
 | Helper | Use |
 | --- | --- |
@@ -62,7 +62,7 @@ All in `app/src/main/java/app/vela/ui/DpadFocus.kt`.
 
 ### The map
 
-`app/src/main/java/app/vela/ui/map/MapDpadController.kt` is the key-to-camera seam: `panBy`,
+`app/src/main/java/app/OpenMaps/ui/map/MapDpadController.kt` is the key-to-camera seam: `panBy`,
 `zoomBy`, `selectAtCenter` and `longPressAtCenter`. `VelaMapView` wires its callbacks to the tap
 lambda, the long-press path, the `gestureMove` flag and the navigation zoom override, so a key
 pan detaches the follow camera and arms "Search this area" as a finger pan does.
@@ -285,7 +285,7 @@ reachable (06).
   key presses for a small keypad screen. On a tall phone, where the results sheet has more
   filter chips, they land on the wrong control and fail.
 - Test 03 runs `pm clear` on the package. On a phone whose data matters, install a side-by-side
-  build and set `VELA_PKG=app.vela.dev`.
+  build and set `VELA_PKG=app.OpenMaps.dev`.
 - `setup.sh` grants location and adds a `gps` test provider (`VELA_LAT` and `VELA_LNG` set the
   fix). Remove the provider when done.
 - `ADB="adb -s <serial>"` picks a device.
@@ -293,7 +293,7 @@ reachable (06).
 ## Fork and merge policy
 
 The Settings hub and `SettingsScaffold`, `AdaptiveDensity`, the orange ring and Street View by
-D-pad were ported from the vela-dpad fork by alltechdev and ars18. Work from the fork lands by
+D-pad were ported from the OpenMaps-dpad fork by alltechdev and ars18. Work from the fork lands by
 cherry-pick with the author kept, after it is read and tested like any other pull request. To
 keep the two trees easy to exchange, D-pad behavior goes in its own files where it can, and an
 edit to a shared file is a small insertion with a comment naming `docs/dpad.md`.

@@ -1,6 +1,6 @@
-# The Vela book
+# The OpenMaps book
 
-The book explains how Vela works, one chapter per subsystem, for curious users and new
+The book explains how OpenMaps works, one chapter per subsystem, for curious users and new
 contributors. [SPEC.md](../../SPEC.md) is the reference, with every rule and constant. The book
 carries only the numbers needed to follow the behavior. Where the two disagree, check the code.
 
@@ -33,7 +33,7 @@ Every chapter has the same four parts:
 
 - The map itself: label sizes, day and night styles, 3D buildings, frame rate.
 - The route chooser: the two pickers, alternates, the camera and toll badges.
-- Voices and listening: Vela voices, speech engines, voice commands.
+- Voices and listening: OpenMaps voices, speech engines, voice commands.
 - Keypad phones and the D-pad. For now, see [docs/dpad.md](../dpad.md).
 - Trips, diagnostics and sharing: what a trip holds and what Share trims.
 

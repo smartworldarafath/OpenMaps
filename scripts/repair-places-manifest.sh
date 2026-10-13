@@ -15,7 +15,7 @@
 #
 #   scripts/repair-places-manifest.sh [rev] [entries-dir]
 set -euo pipefail
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 TAG="places-overlays"
 REV="${1:-$(date -u +%Y%m%d)}"
 ENTRIES="${2:-}"

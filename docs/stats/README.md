@@ -1,7 +1,7 @@
 # Reach, as far as GitHub will say
 
 Written weekly by `scripts/download-stats.sh` (workflow `.github/workflows/download-stats.yml`).
-Vela has no telemetry. Every figure here is a byproduct of hosting files on GitHub, counted
+OpenMaps has no telemetry. Every figure here is a byproduct of hosting files on GitHub, counted
 whether anyone looks or not, and none of it can be tied to a person.
 
 The numbers are written down because they expire. The nightly prune deletes old releases and

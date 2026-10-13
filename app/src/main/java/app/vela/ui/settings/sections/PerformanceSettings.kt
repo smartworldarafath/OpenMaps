@@ -48,7 +48,7 @@ internal fun PerformanceSettingsScreen(onBack: () -> Unit) {
         )
         GroupDivider()
         // Compatibility (TextureView) rendering - a hardware escape hatch (port of upstream
-        // PimpinPumpkin/Vela 261156e2 + df2b8570). Writes the "texture_render" pref that
+        // smartworldarafath/OpenMaps 261156e2 + df2b8570). Writes the "texture_render" pref that
         // VelaMapView reads when it creates the map; needs an app restart to apply. Also flips
         // itself on via the two-crash sentinel when a GPU driver kills the map at init.
         var textureRender by remember { mutableStateOf(prefs.getBoolean("texture_render", app.vela.ui.map.fragileGpuDefault())) }

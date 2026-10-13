@@ -1,4 +1,4 @@
-# Vela Maps - technical specification
+# OpenMaps - technical specification
 
 The technical reference: rules, contracts, constants and thresholds, stated as what the code
 does now. Where this file and the code disagree, the code is right. `docs/book/` explains each
@@ -29,17 +29,17 @@ subsystem in prose; section 16 lists the other documents.
 
 ### 1.1 What it is
 
-Vela Maps (`app.vela`) is a maps and navigation app for Android phones without Google Play
+OpenMaps (`app.OpenMaps`) is a maps and navigation app for Android phones without Google Play
 services: search, places, routing, traffic-aware ETAs and turn-by-turn navigation. It targets
 GrapheneOS and other ROMs with no GMS. License GPLv3. Distribution is F-Droid and Obtainium.
 
 ### 1.2 Non-negotiables
 
-- No Vela backend. Each install talks to its sources directly from the user's own IP, like one
+- No OpenMaps backend. Each install talks to its sources directly from the user's own IP, like one
   logged-out browser. There is no shared API key and no server tier.
 - No static shared Google credential. Sessions bootstrap per install (`GoogleSession`). The
   project's legal footing rests on this.
-- Open data draws the map: open vector tiles, and by default Vela's own bake of open datasets
+- Open data draws the map: open vector tiles, and by default OpenMaps's own bake of open datasets
   for places. Section 1.4 lists what Google is asked for.
 - Degoogled at runtime (section 12): AOSP location and TTS only; no FCM, Firebase, Play
   Integrity or fused location.
@@ -51,14 +51,14 @@ GrapheneOS and other ROMs with no GMS. License GPLv3. Distribution is F-Droid an
 
 - Account sync of any kind.
 - Anything that needs a Google sign-in, such as review "helpful" counts (section 3.4).
-- A Vela-hosted tile, routing or search service.
+- A OpenMaps-hosted tile, routing or search service.
 
 ### 1.4 Capability and source matrix
 
 | Capability | Source | Reaches Google | Works offline |
 | --- | --- | --- | --- |
 | Basemap | OpenFreeMap Liberty vector tiles, or a downloaded PMTiles region | No | With a downloaded region |
-| Place icons while browsing | Vela data by default (Overture, AllThePlaces and OpenStreetMap, baked in this repo); Google's ambient places or both by setting (section 5.1) | Only in Google or Both mode | Vela data, with a downloaded region |
+| Place icons while browsing | OpenMaps data by default (Overture, AllThePlaces and OpenStreetMap, baked in this repo); Google's ambient places or both by setting (section 5.1) | Only in Google or Both mode | OpenMaps data, with a downloaded region |
 | Opening a place | Google listing, correlated to the tapped feature | Yes, unless the lookup toggle is off | Tile data, or a saved copy |
 | Search | Google autocomplete per typing pause (`suggest`), Google `search?tbm=map` on submit, Photon beside them for house-number text; offline, the place packs and the downloaded places archives (`PlacesArchiveSearch`, ranked with the packs in `OfflineRank`) | Yes | Region packs, places archives |
 | Reviews, photos, popular times, About | Photos: one `hspqX` request. Popular times and details: the search reply or one focused search. Reviews: a hidden WebView scrape. The page walk only as fallback or for More photos | Yes | Saved copy only |
@@ -87,20 +87,20 @@ Two Gradle modules.
   offline stores, remote config, diagnostics. No MapLibre type and no Android UI type appears
   in it; coordinates convert at the view boundary. Compile-time switches are in `VelaConfig`.
 - `:app` is the Compose UI, MapLibre Native 13.6.1, the foreground navigation service, the
-  Android Auto service and the five hidden WebView scrapes. Root package `app.vela`,
+  Android Auto service and the five hidden WebView scrapes. Root package `app.OpenMaps`,
   application class `VelaApp`.
 
 `:app` reads `:core`; `:core` cannot read `:app`. A setting that must act inside `:core` is
 written by `:app` into a plain flag there: `CategoryFilter.enabled`, `LowRamMode`,
 `LowDataMode`, `NoGoogle`, `RoutingPrefs`, `SpokenRoadNames`, `SpokenDetail`.
 
-#### Use Vela without Google
+#### Use OpenMaps without Google
 
 `GoogleFree` (Settings > Privacy, pref `google_free`, default off) mirrors into
 `NoGoogle.enabled`. With it on:
 
 - Search answers from Photon, two requests run together: 20 results softly biased toward the
-  user, and 10 inside a hard box around the view for partial addresses. Vela's own places lead
+  user, and 10 inside a hard box around the view for partial addresses. OpenMaps's own places lead
   the list (place packs plus the places archive, downloaded or streamed by HTTP range,
   `PlacesArchiveSearch`). Photon is skipped when they answer a category query, or a name query
   with a hit within the view span of its center, at least `GOOGLE_FREE_NEAR_M` (3 km) and at
@@ -125,7 +125,7 @@ written by `:app` into a plain flag there: `CategoryFilter.enabled`, `LowRamMode
 The main classes by package. Parentheses name a class inside the preceding file.
 
 ```
-:core  (app.vela.core)
+:core  (app.OpenMaps.core)
   VelaConfig, di/CoreModule
   model/          LatLng, Place, Route, Maneuver, Transit types
   data/
@@ -166,7 +166,7 @@ The main classes by package. Parentheses name a class inside the preceding file.
                   is the one entry point for OSM opening_hours)
   diag/           DiagLog, DiagEvent
 
-:app  (app.vela)
+:app  (app.OpenMaps)
   MainActivity, VelaApp
   ui/map/         MapScreen, VelaMapView, MapViewModel, NavController, SearchGates,
                   PoiIcons, AmbientStability, FollowEstimator, RoadShields, MapFonts,
@@ -514,7 +514,7 @@ OkHttp (no GREASE, ECH or ALPS)
   reply that needs longer is asked through a client with a set deadline
   (`GoogleMapsDataSource.largeReplyHttp`).
 - The library is Chromium's own prebuilt Release build for the Chrome for Android stable
-  version pinned in `gradle.properties` `vela.cronetVersion`, the same major the UA claims.
+  version pinned in `gradle.properties` `OpenMaps.cronetVersion`, the same major the UA claims.
   Bump the two together. Maven's `cronet-embedded` stopped at 143.
 - `scripts/build-cronet-aar.sh` packs the jars, the four ABIs' libraries, Chromium's ProGuard
   rules and its LICENSE from `storage.googleapis.com/chromium-cronet/android/<v>/Release/cronet/`
@@ -571,7 +571,7 @@ OkHttp (no GREASE, ECH or ALPS)
 
 #### Values that differ per install or per request
 
-A value every install sends identically would pick out Vela and nothing else. `RequestShape`
+A value every install sends identically would pick out OpenMaps and nothing else. `RequestShape`
 and `BrowserViewport` produce these:
 
 | Value | Rule |
@@ -630,7 +630,7 @@ requests per load, measured on a Pixel 9.
 #### Dials
 
 - Any `tuning` dial can be overridden on one device with
-  `adb shell setprop debug.vela.tune.<key> <n>` (`ui/AppTune`).
+  `adb shell setprop debug.OpenMaps.tune.<key> <n>` (`ui/AppTune`).
 - `netLog` (Cronet's network log for 90 s and the WebView remote inspector) and `feedDump` (raw
   review-feed replies saved to the app's files) read the property alone (`AppTune.localOn`). A
   bundle cannot turn them on.
@@ -897,7 +897,7 @@ without a name.
 | Google off | As "Google silent". No Google request is made | | |
 | Reroute during a drive | The same rules under a deadline, one attempt per source, with the on-device route taken early where a region covers the trip (4.6) | | |
 
-Google is off when `NoGoogle.enabled` is set ("Use Vela without Google") or
+Google is off when `NoGoogle.enabled` is set ("Use OpenMaps without Google") or
 `RoutingPrefs.googleTraffic` is false ("Live traffic only when I tap", until Show traffic is
 tapped).
 
@@ -950,7 +950,7 @@ The first source that answers:
 3. `LineNamer` with no tile lines: bare turns from the line's bends.
 
 Tiles come second because, measured on 90 routes in six areas, they named 1.4% of named turns
-wrong. `StretchNamer` runs the three. (`debug.vela.tune.noMatch`, adb only and read at launch,
+wrong. `StretchNamer` runs the three. (`debug.OpenMaps.tune.noMatch`, adb only and read at launch,
 turns the matcher off so the other two can be seen on a phone.) The tiles under a stretch are read beside its match:
 `TILE_HEDGE_MS` (1 s; `TILE_HEDGE_URGENT_MS` 0.3 s) into a match that has not answered, and at
 once when it fails. The matcher answers a town stretch in 0.35 to 1.2 s, so a healthy one costs
@@ -1377,7 +1377,7 @@ Memory and highway hierarchy (HH):
   on keeps the car sets. Without it a bike route loses 0.1 to 0.6 s before the fallback.
 - Walking has no set and stays on the plain search, which failed past about 28 km on that state
   file. Grid cells (`build-cells-region.sh`) get no HH.
-- HH asks `OsmandRegions.getRegionsToDownload` which regions hold the trip's ends. Vela ships no
+- HH asks `OsmandRegions.getRegionsToDownload` which regions hold the trip's ends. OpenMaps ships no
   world-regions index, so its stub returns an empty list, which HH reads as no restriction.
 
 Engine rules:
@@ -1398,7 +1398,7 @@ Android runtime requirements, all set before any OsmAnd class loads:
 
 - commons-logging is pinned to `SimpleLog`. R8 strips the implementation and its reflective
   discovery fails on ART.
-- `kxml2-vela.jar` is upstream kxml2 without its bundled `org/xmlpull/**`, which duplicates
+- `kxml2-OpenMaps.jar` is upstream kxml2 without its bundled `org/xmlpull/**`, which duplicates
   platform interfaces and fails R8.
 - `PlatformUtil.setOsmandRegions(OsmandRegions(false))` and
   `RoutePlannerFrontEnd.CALCULATE_MISSING_MAPS = false`. Otherwise `searchRoute` loads a
@@ -1842,7 +1842,7 @@ values go into `mutableFloatStateOf` holders read in the draw phase.
 #### Where the map opens
 
 - `MapViewModel` seeds `center` and `myLocation` at construction with the simulated point, else
-  `LocationProvider.lastKnown()`: the newest last-known fix the system holds, else the fix Vela
+  `LocationProvider.lastKnown()`: the newest last-known fix the system holds, else the fix OpenMaps
   last cached in `vela_location`. `VelaMapView` creates the map there at z15.5, and the first
   camera pass and the launch-center effect fly to the fix. With no seed the map is MapLibre's
   world view until the first fix.
@@ -1980,7 +1980,7 @@ Measured and not worth doing:
 
 - A slower zoom ease for the first 3 s, or deferring the declutter and the first road-label
   pass: the work only moved later.
-- Hiding all of Vela's runtime symbol layers for the first 2.5 s: the reveal has its own dip.
+- Hiding all of OpenMaps's runtime symbol layers for the first 2.5 s: the reveal has its own dip.
 - Tile workers at background priority: no gain, street detail later.
 - Waiting for the voice lines or for map idle before starting: no gain.
 
@@ -1994,7 +1994,7 @@ seconds ran 40 to 49 fps with all layers and 48 to 60 with it. No one layer grou
 
 - While the bearing error is at least `START_DEG` (15) for `ARM_FRAMES` (3) frames in a row,
   every visible symbol layer is hidden except the street names (`highway-name-major`, `-minor`,
-  the shields, exit numbers, the `vela-nav-` callouts) and the arrow. They return once the error
+  the shields, exit numbers, the `OpenMaps-nav-` callouts) and the arrow. They return once the error
   stays under `CALM_DEG` (4) for `SETTLE_MS` (1 s).
 - Only layers visible when the hide began are touched. The open places layers are re-filtered
   by `applyOpenPlacesHidden` after a restore. The overview takes the layers back first.
@@ -2002,7 +2002,7 @@ seconds ran 40 to 49 fps with all layers and 48 to 60 with it. No one layer grou
   start threshold at 10 degrees, a gentle curve, which holds an 8 to 11 degree error, flipped
   the map through every bend.
 - Settings > Performance "Simplify the map in turns" (`TurnDeclutterPref`, pref
-  `turn_declutter`, default on). Dial `debug.vela.tune.turnDeclutter 0` turns it off, read at
+  `turn_declutter`, default on). Dial `debug.OpenMaps.tune.turnDeclutter 0` turns it off, read at
   each drive's start.
 - A hand gesture hides nothing: strokes with rests between would flip the set twice per stroke.
 - While the camera is off the car the cross-street bubble layers are hidden. The turn and exit
@@ -2048,7 +2048,7 @@ ends shows as dropped map frames (33 against 57 fps on a 117 km demo drive from 
   with a quoted comment are never in force, so the plain `maxspeed` shows. The obf path reads
   OsmAnd's plain limit and does not apply them.
 - Whether a downloaded region answers the limit is decided by its boundary (`limitsOnPhone`),
-  not the engine's box. Dial `debug.vela.tune.streamLimits 1` reads the streamed limits over a
+  not the engine's box. Dial `debug.OpenMaps.tune.streamLimits 1` reads the streamed limits over a
   downloaded region too.
 - `offline/ReleaseRedirects`, in the map's HTTP client and the speed-limit reader's, keeps the
   signed address a release file redirects to until a minute before its `se` time, at most 30
@@ -2067,21 +2067,21 @@ theme ticker waits in the background.
 
 #### Measuring
 
-- Frame rate: `debug.vela.fps` and `scripts/map-fps.sh` (section 13). A `VelaFps` line carries
+- Frame rate: `debug.OpenMaps.fps` and `scripts/map-fps.sh` (section 13). A `VelaFps` line carries
   the second's zoom range and bearing change, so a dip at a turn reads off the log.
-- Layer bisect: `debug.vela.hide`, re-applied every 250 ms while set, so layers nav adds at
+- Layer bisect: `debug.OpenMaps.hide`, re-applied every 250 ms while set, so layers nav adds at
   Start are hidden too.
 - Thread CPU first: `adb shell top -H -b -n 2 -d 5 -p <pid> -o TID,%CPU,CMD -s 2`. Coroutine
   workers on both Default and IO are named `DefaultDispatcher-worker`.
-- `debug.vela.tune.demoSpeedup <n>` runs a demo drive at n times real time, as a trip replay
-  runs. `debug.vela.tune.camTurnTau <s>` replaces `CAM_BRG_TAU_TURN`.
+- `debug.OpenMaps.tune.demoSpeedup <n>` runs a demo drive at n times real time, as a trip replay
+  runs. `debug.OpenMaps.tune.camTurnTau <s>` replaces `CAM_BRG_TAU_TURN`.
 - Traps: the travel mode is sticky, and a demo started in walking mode skips the driving
   declutter. A first zoom past z17 dips whatever is hidden; that is the next level's tiles.
   Measure a long route and alternate A and B runs.
 
 Measured and not worth doing:
 
-- One synthesis thread (`debug.vela.tune.synthThreads 1`): prompts about 30 percent slower, the
+- One synthesis thread (`debug.OpenMaps.tune.synthThreads 1`): prompts about 30 percent slower, the
   dips at turns unchanged.
 - A slower turn swing (`camTurnTau` 0.8): 35 to 45 fps on the worst dip over three turns, too
   few to call.
@@ -2285,7 +2285,7 @@ since a cluster's centroid sits in the junction's middle. The corridor fetch is 
 
 #### Street callouts
 
-Cross-street labels are points Vela places, not line-center labels on the basemap layer.
+Cross-street labels are points OpenMaps places, not line-center labels on the basemap layer.
 
 - The pass runs once per 400 m of progress or when the upcoming turn targets change, never on a
   short timer. A quantum is marked done only once something was placed.
@@ -2352,7 +2352,7 @@ Cross-street labels are points Vela places, not line-center labels on the basema
 - Replay is hermetic: `NavSession.replayMode` suppresses live reroute and recheck fetches, and
   recorded swaps play back through `replaySetRoute`.
 - The map scales the puck's clocks by `replaySpeedup`: the chosen speed for a trip replay and 1
-  for a demo drive, unless `debug.vela.tune.demoSpeedup` is set.
+  for a demo drive, unless `debug.OpenMaps.tune.demoSpeedup` is set.
 - `NavReplay` runs fixes through the real `NavEngine` and checks cards and voice against the
   maneuver positions, flagging silent turns, early announcements and wrong distances.
   `TripLog.audit(csv)` is the one-call entry. The on-demand harnesses take `-DvelaTrip=<abs.csv>`
@@ -2420,7 +2420,7 @@ Settings > Places > "Place icons on the map" (`MapPoiPrefs.placesSource`, pref
 
 | Value | Label | Draws | Google while browsing |
 | --- | --- | --- | --- |
-| `open` | Vela data (default) | Vela's baked archive (5.2) | None |
+| `open` | OpenMaps data (default) | OpenMaps's baked archive (5.2) | None |
 | `both` | Both | The archive, plus what Google adds | One fan-out (5.4) once panning stops |
 | `google` | Google | Google's ambient places | A fan-out per pan or zoom |
 
@@ -2912,7 +2912,7 @@ when the feature ids match. Two requests at most.
 
 #### Without Google, from a wide view
 
-- "Near", for answering a name from Vela's own data alone, is capped at
+- "Near", for answering a name from OpenMaps's own data alone, is capped at
   `GOOGLE_FREE_NEAR_CAP_M` (25 km): from a whole-world view every hit was inside the view and
   the open geocoder was never asked.
 - Over a view wider than `GOOGLE_FREE_WIDE_M` (50 km) a name search leads with the geocoder's
@@ -2946,7 +2946,7 @@ when the feature ids match. Two requests at most.
   of the opened one is written.
 - A star put on a sheet that has a feature id before its details loaded (a picked suggestion)
   loses `bare` when that sheet becomes a listing (`mergeDetails`: same id, same name).
-- None of this asks anything at launch, offline or under "Use Vela without Google". With "Look
+- None of this asks anything at launch, offline or under "Use OpenMaps without Google". With "Look
   up tapped places on Google" off, an `overture:` entry opened from a list is not looked up.
 - Any other saved or recent place takes a listing's details only from one within 30 m, or
   within 250 m whose name agrees (`PlaceNames.agree`).
@@ -3024,7 +3024,7 @@ when the feature ids match. Two requests at most.
 A link `google.com/maps/d/<viewer|edit|embed>?mid=<id>` (`MapLinkParser.myMapId`) opens like a
 shared list. `MapDataSource.importMyMap` fetches the KML
 (`https://www.google.com/maps/d/kml?mid=<id>&forcekml=1`) and the public viewer page, with no
-key and no session; it is refused under "Use Vela without Google". `core/data/MyMapKml` reads
+key and no session; it is refused under "Use OpenMaps without Google". `core/data/MyMapKml` reads
 it with regexes, each compiled once in the object and none per placemark. Both fetches use
 `GoogleMapsDataSource.largeReplyHttp`, the shared client with a 90 s call timeout
 (`LARGE_REPLY_TIMEOUT_S`) and a 60 s read timeout: a large map's KML runs to megabytes, and
@@ -3045,7 +3045,7 @@ the shared 12 s timeout cuts it off.
 - Icons: the KML names an icon only by number (`icon-1577-FFD600`). `MyMapKml.iconNames` reads
   the full names from the viewer page and `MyMapKml.iconUrl` builds the address on
   `mt.googleapis.com/vt/icon`, kept as `Place.pinIconUrl` / `ListPlace.iconUrl`. The plain pin
-  (1899), an unnamed icon or a failed viewer fetch keeps Vela's pin. `MyMapIcons` loads the
+  (1899), an unnamed icon or a failed viewer fetch keeps OpenMaps's pin. `MyMapIcons` loads the
   images (counted as Google requests), and the saved-pin layer draws them
   (`MapMarker.drawn = false` keeps them out of the red result pins).
 - A layer with exactly one line and 2 to `MAX_ROUTE_STOPS` (12) points, the line's ends within
@@ -3104,8 +3104,8 @@ the shared 12 s timeout cuts it off.
   drags it, and a tap removes it. Points cannot be inserted between two existing ones.
 - Save appends a `MapShape` (width 4, an area filled at 25% opacity) to the list
   `list:drawings` ("My drawings").
-- The unfinished shape and a dot per point (`vela-shapes-dots`) draw from a source of their own
-  (`ensureShapeDraft`, `vela-shapes-draft-src`, a fill and a line layer directly above the saved
+- The unfinished shape and a dot per point (`OpenMaps-shapes-dots`) draw from a source of their own
+  (`ensureShapeDraft`, `OpenMaps-shapes-draft-src`, a fill and a line layer directly above the saved
   shapes' fill and line), so a dragged point uploads that one shape. On the saved shapes' source
   every move event would re-upload and re-tile all of them. `MapSurface` passes the unfinished
   shape as the last of `shapes`; `VelaMapView` takes it off the saved set.
@@ -3179,7 +3179,7 @@ the shared 12 s timeout cuts it off.
   are (a chain's branches); with a feature id present the name is never trusted, a same-name
   hit with another id is another place. The choice is `TakeoutCsv.pick`. A row that finds
   nothing is counted and left out, never guessed at. Note and Comment become the
-  place's note. With "Use Vela without Google" on, only pin rows import and the listing rows
+  place's note. With "Use OpenMaps without Google" on, only pin rows import and the listing rows
   are counted as `needGoogle`, not as misses. The lookups run in `viewModelScope`
   (`importTakeoutCsv` starts them with `async` and awaits), one import at a time
   (`ImportResult.Busy` for a second), so leaving Settings neither loses nor cancels them; the
@@ -3189,7 +3189,7 @@ the shared 12 s timeout cuts it off.
   `ImportResult.ListAdded` carries the name, the count, the misses and the `needGoogle` count.
   Rows are capped at `MAX_ROWS` (2,000). The Takeout zip itself is not read; pick the CSV inside it.
 - Trip shortcuts: the route card's menu pins the trip as a launcher shortcut. Its intent
-  (action `app.vela.action.OPEN_TRIP`) carries names, latitudes and longitudes as parallel
+  (action `app.OpenMaps.action.OPEN_TRIP`) carries names, latitudes and longitudes as parallel
   arrays (NaN means "your location") and the mode. Nothing is stored in the app.
 
 #### Saved routes
@@ -3220,12 +3220,12 @@ them. They are not in the saved-places export.
 - During a drive `NavController` keeps one fix per `DRIVE_TRACE_STEP_M` (15 m). On arrival
   `SavedRoutes.droveOwnWay(trace, planned)` (at least `MIN_DRIVE_M`, 500 m, and a real stretch
   off the planned route) fills `drivenRouteOffer`, and the arrival card offers to save the
-  trace. `debug.vela.tune.drivenOfferAlways` forces the offer.
+  trace. `debug.OpenMaps.tune.drivenOfferAlways` forces the offer.
 
 ### 5.8 UK fuel prices
 
 Google's keyless search carries a price for US gas stations (`fuelPrice`, 3.2) and none for UK
-ones. For those Vela reads the UK government's Fuel Finder, which publishes every forecourt's
+ones. For those OpenMaps reads the UK government's Fuel Finder, which publishes every forecourt's
 prices under the Open Government Licence v3.0.
 
 #### The feed
@@ -3244,7 +3244,7 @@ prices under the Open Government Licence v3.0.
   that next publishes fresh prices closes it. 36 hours is two missed archive updates, and the app
   stops showing prices at 48. The run stays green, because a red hourly run would mail every
   hour. A healthy hour with nothing new makes no API request for this.
-- The app reads Vela's trimmed file and not the archive's own: that one is 7.8 MB (1.3 MB
+- The app reads OpenMaps's trimmed file and not the archive's own: that one is 7.8 MB (1.3 MB
   gzipped) against 147 KB, and a change to its columns would break every installed app, where
   the bake script absorbs it. Both sit on GitHub, so reading it directly would be no more
   reliable.
@@ -3350,19 +3350,19 @@ The engine is MapLibre Native Android 13.6.1, artifact `android-sdk-opengl`. The
 ### 6.1 Basemap and fonts
 
 The basemap is an OpenFreeMap style loaded from its live URL so tile paths follow OpenFreeMap's
-current snapshot. Vela's zoom reads about one level lower than Google's for the same visible area
+current snapshot. OpenMaps's zoom reads about one level lower than Google's for the same visible area
 (512-pixel tiles). Compare against Google by visible area, never by zoom number.
 
 Settings > Appearance > Map look (`MapLook.style`, pref `map_look`, default `liberty`) picks the
-style (`MapStyle`): Liberty is the Vela look, and Bright, Positron, Fiord and Dark load as
+style (`MapStyle`): Liberty is the OpenMaps look, and Bright, Positron, Fiord and Dark load as
 OpenFreeMap serves them. All five share the `openmaptiles` source, the glyph server and the
 sprite, so the offline basemap, the font patch and `basemapSrc` work on each. `MapStyle.painted`
 is true for Liberty only: the palettes, `widenStreets`, the road edges, `PoiIcons.applyToLiberty`,
 the twin fills of `ensureLayers` and the Map colors setting belong to it. Another look gets
 `applyLookTheme`: the label language on `PLACE_LABEL_LAYERS` and `ROAD_LABEL_LAYERS` (Liberty's
 ids, which Bright and Positron share, plus Fiord's and Dark's `place_*`, `water_name` and
-`highway_name_other`), and the per-theme colors of Vela's own layers (`applyVelaLayerColors`).
-Vela's own layers (places, route, markers, house numbers, shields, transit, traffic, satellite)
+`highway_name_other`), and the per-theme colors of OpenMaps's own layers (`applyVelaLayerColors`).
+OpenMaps's own layers (places, route, markers, house numbers, shields, transit, traffic, satellite)
 are added on every look; a twin's missing anchor leaves that twin out. `isMapDark()` is
 `MapStyle.darkLook` on an unpainted look (Fiord and Dark are dark whatever the theme, Bright and
 Positron light) and `isMapAmoled()` is false. The car map follows the look. The place icon tiers
@@ -3391,8 +3391,8 @@ Roboto for Cyrillic and Greek, Noto for every other script. The folders keep the
 
 Under an installed offline basemap the style is built from JSON (`MapFonts.offlineStyle`): the
 chosen look's patched cache, else the bundled `assets/styles/liberty-roboto.json`. The asset is
-painted as the Vela look whatever the look, in the look's light or dark (`isMapDark()`), so a look
-with no cached style is the Vela look offline and never stock Liberty under another look's colors.
+painted as the OpenMaps look whatever the look, in the look's light or dark (`isMapDark()`), so a look
+with no cached style is the OpenMaps look offline and never stock Liberty under another look's colors.
 The Liberty-only passes (`applyMapTheme`, the twins of `ensureLayers`) follow the style that
 loaded, not `MapLook.style` alone. `withLocalBasemap` points its layers at the local
 archive, maps the asset's Roboto stacks to the Noto names (`GlyphPackStore.stackName`), and serves
@@ -3425,7 +3425,7 @@ shares (`widenStreets`, the road edges, label colors, the hide list, borders).
   while the map follows an app in `ThemeMode.AMOLED`. The map surface, its route colors and the
   scale bar take these. Sheets, cards, bars and settings keep `isAppInDarkTheme()`.
 - `VelaTheme` puts the AMOLED surfaces on whichever dark scheme is in use
-  (`ColorScheme.onTrueBlack`): Vela's own, or the wallpaper's with "Material You colors" on,
+  (`ColorScheme.onTrueBlack`): OpenMaps's own, or the wallpaper's with "Material You colors" on,
   whose accents are kept.
 - `styleKey` carries the style URI, the dark and AMOLED flags, the palette, satellite, the puck
   style, the house-number level and the offline basemap archive. A change in any of them reloads
@@ -3447,22 +3447,22 @@ motorways by day, neutral slate by night. In the table "land" is that palette's 
 | Park (`park`) | `#d3f8e1` | `#0d3847` | `#050E0A` | `#cfeccd` | `#2c4a34` |
 | Grass (`landcover_grass`) | `#d3f8e1` | `#0d3847` at 0.9 | `#050E0A` | `#d3f8e2` | `#2c4a34` at 0.9 |
 | Wood (`landcover_wood`) | `#d3f8e1` | `#0d3847` at 0.95 | `#050E0A` | `#c9f2da` | `#274330` at 0.95 |
-| Wetland (`vela-wetland`) | `#d3f8e1` | `#0d3847` at 0.9 | `#000000` | `#cdeff0` | `#26403c` at 0.9 |
-| Pitches (`vela-pitch`, `landuse_pitch`, `landuse_track`) | `#a9eac2` | `#0d4956` | `#050E0A` | `#d3f8e2` | `#2c4a34` |
-| Plaza and parking (`vela-plaza`) | `#dbe0e8` | `#2a3546` | `#0A0C0F` | `#ededed` | `#31363f` |
-| Commercial and retail (`vela-commercial`) | `#fdf9ef` | `#1c2638` | `#000000` | land | `#31363f` at 0.5 |
+| Wetland (`OpenMaps-wetland`) | `#d3f8e1` | `#0d3847` at 0.9 | `#000000` | `#cdeff0` | `#26403c` at 0.9 |
+| Pitches (`OpenMaps-pitch`, `landuse_pitch`, `landuse_track`) | `#a9eac2` | `#0d4956` | `#050E0A` | `#d3f8e2` | `#2c4a34` |
+| Plaza and parking (`OpenMaps-plaza`) | `#dbe0e8` | `#2a3546` | `#0A0C0F` | `#ededed` | `#31363f` |
+| Commercial and retail (`OpenMaps-commercial`) | `#fdf9ef` | `#1c2638` | `#000000` | land | `#31363f` at 0.5 |
 | Campuses (`landuse_school`) | `#f0eded` | other landuse | other landuse | land | other landuse |
 | Other landuse (remaining `landuse*`, `landcover*` fills) | land | `#2a3546` at 0.5 | `#000000` | land | `#31363f` at 0.5 |
 | Buildings (`building`, `building-3d`) | `#e8e9ed` | `#1c3b69` | `#0A0C0F` | `#dde1e7` | `#383d45` |
 | Building outline | `#d6d9e6` | `#2e3d6d` | `#14171A` | `#c4c9d1` | `#464c56` |
-| Overlay footprints (`vela-ovl-*`), fill / outline | `#e2e3e9` / `#c4c9d1` | `#1c3b69` / `#2e3d6d` | dark value of the picked palette | `#dde1e7` / `#c4c9d1` | `#383d45` / `#464c56` |
+| Overlay footprints (`OpenMaps-ovl-*`), fill / outline | `#e2e3e9` / `#c4c9d1` | `#1c3b69` / `#2e3d6d` | dark value of the picked palette | `#dde1e7` / `#c4c9d1` | `#383d45` / `#464c56` |
 | Minor, secondary, tertiary and link roads | `#aab9c9` | `#3d5a77` | `#1A1D22` | `#ffffff` | `#565b64` |
 | Trunk and primary | `#aab9c9` | `#476789` | `#22262C` | `#ffffff` | `#6a707b` |
 | Motorway and its links | `#8aa4c0` | `#476789` | `#22262C` | `#f9d27a` | `#9c7f4f` |
 | Service and track | `#9bacbc` | `#2a4056` | `#111418` | `#ffffff` | `#565b64` |
 | Casings | land, then road edges | land, then road edges | `#000000` | motorway `#f0b85a`, trunk and primary `#dadde2`, secondary and tertiary `#e4e6ea`, others land | land |
-| Trails (`vela-trails`) | `#7fcdb0` | `#167055` | `#1A3A28` | `#7fcdb0` | `#167055` |
-| Bike paths (`vela-bikeroutes`) | `#007b8b` | `#1f8f9c` | `#0D2D36` | `#007b8b` | `#1f8f9c` |
+| Trails (`OpenMaps-trails`) | `#7fcdb0` | `#167055` | `#1A3A28` | `#7fcdb0` | `#167055` |
+| Bike paths (`OpenMaps-bikeroutes`) | `#007b8b` | `#1f8f9c` | `#0D2D36` | `#007b8b` | `#1f8f9c` |
 | Airport area (`aeroway_fill`) | Liberty's | `#1c2638` | `#0A0C0F` | Liberty's | `#31363f` |
 | Runways and taxiways (`aeroway_runway`, `aeroway_taxiway`) | Liberty's | `#2a4056` | `#1A1D22` | Liberty's | `#565b64` |
 | Label text / halo, every symbol layer | Liberty's | `#c3cad6` / `#1a2230` | `#D0D4DC` / `#000000` | Liberty's | `#cdd0d6` / `#1e2228` |
@@ -3471,7 +3471,7 @@ motorways by day, neutral slate by night. In the table "land" is that palette's 
 - Road names (`highway-name-path`, `highway-name-minor`, `highway-name-major`) use the
   `Noto Sans Bold` stack and a 1.9 halo in every palette, white in the light ones, so a name stays
   legible over the route line. Other labels in the dark palettes get a 1.1 halo.
-- Vela's own label layers (`vela-ambient`, `vela-places-*`, `vela-transit-stops`, `vela-markers`)
+- OpenMaps's own label layers (`OpenMaps-ambient`, `OpenMaps-places-*`, `OpenMaps-transit-stops`, `OpenMaps-markers`)
   take halo `#FFFFFF` by day, `#11161C` at night and `#000000` in AMOLED. Result labels are
   `#3C4043` by day and `#E8EAED` at night. Dot rings take the Modern land color.
 - Bike paths are OSM `highway=cycleway`, split out of the trails layer, which keeps foot paths.
@@ -3547,18 +3547,18 @@ basemap anyway. A walk or a ride keeps it at opacity 0.
   holder is reset in the style-reload block, or a theme, palette or satellite flip leaves sources
   empty.
 
-#### Vela's basemap layers
+#### OpenMaps's basemap layers
 
 `ensureLayers` adds these on the basemap source (`basemapSrc(style)`):
 
 | Layer | Source layer and filter | From zoom |
 | --- | --- | --- |
-| `vela-wetland` | `landcover`, class wetland | 12 |
-| `vela-plaza` | `transportation` polygons | any |
-| `vela-pitch` | `landuse`, class pitch, playground, track or stadium | 13 |
-| `vela-commercial` | `landuse`, class commercial or retail | 12 |
-| `vela-trails` | `transportation` lines, class path, subclass path or bridleway | 14 |
-| `vela-bikeroutes` | `transportation` lines, class path, subclass cycleway | 14 |
+| `OpenMaps-wetland` | `landcover`, class wetland | 12 |
+| `OpenMaps-plaza` | `transportation` polygons | any |
+| `OpenMaps-pitch` | `landuse`, class pitch, playground, track or stadium | 13 |
+| `OpenMaps-commercial` | `landuse`, class commercial or retail | 12 |
+| `OpenMaps-trails` | `transportation` lines, class path, subclass path or bridleway | 14 |
+| `OpenMaps-bikeroutes` | `transportation` lines, class path, subclass cycleway | 14 |
 
 Trails and bike paths are 0.7 dp wide at z14, 1.6 at z16 and 4 at z19, below `road_minor`.
 
@@ -3566,41 +3566,41 @@ Hidden Liberty layers: `landcover_wetland` and `road_area_pattern` (patterned, r
 twins), `road_path_pedestrian`, `bridge_path_pedestrian`, `bridge_path_pedestrian_casing`,
 `tunnel_path_pedestrian`, `park_outline`, and the six `*_rail_hatching` layers.
 
-Route shields are Vela's own images (`RoadShields`, `vela-shield-*`, one per ref length 1 to 6),
+Route shields are OpenMaps's own images (`RoadShields`, `OpenMaps-shield-*`, one per ref length 1 to 6),
 installed after the theme pass. They carry the sign's colors in every palette.
-`vela-exit-shield` adds motorway exit numbers from z12.5.
+`OpenMaps-exit-shield` adds motorway exit numbers from z12.5.
 
 A drive hides the basemap's three shield layers: every numbered road in view carried them, the
 other carriageway's too. The driven road gets its own instead (`core/nav/RouteShields`, layer
-`vela-nav-shields`): from the steps' refs and mid-leg renames, one shield `FIRST_AFTER_M`
+`OpenMaps-nav-shields`): from the steps' refs and mid-leg renames, one shield `FIRST_AFTER_M`
 (350 m) into each numbered stretch of `MIN_STRETCH_M` (900 m) or more, then every `EVERY_M`
 (1,600 m), none within `END_CLEAR_M` (300 m) of its end. Computed once per route in
 `MapSurface`, drawn with the same images, placed under the signs and callouts so those win a
-collision. Hidden in the overview with the other `vela-nav-` layers.
+collision. Hidden in the overview with the other `OpenMaps-nav-` layers.
 
 #### Buildings
 
 - The flat `building` fill draws from z16. `building-3d` draws from z17 at 30 percent of its
   height, growing to full height by z19 (`applyBuilding3dGeometry`). With extrusions at z16,
   dense-city towers lean over the roads.
-- Overlay footprints (`vela-ovl-<i>`, minzoom 16) draw beneath `building`, so OSM wins wherever it
+- Overlay footprints (`OpenMaps-ovl-<i>`, minzoom 16) draw beneath `building`, so OSM wins wherever it
   has data. Their colors are in 6.2, their visibility in 6.4.
 
 #### House numbers
 
-- Two layers draw them: `vela-housenumber` (the basemap's `housenumber` source layer) and
-  `vela-addr-<i>` (the address overlay). `vela-housenumber` is hidden while an address overlay is
+- Two layers draw them: `OpenMaps-housenumber` (the basemap's `housenumber` source layer) and
+  `OpenMaps-addr-<i>` (the address overlay). `OpenMaps-housenumber` is hidden while an address overlay is
   mounted, so an address never draws twice.
 - Both gate on `houseNumberMinZoom()` (`HouseNumbers`, pref `housenumber_zoom`: near 18.3, normal
   17.8, far 17.3) and fade in over the next 0.6 levels (`houseNumberFade`).
-- The address archives carry tiles only at z16-17, so `vela-addr-*` has minzoom 17 and its gate is
+- The address archives carry tiles only at z16-17, so `OpenMaps-addr-*` has minzoom 17 and its gate is
   the text field, empty below `houseNumberMinZoom()`. With the gate as the layer minzoom a cold
   source fetched nothing. With an opacity gate every hidden number still ran placement.
 - Both carry `textIgnorePlacement(true)`: they yield to icons but never enter the collision index,
   so a number cannot evict an icon.
-- `vela-addr-*` is inserted below `vela-controls-claim`: above the basemap labels, below the
+- `OpenMaps-addr-*` is inserted below `OpenMaps-controls-claim`: above the basemap labels, below the
   ambient icons.
-- `vela-housenumber` carries a `within` filter, a box one screen wider than the view on every side
+- `OpenMaps-housenumber` carries a `within` filter, a box one screen wider than the view on every side
   (`restrictHouseNumbers`). The basemap tiles stop at z14, so past that every number in a tile
   draws each frame, on screen or not. The throttled idle work moves the box when the view comes
   within a quarter screen of its edge or has shrunk to under a fifth of the view it was built for.
@@ -3615,12 +3615,12 @@ collision. Hidden in the overview with the other `vela-nav-` layers.
 
 #### Symbol order
 
-- Traffic controls draw in two layers. `vela-controls` always draws (`iconAllowOverlap` and
+- Traffic controls draw in two layers. `OpenMaps-controls` always draws (`iconAllowOverlap` and
   `iconIgnorePlacement` true) and sits above the route pieces and bridge geometry, below the
-  basemap text. `vela-controls-claim` (`iconOpacity` 0, `iconAllowOverlap` true,
-  `iconIgnorePlacement` false) sits below `vela-ambient`, above the basemap labels, so street names
-  shift away from sign positions and no Vela icon is evicted.
-- Both dot tiers (`vela-ambient-dots`, `vela-places-dots-<i>`) sit below the basemap's first
+  basemap text. `OpenMaps-controls-claim` (`iconOpacity` 0, `iconAllowOverlap` true,
+  `iconIgnorePlacement` false) sits below `OpenMaps-ambient`, above the basemap labels, so street names
+  shift away from sign positions and no OpenMaps icon is evicted.
+- Both dot tiers (`OpenMaps-ambient-dots`, `OpenMaps-places-dots-<i>`) sit below the basemap's first
   symbol layer, so a label's halo covers its dot.
 - In a packed area a low-ranked generic open place is not drawn, dot included. The rule applies to
   a row whose tile carries `mark` 0 and no `landmark`, in group default or health, with prominence
@@ -3663,7 +3663,7 @@ to z20. Roads, bridges and tunnels of a class share one curve.
 
 #### Painted roads (developer test, not shipped)
 
-`core/data/PaintedRoads`, `ui/map/PaintedRoadsLayer`, dial `debug.vela.tune.paintedRoads` (1 =
+`core/data/PaintedRoads`, `ui/map/PaintedRoadsLayer`, dial `debug.OpenMaps.tune.paintedRoads` (1 =
 the California bake, 2 = built on the phone). Road markings from OpenStreetMap tags, drawn at
 real scale from z16.5 above the roads and below the route line: medians, road surface (3.3 m a
 lane; bike lanes 1.2 m, set 0.9 m outside), center and lane lines, crosswalks, stop lines
@@ -3710,7 +3710,7 @@ A version query on `BAKED_URL` moves the map cache off old tiles after a rebake.
   15 / 16 / 17.5 / 18.5) and `ROUTE_REAL_M` (8.5 m), capped at `ROUTE_CAP_DP` (32). At 8.5 m it
   covers a two-lane street or one carriageway with a little road showing each side.
 - Alternates use `ALT_REAL_M` (7.65 m), capped at `ALT_CAP_DP` (30), with their edge
-  (`vela-alt-route-edge`) inside that width. Both widths follow `roadWidthScale`.
+  (`OpenMaps-alt-route-edge`) inside that width. Both widths follow `roadWidthScale`.
 - Each route piece has an outline layer `<piece>-ol` on the piece's own source: `#0e326a` by day,
   `#061a45` at night, `ROUTE_OUTLINE_DP` (1.25 dp) a side from z14, down to 0.5 dp at z11. All
   outlines sit below the lowest piece, so an outline's round cap never crosses a fill. Alternates
@@ -3722,7 +3722,7 @@ A version query on `BAKED_URL` moves the map cache off old tiles after a rebake.
 
 #### Rasters
 
-- The traffic raster (`vela-traffic`, opacity 0.6) sits above `building-3d`, else `building`, else
+- The traffic raster (`OpenMaps-traffic`, opacity 0.6) sits above `building-3d`, else `building`, else
   below the first symbol layer, so footprints do not paint over the congestion colors. With
   satellite on it sits above the imagery.
 - It carries a 900 ms `raster-fade-duration`. Google's tiles expire while the map is open, and
@@ -3735,7 +3735,7 @@ A version query on `BAKED_URL` moves the map cache off old tiles after a rebake.
   (`SAT_DEEP_PROBE_ZOOM`) `refreshSatDeep` probes Esri's availability index at the view center, 20
   then 21 then 22, stopping at the first missing level. `ensureSatelliteDeep` adds one raster
   layer above the base at the probed level, or Google's imagery to z21 where Esri stops at 19.
-  "Use Vela without Google" leaves that fallback out.
+  "Use OpenMaps without Google" leaves that fallback out.
 - The deep layer cross-fades in, opacity 0 at z18.6 to 1 at z19.6, because the deeper tiles are a
   different capture program. Its minzoom is `SAT_DEEP_MIN_ZOOM` (18.6), so it loads no tiles while
   invisible.
@@ -3751,7 +3751,7 @@ deep layer shows.
 
 #### Dials
 
-"adb" is `setprop debug.vela.tune.<key>` (`AppTune.local`).
+"adb" is `setprop debug.OpenMaps.tune.<key>` (`AppTune.local`).
 
 | Dial | Default | Read from | Scales or switches |
 | --- | --- | --- | --- |
@@ -3917,7 +3917,7 @@ after every file copied. A failed copy removes the partial destination. MapLibre
 moves in two steps (point MapLibre at a temporary folder, copy `mbgl-offline.db`, reopen at the
 destination), because MapLibre's path change opens a new database and carries nothing over.
 
-`adb shell setprop debug.vela.sdtest true` makes the shared-storage app folder stand in for a
+`adb shell setprop debug.OpenMaps.sdtest true` makes the shared-storage app folder stand in for a
 card.
 
 #### Deleting
@@ -3944,7 +3944,7 @@ places" counts `poipacks/` and `places/`.
 
 | File | Rows | Bakes |
 | --- | --- | --- |
-| `tools/routing-regions.json` | Every Geofabrik country-level extract, US states, Canadian provinces, first-level sub-areas of the countries Geofabrik divides, and regions Vela cuts itself: `id`, `name`, `group`, `pbf_url`, optional `big`, `skip_obf` | obf, place packs, road features, basemap, maxspeed, grid cells |
+| `tools/routing-regions.json` | Every Geofabrik country-level extract, US states, Canadian provinces, first-level sub-areas of the countries Geofabrik divides, and regions OpenMaps cuts itself: `id`, `name`, `group`, `pbf_url`, optional `big`, `skip_obf` | obf, place packs, road features, basemap, maxspeed, grid cells |
 | `tools/places-regions.json` | `id`, `name`, `bbox` (the OSM extract is matched by id in the routing catalog) | places |
 | `tools/overlay-regions.json` | Groups `us`, `world`, `chunk`; rows carry `qkprefix` where relevant | building overlays |
 | `tools/address-regions.json` | One row per OpenAddresses source | address overlays |
@@ -4204,12 +4204,12 @@ version 2).
   `scripts/pmtiles-compact.py` is the same code: a patched 3.36 MB places archive compacted to
   3,259,268 bytes against 3,259,285 for a fresh download of that rev, same fingerprint (the
   17 bytes are the leaf directory a fresh bake writes).
-  `adb shell setprop debug.vela.compact true` compacts after every patch. `PmtilesCompactTest`
+  `adb shell setprop debug.OpenMaps.compact true` compacts after every patch. `PmtilesCompactTest`
   runs a fixture from `scripts/pmtiles-test-fixture.py` through the real producer and applier.
 
 #### Automatic updates
 
-`app.vela.ui.RegionUpdates`, pref `region_update_mode`: `off`, `wifi` (default) or `mobile`.
+`app.OpenMaps.ui.RegionUpdates`, pref `region_update_mode`: `off`, `wifi` (default) or `mobile`.
 `wifi` means an unmetered network as the system reports it.
 
 `maybeAutoPatch` runs `AUTO_PATCH_DELAY_MS` (1 min) after start, every `AUTO_PATCH_POLL_MS`
@@ -4299,7 +4299,7 @@ cut out of it (7.2).
 
 `MapViewModel.observeConnectivity`, `core/net/NetHealth`.
 
-- The offline flag latches only when the system has no usable network and none of Vela's own
+- The offline flag latches only when the system has no usable network and none of OpenMaps's own
   requests got a response within `NetHealth.FRESH_MS` (15 s), or one has failed to reach its
   host since. The check waits at least 3 s and until that window ends.
 - Any HTTP response clears the flag at once (an interceptor first on the shared client and
@@ -4315,7 +4315,7 @@ cut out of it (7.2).
 Each rule prevents a blank map.
 
 1. `withLocalBasemap` removes the `openmaptiles` source from the style JSON and points its
-   layers at `vela-basemap`. The archive is added under that id after the style loads, and the
+   layers at `OpenMaps-basemap`. The archive is added under that id after the style loads, and the
    layers are re-attached. A source declared in the JSON or handed to the style builder never
    gets past the z0 tile.
 2. A labeled tile completes only once every glyph range and the sprite resolve, and with no
@@ -4587,7 +4587,7 @@ is on screen (`nonTransitRouteUp` in `MapSurface`): orange and red lines read as
   codes and realtime-vs-timetable times, headsigns), so the chooser, the map drawing and guidance
   are unchanged. Walk legs carry no distance text; their steps come from the walk router on
   demand. `TransitOrder.byPreference` applies the route preference the planner lacks.
-- Durations Vela formats itself, the planner's included, use the platform's short units in
+- Durations OpenMaps formats itself, the planner's included, use the platform's short units in
   every language but English ("6 h 16 min").
 - In the chooser an expanded row frames its legs; with none expanded the camera frames the
   trip's own points (start, stops, destination). With the Google-style picker on, the transit
@@ -4662,7 +4662,7 @@ download self-heals. The selection is `voice_model`, the speaker per voice `voic
   measurement. A new spoken string with numbers, units or punctuation needs the same look, and
   a test.
 - `voice_volume` (0.6 softer, 1 normal, 1.6 louder, 2.2 loudest) scales the neural voice from a
-  leveled base (`VoiceLevel`). The voices render well under full scale: the default Vela voice
+  leveled base (`VoiceLevel`). The voices render well under full scale: the default OpenMaps voice
   (Piper `en_US-hfc_female-medium`) has a long-run RMS of about 0.053 on a Pixel 4a, a gain of
   2.43 at Normal. Each line gets one gain, `TARGET_RMS` (0.13) over
   the voice's long-run RMS, between 1 and `MAX_LIFT` (4), times the setting. The RMS is summed
@@ -4715,7 +4715,7 @@ A road name can be in a different script than the guidance language.
   reloads the style. Nav bubbles filter on the canonical `name` and display the chosen form.
 - Place, POI and water labels (`PLACE_LABEL_LAYERS`) take the UI language's `name:<lang>` first
   (`placeLabelTextField()`), then the same fallback chain as the roads; `local` is `name` alone.
-  Place names are data and are never transliterated by Vela.
+  Place names are data and are never transliterated by OpenMaps.
 - `SpokenScript.applyDict` returns in O(length) when the text has no character the reader cannot
   read, and digests each dictionary once per instance. A full scan twice per fix was a 60 ms
   main-thread stall at 1 Hz.
@@ -4731,7 +4731,7 @@ Two tiers, both keyless.
   transcribes noisy far-field audio into the wrong script. Recording takes
   `AUDIOFOCUS_GAIN_TRANSIENT`, so media pauses instead of ducking.
 - Tier 2, handoff: `ACTION_RECOGNIZE_SPEECH` to an installed voice-input app, which records, so
-  Vela needs no microphone permission for it. Only apps that register the activity count; an IME
+  OpenMaps needs no microphone permission for it. Only apps that register the activity count; an IME
   or a `RecognitionService` cannot be launched this way. The component is the user's pinned one,
   then Android's default, then the first installed app, so the system chooser never interrupts.
 
@@ -4759,7 +4759,7 @@ the language calls `recreate()`.
 The directions language (`AppLocale.directions`, key `directions_language`) is empty by default,
 which means the same as the app. Set, it replaces the app language for `NavStringsRegistry`, so
 turn text on the banner and in speech, the voice's target language, the Voice library's
-suggested voice and the Vela voice id follow it. Menus, transit walk lines from `strings.xml`
+suggested voice and the OpenMaps voice id follow it. Menus, transit walk lines from `strings.xml`
 and the scrape keep the app language. Changing it needs no `recreate()`. A route already
 planned keeps the instructions it was built with.
 
@@ -4779,7 +4779,7 @@ planned keeps the instructions it was built with.
   `fitness_centre`, the MOTIS wire field `cancelled`), marked where they appear.
 
 - Clock: Settings > Appearance > Clock (`clock_mode`) is the device's 12/24-hour setting, or
-  either for Vela alone. `Clock24.on` and `ClockFormat.use24h` carry it; the transit Depart at
+  either for OpenMaps alone. `Clock24.on` and `ClockFormat.use24h` carry it; the transit Depart at
   time picker dials by it too (it was a fixed 12-hour dial, issues #357 and #762). Transit directions
   times come from the payload's epoch and time zone (`ClockFormat.at`); `ClockFormat.show`
   converts the text of the one page still fetched in English, Google's stop-board fallback.
@@ -4912,7 +4912,7 @@ reuses it.
 - The floating buttons (`NavFab`: overview, mute, search) and `NavRecenterPill` wear the bar's
   colors, or `primaryContainer` when `wallpaperColorsInUse()` is true. That requires the Material
   You setting on and a phone scheme that passed the sanity check. Where the scheme fell back to
-  Vela's own, a wallpaper-colored button would come out teal.
+  OpenMaps's own, a wallpaper-colored button would come out teal.
 - Pause sits in the bar's right slot when `PauseInBar` is on (pref `nav_pause_in_bar`, default
   on) and the device is not keypad-first. The right-edge stack then has the speaker button
   (`NavVoiceButton`): the glyph is the voice mode, and a tap slides the three choices out beside
@@ -5192,7 +5192,7 @@ the same `:core` singletons as the phone (`CarDeps`).
   the step's `Maneuver`: Android Auto draws no card for a maneuver without one. `updateTrip()`
   is sent when the step, its shown distance, the minutes left or the distance left (in 100 m)
   changes, and at most once a second (`TRIP_MIN_GAP_MS`). The host drops faster updates.
-  `ManeuverMapper` maps Vela maneuvers to car `Maneuver`, `Step` and `Trip`, sets the phone's
+  `ManeuverMapper` maps OpenMaps maneuvers to car `Maneuver`, `Step` and `Trip`, sets the phone's
   glyph as the icon (`NavGlyphs.bitmap`), and reads the roundabout direction and exit number
   from the route's geometry.
 - On the drive screen a paused drive shows a `MessageInfo` ("Paused") in place of the turn card,
@@ -5233,17 +5233,17 @@ The map:
   that first frame is discarded. It is re-applied when the car's day/night changes.
 - The snapshotter cannot add a layer or a source, so the layers the phone's `ensureLayers` adds
   to Liberty at runtime are written into the patched style's JSON before it loads (`CarStyle.inject`):
-  the flat `vela-wetland` and `vela-plaza` twins over the hidden patterned originals, `vela-pitch`
-  and `vela-commercial` above `park`, `vela-trails` and `vela-bikeroutes` below `road_minor`, the
+  the flat `OpenMaps-wetland` and `OpenMaps-plaza` twins over the hidden patterned originals, `OpenMaps-pitch`
+  and `OpenMaps-commercial` above `park`, `OpenMaps-trails` and `OpenMaps-bikeroutes` below `road_minor`, the
   style light at `LIGHT_INTENSITY` (0.25, the phone's `B3D_LIGHT`), and Google's traffic raster
-  (`vela-traffic-src`, the phone's `TRAFFIC_TILES`, `raster-opacity` 0.6, no fade) above the
+  (`OpenMaps-traffic-src`, the phone's `TRAFFIC_TILES`, `raster-opacity` 0.6, no fade) above the
   topmost building layer with visibility `none`. The ids are the phone's, so the palette functions
-  color them. On a look Vela does not paint only the raster goes in (`twins = look.painted`). The twins' filters and anchors are kept the same as `ensureLayers` by hand. While
+  color them. On a look OpenMaps does not paint only the raster goes in (`twins = look.painted`). The twins' filters and anchors are kept the same as `ensureLayers` by hand. While
   the patched style does not exist yet the plain URL loads, without them; the next render after
   the file appears rebuilds the snapshotter on it (`reloadIfPatched`), so the Traffic switch and
   the fills do not wait for the next connection.
 - `applyOverlays` runs before each themed render: the traffic layer is visible with no route when
-  the phone's Traffic layer is on and "Use Vela without Google" is off, as on the phone, and the
+  the phone's Traffic layer is on and "Use OpenMaps without Google" is off, as on the phone, and the
   basemap place icon tiers take the phone's `applyPoiTierFilters` (vegetation out; fuel only during
   a drive). Each is set again only when its state changes.
 - Each snapshot's time, zoom, tilt, traffic state and speed are logged under `VelaCar` at debug
@@ -5389,9 +5389,9 @@ behind the matching holder.
 
 At launch `CalibrationStore` loads its cached bundle, then fetches `calibration.json` and the
 detached `calibration.json.sig` from
-`https://raw.githubusercontent.com/PimpinPumpkin/Vela/main/`, and when that does not answer
+`https://raw.githubusercontent.com/smartworldarafath/OpenMaps/main/`, and when that does not answer
 (no reply, a transport error, or a copy whose signature does not verify) from the copy on the
-website, `https://velamaps.org/calibration.json` (`VelaLinks`, 11.4). It adopts the remote
+website, `https://openmaps.org/calibration.json` (`VelaLinks`, 11.4). It adopts the remote
 bundle only if:
 
 1. the signature verifies (ECDSA P-256 with SHA-256 against `PINNED_PUBLIC_KEY`);
@@ -5447,7 +5447,7 @@ Locally: `./gradlew :core:testDebugUnitTest --tests '*GoogleHealthProbeTest' -Dv
 ### 11.4 The project's own links
 
 Every address the app has of its own project is in `core/config/VelaLinks`: the repository,
-its API, the download releases, the raw files on main, the website (`site`, velamaps.org), the
+its API, the download releases, the raw files on main, the website (`site`, openmaps.org), the
 GitHub Pages address (`pages`, where the map fonts, the F-Droid repository and the docs live)
 and the donate page, and the files derived from them (the settings file, each data manifest,
 the world basemap, the map fonts, the speech models, the UK fuel file, the painted roads).
@@ -5462,7 +5462,7 @@ links under known names are accepted; anything else rejects the bundle. A build'
 
 The settings file is asked for where the last bundle said it lives, then where the build was
 compiled to look, then at the website's copy (`calibrationMirror`, pushed then compiled; the
-site workflow publishes `calibration.json` and its signature to velamaps.org on every change
+site workflow publishes `calibration.json` and its signature to openmaps.org on every change
 to them). Moving the project: push a bundle whose `links` name the new places while the old
 ones still answer; each app keeps that bundle and applies it at the next launch, so it asks
 the new places from then on, the settings file included; then change the defaults in
@@ -5546,7 +5546,7 @@ recomposition. Neither can be parallelized, so the rules send each less work.
   percent (28 ms) in release.
 - `dumpsys gfxinfo` counts the Compose chrome and cannot see the map, which draws on its own GL
   thread. `VelaMapView` logs the map's frames once a second under `VelaFps` when the system
-  property `debug.vela.fps` is set (read at map creation, so restart). `scripts/map-fps.sh` runs
+  property `debug.OpenMaps.fps` is set (read at map creation, so restart). `scripts/map-fps.sh` runs
   the loop and prints min, p10, median and max. A Pixel 4a holds 40 to 55 fps panning at browse
   zoom.
 - A phone throttles after a few minutes. Check `dumpsys thermalservice` and alternate A and B
@@ -5575,7 +5575,7 @@ recomposition. Neither can be parallelized, so the rules send each less work.
 configuration browsing the map does not contact Google. Search, opening a place, a driving route
 and transit directions do. Routes also reach FOSSGIS, transit boards Transitous, reverse
 geocoding Nominatim. A UK gas station without a price makes the phone fetch the fuel price file
-from GitHub (5.8). With "Use Vela without Google" on, only the open services are asked.
+from GitHub (5.8). With "Use OpenMaps without Google" on, only the open services are asked.
 
 ### 14.1a State files
 
@@ -5611,7 +5611,7 @@ from GitHub (5.8). With "Use Vela without Google" on, only the open services are
 - A recorded drive's notes say what it ran on and fetched. `data:` (at the start and on change)
   lists which of routing, the map, places, buildings, addresses, speed limits and signs come
   from the phone and which are streamed, as counts with no region named. `net 10 s:` counts the
-  map's network requests by host, or by release for Vela's own files (`diag/NetCount`, an
+  map's network requests by host, or by release for OpenMaps's own files (`diag/NetCount`, an
   interceptor after the local-tile hook, never a path). `signs:` says whether the route's own
   set or the whole-view fallback filled the layer.
 - Speed-limit and building overlays are not streamed where the phone has the data
@@ -5680,9 +5680,9 @@ and in `location-guard.yml`.
   validates the Gradle wrapper jar.
 - Channels. A push to `main` or `canary` builds and tests only. The nightly prerelease
   `v0.5.<run>` is cut by `ci.yml` at 10:30 UTC when `main` has moved, or on dispatch, titled
-  `Vela <version> nightly` with notes that open "Nightly build." `promote-stable.yml` (Mondays
+  `OpenMaps <version> nightly` with notes that open "Nightly build." `promote-stable.yml` (Mondays
   16:00 UTC) promotes the newest nightly to stable: same tag, same signed APK, no rebuild,
-  retitled `Vela <version>` with the notes regenerated. Each push to `canary` replaces the one
+  retitled `OpenMaps <version>` with the notes regenerated. Each push to `canary` replaces the one
   release on the fixed tag `canary`, which is not a `v0.*` tag. Its notes carry the
   `versionCode:` line the updater reads.
 - `release.yml` is the manual path to a channel: input `channel` nightly dispatches `ci.yml`
@@ -5709,7 +5709,7 @@ and in `location-guard.yml`.
 
 With the repository variable `ABI_SPLITS` `true`, CI builds with `-PabiSplits` and a release
 carries `<prefix>-arm64.apk`, `-armv7.apk`, `-x86.apk`, `-x86_64.apk` and `<prefix>-all.apk`
-(prefix `vela-maps` or `vela-maps-canary`, `scripts/stage-apks.sh`). Without it, one APK.
+(prefix `OpenMaps-maps` or `OpenMaps-maps-canary`, `scripts/stage-apks.sh`). Without it, one APK.
 
 - Chip digit on the versionCode: all-in-one 0, armv7 1, arm64 2, x86 3, x86_64 4, so moving from
   the all-in-one APK to a chip APK of the same build is an upgrade.
@@ -5755,11 +5755,11 @@ carries `<prefix>-arm64.apk`, `-armv7.apk`, `-x86.apk`, `-x86_64.apk` and `<pref
   `docs/screenshots`, the logo and `site/press-kit/FACTS.md`), the map fonts and the docs site
   ride the same Pages artifact. The landing page, the press page, the privacy page (`scripts/build-site-privacy.py` renders
   `PRIVACY.md` into the site's layout at deploy time) and the press kit are also
-  published to velamaps.org on Cloudflare Pages by the same workflow; `site/_redirects` sends
-  velamaps.org/docs to the GitHub Pages docs.
+  published to openmaps.org on Cloudflare Pages by the same workflow; `site/_redirects` sends
+  openmaps.org/docs to the GitHub Pages docs.
   Never add a second Pages workflow, since `actions/deploy-pages` replaces the whole site. Never
   re-run only a failed deploy job. Dispatch a fresh run.
-- The docs site (`/Vela/docs/`) is the repository's Markdown built with MkDocs Material by
+- The docs site (`/OpenMaps/docs/`) is the repository's Markdown built with MkDocs Material by
   `scripts/build-docs-site.py --strict` and `site/mkdocs.yml`, toolchain pinned in
   `site/requirements-docs.txt` (MkDocs 2 drops the plugin and theme system). A page is published
   only if it is in `PAGES` and in the nav. No request leaves the site: system fonts, no
@@ -5768,7 +5768,7 @@ carries `<prefix>-arm64.apk`, `-armv7.apk`, `-x86.apk`, `-x86_64.apk` and `<pref
 
 #### Keys
 
-The release keystore is outside the repository (`~/.vela-signing/`), with CI secrets
+The release keystore is outside the repository (`~/.OpenMaps-signing/`), with CI secrets
 `VELA_KEYSTORE_BASE64`, `VELA_KEYSTORE_PASSWORD`, `VELA_KEY_ALIAS`. Losing it means installed
 builds can never update. The certificate's SHA-256 is in README and FDROID.md
 (`apksigner verify --print-certs`) and is not the F-Droid index fingerprint. The calibration key
@@ -5836,7 +5836,7 @@ composable calls and their arguments count. Content lambdas do not.
 
 | File | Holds |
 | --- | --- |
-| `README.md` | What Vela is, what reaches Google, install |
+| `README.md` | What OpenMaps is, what reaches Google, install |
 | `FEATURES.md` | A short list of what the app does |
 | `SPEC.md` | This reference |
 | `docs/README.md` | The docs site's index page |

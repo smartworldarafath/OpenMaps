@@ -5,7 +5,7 @@
 Settings > Offline maps has two ways to put data on the phone. **Download an area** puts a
 frame over the map. Pan and pinch until it covers what you want, and the card under it shows
 the size before anything downloads. **Entire states & countries** is the catalog. One tap on
-a state, province or country downloads everything Vela needs there under one progress card,
+a state, province or country downloads everything OpenMaps needs there under one progress card,
 and one message says whether the region is ready or only partly there.
 
 With that data and no connection, the map draws streets, names and buildings, businesses show
@@ -107,7 +107,7 @@ the Bay Area the largest cell is 93 MB.
 ### Which region a point is in
 
 A region's box is a rectangle and the region is not, so a neighbor's box often covers a point
-its data does not reach. Vela ships the real boundary of every catalog region
+its data does not reach. OpenMaps ships the real boundary of every catalog region
 (`assets/region_polys.json`, Geofabrik's polygons simplified to a few kilometers, 340 KB).
 `RoutingRegion.covers` asks `RegionPolys` first and uses the box only for a region with no
 polygon. Among covering regions the smallest box wins.
@@ -119,13 +119,13 @@ below run a second test against the data itself.
 
 ```
 offlineNow = the latched offline flag || no network by either test
-googleOff  = offlineNow || Settings > Privacy > "Use Vela without Google"
+googleOff  = offlineNow || Settings > Privacy > "Use OpenMaps without Google"
 ```
 
 Two tests say whether there is a network. Android's is a default network with internet
-capability. Vela's own is `NetHealth`: an HTTP response in the last `FRESH_MS` (15 s) with no
+capability. OpenMaps's own is `NetHealth`: an HTTP response in the last `FRESH_MS` (15 s) with no
 unreachable host since. When Android reports no network, the flag latches only if, 3 seconds
-later and once Vela's own traffic has gone stale, both tests still say no, so a Wi-Fi to
+later and once OpenMaps's own traffic has gone stale, both tests still say no, so a Wi-Fi to
 cellular handoff does not flash the indicator. The flag clears at once when the network
 returns or any request gets a response.
 
@@ -217,7 +217,7 @@ a new app build and when a region's archive is updated, because a rebake can mov
 
 With Keep viewed places for offline on (the default), a place opened online is saved with what
 was loaded for it (`PlaceCache`, 400 places for 30 days), and offline the sheet fills from
-that copy. Nothing is saved while Use Vela without Google is on. Viewed Street View panoramas
+that copy. Nothing is saved while Use OpenMaps without Google is on. Viewed Street View panoramas
 are kept the same way, up to 150 MB.
 
 A transit stop shows the last board fetched there (`TransitBoardCache`, the newest 48 stops)

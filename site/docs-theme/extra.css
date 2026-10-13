@@ -1,4 +1,4 @@
-/* Vela's own colors on the Material theme: the logo's teal, dark ink on light, the landing page's
+/* OpenMaps's own colors on the Material theme: the logo's teal, dark ink on light, the landing page's
    near-black on dark. */
 :root, [data-md-color-scheme="default"] {
   --md-primary-fg-color: #0d3d43;

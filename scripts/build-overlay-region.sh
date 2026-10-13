@@ -24,7 +24,7 @@
 set -euo pipefail
 
 ID="${1:?region id}"; NAME="${2:?display name}"; URL="${3:?source URL or - for ms-global}"; BBOX_CSV="${4:?bbox S,W,N,E}"
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 TAG="building-overlays"
 SOURCE="${SOURCE:-us-legacy}"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT

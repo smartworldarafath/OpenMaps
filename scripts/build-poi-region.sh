@@ -12,7 +12,7 @@
 set -euo pipefail
 
 ID="${1:?region id}"; NAME="${2:?display name}"; URL="${3:?geofabrik pbf url}"
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 TAG="poi-packs"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT

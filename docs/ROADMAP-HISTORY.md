@@ -1,4 +1,4 @@
-# Vela Maps roadmap history
+# OpenMaps roadmap history
 
 What shipped, and what was tried and dropped, with the reason. Open work is in
 [`ROADMAP.md`](../ROADMAP.md). What the app does today is in [`FEATURES.md`](../FEATURES.md)
@@ -36,7 +36,7 @@ says so.
   added or the stops are edited.
 - Simulate driving keeps a realistic pace, slows for turns and waits 3 s before pulling away. At
   a constant 72 km/h half the spoken lines were cut off.
-- The Vela voice is about three times louder at Normal and keeps one loudness for the whole
+- The OpenMaps voice is about three times louder at Normal and keeps one loudness for the whole
   drive. Its level is the long-run average of what the voice has said, kept between drives.
 - Spoken directions can be brief (each turn once, no street name) or only for highway exits.
 - "Keep north up" stops the map from turning, and a north-up drive keeps the car in the middle.
@@ -126,7 +126,7 @@ says so.
   around them, and warn near them. Both start off.
 - A pinch that twists zooms (it did nothing below a fast pace), and a pinch can turn the map
   in the same gesture. A small turn of the browse map goes back to north.
-- A voice of another language than Vela's says on its row that it is not the one heard
+- A voice of another language than OpenMaps's says on its row that it is not the one heard
   (issue 701).
 - Pinching out during a drive flattens the camera (`navTiltCap`), which ends the half-second
   stalls of a tilted city-wide view. Zooming back in tilts it again.
@@ -154,7 +154,7 @@ says so.
 - Sheets and Settings pages slide in and out and follow a back swipe (`ui/SheetTransition`,
   pull request 672).
 - A car with an instrument-cluster display gets its own Android Auto session
-  (`ClusterSession`). Such cars crashed Vela before.
+  (`ClusterSession`). Such cars crashed OpenMaps before.
 - The first run asks whether to use Google and says what each answer gives and sends, before
   the map loads. Settings > Privacy lists every Google switch in one place, and the first run
   can open the same list. The welcome page no longer claims searches stay on the device.
@@ -228,7 +228,7 @@ says so.
   Liberty's `poi_r*` layers over archives that carry OSM's landmarks. New York on a Pixel 4a
   pans at 36 to 58 fps (was 20 to 37), Tokyo at 35 to 58 (was 20 to 45), Davis at 52 to 59
   (was 43 to 59). Earlier in the month the Google places source got a higher GeoJSON maxzoom.
-- "Use Vela without Google" (Settings > Privacy, `ui/GoogleFree`, mirrored into `NoGoogle`).
+- "Use OpenMaps without Google" (Settings > Privacy, `ui/GoogleFree`, mirrored into `NoGoogle`).
 - The navigation notification is an Android 16 live update, with the route as a progress bar
   (`NavigationService`).
 - The Google-style route chooser (`GoogleStyleDirectionsPanel`) became the default.
@@ -246,8 +246,8 @@ says so.
   (`DirectionsPb.withAvoid`).
 - Architecture review items: route provenance as one field (`Route.source`), the shared
   `HiddenWebView` base, `NavController`, and the search gates (SPEC 2).
-- A single-place Google Maps short link shared to Vela opens the place.
-- `-PappId=<id>` builds Vela under another package id, for the Android Auto ownership
+- A single-place Google Maps short link shared to OpenMaps opens the place.
+- `-PappId=<id>` builds OpenMaps under another package id, for the Android Auto ownership
   experiment and for side-by-side test builds.
 
 ### August 2026
@@ -257,10 +257,10 @@ says so.
 
 ### July 2026
 
-- Street View in the app. Vela finds the nearest panorama, fetches the image tiles and draws
+- Street View in the app. OpenMaps finds the nearest panorama, fetches the image tiles and draws
   them on a sphere (`PanoramaView`, `StreetViewParser`), with walk arrows, the capture date
   and a spot's older captures.
-- Share to Vela from any app's share sheet (`MapViewModel.openSharedText`). A Google Maps
+- Share to OpenMaps from any app's share sheet (`MapViewModel.openSharedText`). A Google Maps
   list link imports the list, a `geo:` or maps link opens like a deep link, and other text is
   searched.
 - Transit on open data. Transitous is the first source for departure boards, stop icons and
@@ -268,7 +268,7 @@ says so.
 - The posted speed limit beside your speed, from OSM maxspeed.
 - Avoid tolls and avoid highways as sticky chips in the route chooser, honored by the
   on-phone router. Online came in September.
-- Cycleways draw in teal (`vela-bikeroutes`).
+- Cycleways draw in teal (`OpenMaps-bikeroutes`).
 - Every place draws as a small category-colored dot under the icons, so a place that loses
   the icon collision stays visible.
 - Map labels in Roboto from a self-hosted glyph pack (`scripts/build-map-fonts.sh`,
@@ -276,7 +276,7 @@ says so.
 - Voice search on the phone: a downloadable Whisper tiny model (about 58 MB) on the same
   sherpa-onnx runtime as the voice. An installed voice-input app is the alternative.
 - The in-app updater, settings to hide reviews and skip photos, and a 3D buildings toggle.
-- Android Auto: Vela in the car launcher with the map, the puck, the route, the maneuver
+- Android Auto: OpenMaps in the car launcher with the map, the puck, the route, the maneuver
   card, search and route start.
 - Save my parking spot: a long press on the locate button, a chip while one is set, and walk
   directions back to it.
@@ -381,7 +381,7 @@ Once listed as dead and since fixed. Do not trust older notes that say otherwise
   `x-maps-diversion-context-bin` (`Calibration.rpcContext`).
 - Avoid tolls and highways on Google. The flags sit in the directions request's feature
   block, where the first probes did not look.
-- Street View. It works when Vela draws the tiles (below).
+- Street View. It works when OpenMaps draws the tiles (below).
 
 ### Routing and navigation
 
@@ -420,7 +420,7 @@ Once listed as dead and since fixed. Do not trust older notes that say otherwise
 - Subtracting a noise floor from accelerometer samples in the speed filter. It weakens a
   real brake by the same amount. `SpeedKalman` applies a suppression gain (`ACCEL_NOISE`).
 - Frame drops at the start of a drive. Deferring the declutter, slowing the zoom, hiding
-  Vela's symbol layers until the fly-in settles, tile workers at background priority and
+  OpenMaps's symbol layers until the fly-in settles, tile workers at background priority and
   skipping the overview fit each gained nothing. Holding the open places layers back for the
   first 7 s did (`NAV_PLACES_HOLD_MS`).
 
@@ -439,14 +439,14 @@ Once listed as dead and since fixed. Do not trust older notes that say otherwise
   apart. The render-time coverage gate also has to stay while the online basemap is
   OpenFreeMap's.
 - Parcels. Per-county scraping, a backend and mixed licenses. Out of scope.
-- Bulk map features from public Overpass, per viewport. Nominatim's maintainer asked Vela
+- Bulk map features from public Overpass, per viewport. Nominatim's maintainer asked OpenMaps
   off public Overpass for bulk work. Road features are baked per region, and any remaining
   query goes through `OverpassEndpoints.run`.
 
 ### Map and frame rate
 
 - Measuring map frame rate with `dumpsys gfxinfo`. The map draws on its own GL thread, so
-  gfxinfo reports zero frames for a pan that stutters. Use `debug.vela.fps` and
+  gfxinfo reports zero frames for a pan that stutters. Use `debug.OpenMaps.fps` and
   `scripts/map-fps.sh`.
 - Swapping the `poi_r20` layer's `in` filter for a `match` lookup. No change. The cost is
   the layer.
@@ -466,7 +466,7 @@ Once listed as dead and since fixed. Do not trust older notes that say otherwise
 - Embedding Google's Street View page in a WebView. Google serves a stripped shell and it
   renders black. The `/v1/thumbnail` image endpoint returns 403; `/v1/tile` is the one that
   works.
-- A wider "never load Google's pages" switch. Dropped because it reads the same as "Use Vela
+- A wider "never load Google's pages" switch. Dropped because it reads the same as "Use OpenMaps
   without Google".
 - Kokoro and Matcha voices. Both were bundled, compared on phones and removed. Kokoro ran at
   about 0.4x realtime on the fastest test phone.
@@ -485,7 +485,7 @@ Once listed as dead and since fixed. Do not trust older notes that say otherwise
   proves nothing about a car.
 - Wireless Android Auto adapters. They run the phone's Android Auto app and meet the same
   check.
-- A Vela server that does the Google fetching, so a Play build is clean. It puts every
+- A OpenMaps server that does the Google fetching, so a Play build is clean. It puts every
   user's Google requests on one address, which the per-user design exists to avoid, and it
   moves the scraping to a server under the publishing account.
 - Installing the Play build and sideloading the full build over it. Play App Signing

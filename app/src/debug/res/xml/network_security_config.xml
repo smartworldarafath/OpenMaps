@@ -2,7 +2,7 @@
 <!--
   DEBUG-BUILD ONLY (app/src/debug overrides app/src/main for the debug variant). Adds a base-config
   that trusts USER-installed CA certificates on top of the system store, so a contributor can put a
-  proxy CA (mitmproxy/Charles) on the device and capture Vela's HTTPS traffic to RE-CALIBRATE the pb
+  proxy CA (mitmproxy/Charles) on the device and capture OpenMaps's HTTPS traffic to RE-CALIBRATE the pb
   templates / field-index paths against live maps.google.com (see CLAUDE.md "Working on the scraper").
 
   This is deliberately NOT in the release config (app/src/main): trusting user CAs app-wide would let a

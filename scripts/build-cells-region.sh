@@ -23,7 +23,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 source "$ROOT/scripts/bake-lib.sh"
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 MAX_CELLS=999 # a GitHub release holds 1000 assets: the zips plus the fragment
 
 # --- per-cell worker (re-entered through xargs so cells bake in parallel) -------------------

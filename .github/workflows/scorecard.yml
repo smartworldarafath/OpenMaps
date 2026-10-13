@@ -2,7 +2,7 @@ name: OpenSSF Scorecard
 
 # An outside score of how the repository itself is run (pinned actions, token permissions,
 # branch protection, security policy, automated checks). Published at
-# https://scorecard.dev/viewer/?uri=github.com/PimpinPumpkin/Vela and on the code scanning page.
+# https://scorecard.dev/viewer/?uri=github.com/smartworldarafath/OpenMaps and on the code scanning page.
 
 on:
   push:

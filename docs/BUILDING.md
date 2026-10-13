@@ -1,7 +1,7 @@
-# Building and running Vela
+# Building and running OpenMaps
 
-To install the app, use the Obtainium or F-Droid badge on the [README](../README.md) or an
-APK from [Releases](https://github.com/PimpinPumpkin/Vela/releases). This page is for building
+To install the app, download an
+APK from [Releases](https://github.com/smartworldarafath/OpenMaps/releases). This page is for building
 from source.
 
 ## Build and run
@@ -16,19 +16,19 @@ infrastructure releases:
 # the neural voice runtime (sherpa-onnx), about 57 MB
 mkdir -p app/libs
 curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
-  https://github.com/PimpinPumpkin/Vela/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar
+  https://github.com/smartworldarafath/OpenMaps/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar
 
 # Cronet, Chromium's network stack, for the version gradle.properties pins (about 15 MB); or run
 # scripts/build-cronet-aar.sh, which packs the same AAR from Chromium's own published build
-v=$(sed -n 's/^vela.cronetVersion=//p' gradle.properties)
+v=$(sed -n 's/^OpenMaps.cronetVersion=//p' gradle.properties)
 curl -fSL -o "app/libs/cronet-$v.aar" \
-  "https://github.com/PimpinPumpkin/Vela/releases/download/cronet-runtime/cronet-$v.aar"
+  "https://github.com/smartworldarafath/OpenMaps/releases/download/cronet-runtime/cronet-$v.aar"
 
 # OsmAnd's router and obf reader, for offline routing
 mkdir -p core/libs
-for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-vela.jar; do
+for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-OpenMaps.jar; do
   curl -fSL -o "core/libs/$f" \
-    "https://github.com/PimpinPumpkin/Vela/releases/download/obf-runtime/$f"
+    "https://github.com/smartworldarafath/OpenMaps/releases/download/obf-runtime/$f"
 done
 ```
 
@@ -50,7 +50,7 @@ Release signing comes from environment variables (`VELA_KEYSTORE_PATH`,
 `VELA_KEYSTORE_PASSWORD`, `VELA_KEY_ALIAS`). Without them a local build is signed with the
 debug keystore, so `adb install` still works. Do not hand out a local build with a
 `-PappVersionCode` above the release line: the next real release then looks like a downgrade.
-`-PappId=app.vela.dev` builds a copy that installs beside the real app.
+`-PappId=app.OpenMaps.dev` builds a copy that installs beside the real app.
 
 ## What CI does
 

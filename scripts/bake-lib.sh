@@ -28,14 +28,14 @@ bake_header_bbox() {
 # The pinned OsmAndMapCreator from the obf-tools release (forks fall back upstream) unpacked into
 # <dir>/mapcreator, and VelaObfShim compiled into <dir>. MAPCREATOR_ZIP points at a local copy.
 bake_mapcreator() {
-  local dir="$1" repo="${VELA_REPO:-PimpinPumpkin/Vela}" root
+  local dir="$1" repo="${VELA_REPO:-smartworldarafath/OpenMaps}" root
   root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
   if [ ! -f "$dir/mapcreator/OsmAndMapCreator.jar" ]; then
     if [ -n "${MAPCREATOR_ZIP:-}" ]; then
       cp "$MAPCREATOR_ZIP" "$dir/mapcreator.zip"
     else
       curl -fSL -o "$dir/mapcreator.zip" "https://github.com/$repo/releases/download/obf-tools/mapcreator.zip" \
-        || curl -fSL -o "$dir/mapcreator.zip" "https://github.com/PimpinPumpkin/Vela/releases/download/obf-tools/mapcreator.zip"
+        || curl -fSL -o "$dir/mapcreator.zip" "https://github.com/smartworldarafath/OpenMaps/releases/download/obf-tools/mapcreator.zip"
     fi
     unzip -q "$dir/mapcreator.zip" -d "$dir/mapcreator"
   fi

@@ -1,6 +1,6 @@
 # D-pad test suite
 
-Reproducible, on-device checks that Vela stays fully operable with a **5-key D-pad** (↑ ↓ ← → +
+Reproducible, on-device checks that OpenMaps stays fully operable with a **5-key D-pad** (↑ ↓ ← → +
 OK, plus BACK) and **no touchscreen** - the scripted version of the manual `adb` checks used while
 building the D-pad support. See [`../docs/dpad.md`](../docs/dpad.md) for the design.
 
@@ -11,7 +11,7 @@ element** (read from `uiautomator dump`), so it catches the two things that matt
 ## Requirements
 
 - A connected device or emulator (`adb`), and `python3` on the host.
-- The Vela app installed (build a release APK and `adb install -r` it).
+- The OpenMaps app installed (build a release APK and `adb install -r` it).
 - The device is best driven with a real or virtual **D-pad**; the tests only send D-pad keys.
 
 ## Run
@@ -59,7 +59,7 @@ report                                    # prints the tally; exit status = all-
 Key helpers (in `lib.sh`): `focused` / `focused_text` / `focused_desc` / `focus_ytop`,
 `find_text` / `on_screen`, `assert_focus_text` / `assert_focus_desc` / `assert_focus_ytop_between`
 / `assert_nothing_focused` / `assert_something_focused` / `assert_on_screen` / `assert_not_on_screen`
-/ `assert_ime_hidden`, and `key` / `keys` / `launch_fresh` / `shot`. Vela-specific navigation
+/ `assert_ime_hidden`, and `key` / `keys` / `launch_fresh` / `shot`. OpenMaps-specific navigation
 (`goto_map`, `run_coffee`, `open_first_place`, `dismiss_onboarding`) is in `nav.sh`.
 
 ## Notes / limits

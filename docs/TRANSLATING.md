@@ -1,16 +1,16 @@
 # Languages and translating
 
-Vela's interface is offered in 19 languages. Translations are done by the community on
+OpenMaps's interface is offered in 19 languages. Translations are done by the community on
 Weblate:
 
-**<https://hosted.weblate.org/engage/vela-maps/>**
+**<https://hosted.weblate.org/engage/OpenMaps-maps/>**
 
 ## What works in each language
 
 The interface, the spoken directions, the downloadable neural voice and on-device dictation
 are separate systems, so support differs by language.
 
-| Language | Code | App text | Spoken directions | Vela voice | Dictation |
+| Language | Code | App text | Spoken directions | OpenMaps voice | Dictation |
 |---|---|:-:|:-:|:-:|:-:|
 | English | `en` | yes | yes | yes (US and British) | yes |
 | French | `fr` | yes | yes | yes | yes |
@@ -37,7 +37,7 @@ are separate systems, so support differs by language.
   language too. Place names, street names and reviews are data and are never translated.
 - **Spoken directions** are built from grammar templates per language (`NavStrings` in
   `:core`), so cases and word order are right.
-- **Vela voice** is the downloadable neural voice (Piper). There is no Piper voice for
+- **OpenMaps voice** is the downloadable neural voice (Piper). There is no Piper voice for
   Japanese, Hebrew or Estonian, so those use the phone's own text-to-speech in that language.
   If the phone has none, navigation stays silent and a hint points at the voice settings.
 - **Dictation** runs on the phone. The default model is multilingual Whisper, set to the app
@@ -83,7 +83,7 @@ pull request. The English original is `app/src/main/res/values/strings.xml`.
 - **Never translate data:** place names, street names, reviews.
 - **Keep it short.** These strings sit on chips, rows and buttons.
 
-One word is not translatable yet: the "Open" / "Closed" on a status line Vela computes from
+One word is not translatable yet: the "Open" / "Closed" on a status line OpenMaps computes from
 the hours itself, which the status coloring reads.
 
 ## What lives where
@@ -91,7 +91,7 @@ the hours itself, which the status coloring reads.
 | Layer | Where | How to change |
 |---|---|---|
 | App text | `app/src/main/res/values-<lang>/strings.xml` | Weblate, or a pull request |
-| Spoken directions | `core/src/main/java/app/vela/core/i18n/NavStrings.kt`, one table per language | Pull request, needs a native reviewer |
+| Spoken directions | `core/src/main/java/app/OpenMaps/core/i18n/NavStrings.kt`, one table per language | Pull request, needs a native reviewer |
 | Open and closed keywords | tables in `SearchParser`; `calibration.json` can override (`statusClosedWords`, `statusOpenWords`) | Pull request, or a signed calibration push |
 | Transit category words | `calibration.json` (`transitCategoryWords`, `transitExcludeWords`), with a compiled fallback | Pull request plus a calibration push |
 | Voice commands | `core/.../search/QueryIntent.kt`, examples in `VoiceCommandExamples.kt` | Pull request, needs a native reviewer |
@@ -114,10 +114,10 @@ Add the new code to each and run `./gradlew :core:test`.
 
 ## The Weblate component (maintainers)
 
-The project is <https://hosted.weblate.org/projects/vela-maps/>, on hosted Weblate's free plan
+The project is <https://hosted.weblate.org/projects/OpenMaps-maps/>, on hosted Weblate's free plan
 for open source. One component, `app`:
 
-- Repo `https://github.com/PimpinPumpkin/Vela`, branch `main`
+- Repo `https://github.com/smartworldarafath/OpenMaps`, branch `main`
 - File mask `app/src/main/res/values-*/strings.xml`, base file `values/strings.xml`
 - Format: Android string resources. License GPL-3.0-or-later.
 - The repo uses Android's `values-iw` for Hebrew and `values-zh-rTW` for Traditional Chinese.

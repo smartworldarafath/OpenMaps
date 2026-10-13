@@ -20,7 +20,7 @@ jobs:
     if: >-
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_repository.full_name == 'weblate/Vela' &&
+      github.event.workflow_run.head_repository.full_name == 'weblate/OpenMaps' &&
       vars.WEBLATE_AUTOMERGE != 'off'
     runs-on: ubuntu-latest
     permissions:

@@ -37,7 +37,7 @@ saved, each row with a pin toggle.
 | Results after Enter | Google's map search (`/search?tbm=map`), the same keyless request that opens a place. [Chapter 7](07-talking-to-google.md) covers how it is built and kept current |
 | Address help | Photon (photon.komoot.io, komoot's keyless OpenStreetMap geocoder), and the on-device address index built from OpenStreetMap house numbers and street centerlines in the region packs |
 | Offline results | The downloaded place packs, places archives and address index ([chapter 8](08-offline.md)) |
-| Results without Google | Photon, plus Vela's own places data, downloaded or streamed |
+| Results without Google | Photon, plus OpenMaps's own places data, downloaded or streamed |
 | Your own rows | Recent searches and places, saved places, list members and contacts, matched on the phone |
 
 While you type, the text goes to Google's autocomplete on each pause, to Photon when it starts
@@ -264,7 +264,7 @@ except Estonian. English is tried as a fallback in each, because "navigate to" o
 is common. Settings > Search lists example phrases (`VoiceCommandExamples`), and a test parses
 every one.
 
-The mic turns speech into text with Vela's on-device model when it is installed, or with an
+The mic turns speech into text with OpenMaps's on-device model when it is installed, or with an
 installed voice-input app, and is hidden when neither exists (`VoiceSearch`).
 
 Guards:
@@ -350,7 +350,7 @@ index is read on Enter.
 
 ### Without Google
 
-With Settings > Privacy > "Use Vela without Google" on, the data source never calls Google.
+With Settings > Privacy > "Use OpenMaps without Google" on, the data source never calls Google.
 
 - `suggest` returns nothing, so typing always runs the fallback, with Photon answering the
   search part.
@@ -363,19 +363,19 @@ With Settings > Privacy > "Use Vela without Google" on, the data source never ca
   requests (`PmtilesReader.Archive.http`), up to `MAX_RINGS_STREAMED` (8 rings, about 2 km). In
   a Delaware downtown, "Restaurants" returned 79 matches from 5 requests and 265 KB in under a
   second the first time, and from 3 requests in 84 ms once the directory was cached.
-- A category query is answered by Vela's data alone when it finds anything. So is a name it
+- A category query is answered by OpenMaps's data alone when it finds anything. So is a name it
   finds near the view: within the view's height of its center, at least `GOOGLE_FREE_NEAR_M`
   (3 km) and at most `GOOGLE_FREE_NEAR_CAP_M` (25 km). Asking Photon as well took most of ten
   seconds and returned the same name in other towns, which pulled the map away from the one on
   screen.
-- Addresses, and names with no match near the view, also go to Photon. Vela's rows come first,
+- Addresses, and names with no match near the view, also go to Photon. OpenMaps's rows come first,
   and a Photon row with the same name within 120 m is dropped.
 - Over a view taller than `GOOGLE_FREE_WIDE_M` (50 km), a name search puts Photon's rows first,
-  keeps at most five of Vela's rows that carry every typed word, and opens the top hit when its
+  keeps at most five of OpenMaps's rows that carry every typed word, and opens the top hit when its
   name is exactly what was typed. "Eiffel tower" from a world view goes to Paris.
 - "More results", the nearby pass, other locations and the ambient merge do nothing.
 
-Photon knows names and addresses, not categories. Categories come from Vela's data.
+Photon knows names and addresses, not categories. Categories come from OpenMaps's data.
 
 ### Links from other apps
 
@@ -388,7 +388,7 @@ a search and takes the top hit. The link's travel mode applies to that trip only
 
 A link with more than two places opens as a trip with stops, up to ten. That covers a trip
 planned in Google Maps on a desktop: copy the address bar, and either open the link on the
-phone (from a calendar event, a note, a message) or paste it into Vela's search box. The
+phone (from a calendar event, a note, a message) or paste it into OpenMaps's search box. The
 desktop link usually carries each place's coordinate, so those places are not looked up by name
 and the trip is the one that was planned, in its order. Points dragged onto the route on the
 desktop come along too: the route passes through them and a drive treats them as silent stops,
@@ -489,4 +489,4 @@ corridor filter. [Chapter 10](10-android-auto.md) covers the rest.
 - Saved places do not enter the results list, only the suggestions. A search for a saved
   place's name relies on the provider finding it again.
 - The official Telegram app checks for the Google Maps package before it opens any location, so
-  on a phone without Google Maps it never asks Vela.
+  on a phone without Google Maps it never asks OpenMaps.

@@ -1,13 +1,13 @@
-# Vela - features
+# OpenMaps - features
 
-What Vela Maps does today, one line per feature. How each one works is in [SPEC.md](SPEC.md) and
+What OpenMaps does today, one line per feature. How each one works is in [SPEC.md](SPEC.md) and
 [docs/book/](docs/book/README.md).
 
 ## The map
 
 - An open vector map from OpenStreetMap with buildings, house numbers, borders, highway shields and
   exit numbers.
-- "Place icons on the map" draws businesses and landmarks from Vela data (open data, the default),
+- "Place icons on the map" draws businesses and landmarks from OpenMaps data (open data, the default),
   Google, or Both.
 - "Show places", "Parks, schools and civic places", "Transit stops" and "Place icon size" control
   what is drawn.
@@ -80,7 +80,7 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
   mic" hides it.
 - "Search your contacts" suggests a contact's saved addresses. Off by default.
 - With a route planned or a drive running, search looks along the route.
-- Map links from other apps open in Vela. "Links from other apps" picks the place, directions or
+- Map links from other apps open in OpenMaps. "Links from other apps" picks the place, directions or
   navigation.
 - Offline, search covers downloaded regions. With Google off, it uses open data.
 
@@ -120,7 +120,7 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
 - A bottom bar with time left, distance and arrival time. Swipe it up for the step list. On a trip
   with stops the figures are for the next stop, named under them, with the whole trip on a line
   below. The notification and Android Auto show the next stop too.
-- Off the route, or driving against it, Vela reroutes with a chime, a buzz and a banner.
+- Off the route, or driving against it, OpenMaps reroutes with a chime, a buzz and a banner.
 - A faster route is offered when traffic changes. "Take faster routes automatically" accepts an
   unanswered offer.
 - The route line is colored by congestion. "Road behind you" keeps the driven part in gray.
@@ -147,7 +147,7 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
   the background.
 - "Turn card in the mini map" sets the mini map's layout.
 - If the app is closed mid-drive, the next launch offers to resume.
-- In a tunnel Vela keeps estimating your position.
+- In a tunnel OpenMaps keeps estimating your position.
 - A stop is announced as it comes up ("then Davis Food Co-op will be on your right", "turn left into
   the parking lot" where the map shows one) and when you reach it. Arrival is announced with the
   trip's time and distance.
@@ -206,22 +206,22 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
   keeps the places you opened.
 - A globe with a slash in the search bar marks offline. Tap it to check again.
 - Downloads run in the background and each has a Cancel.
-- On a satellite or data-limited connection Vela skips photos and asks for less.
+- On a satellite or data-limited connection OpenMaps skips photos and asks for less.
 
 ## Voice and languages
 
-- Spoken directions use a neural voice that runs on the phone. The Vela voice downloads once.
+- Spoken directions use a neural voice that runs on the phone. The OpenMaps voice downloads once.
 - The "Voice library" has about 40 Piper voices. Any text-to-speech voice on the phone works too.
 - "Spoken directions" is the on and off switch, the same as mute in a drive.
-- "Guidance volume", "Voice speed" and "Test voice". The Vela voice is leveled to a standard
+- "Guidance volume", "Voice speed" and "Test voice". The OpenMaps voice is leveled to a standard
   loudness, and the volume setting scales from there.
-- The voice follows the directions language. Vela offers a download when a language has no
+- The voice follows the directions language. OpenMaps offers a download when a language has no
   voice, and a voice of another language says so on its row.
 - English voices say about 3,500 place names the local way. Street names in another script are read
   romanized.
 - 19 languages, including Chinese, Japanese and right-to-left Hebrew. Romanian and Estonian are
   partly translated; Romanian has spoken directions and a voice.
-- "Follow system language", or pick one for Vela alone.
+- "Follow system language", or pick one for OpenMaps alone.
 - "Directions language": turns shown and spoken in another language than the menus, such as
   English menus with Dutch directions. "Same as app language" by default.
 - "Units" for miles or kilometers. "Clock" for 12-hour or 24-hour time.
@@ -241,7 +241,7 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
 - Select several places in a list or in Saved places (long press one, or the select button), then
   remove them or move them to another list or a new one.
 - A list can have a sound. Driving past one of its places plays it and shows the place on a card.
-  Choose a tone or "Say its name" in the list's editor. It works while Vela is open or guiding.
+  Choose a tone or "Say its name" in the list's editor. It works while OpenMaps is open or guiding.
 - A shared Google Maps list link opens with the owner's notes and can be saved as a list.
 - A Google My Maps link opens with its pins, lines and areas, and can be saved.
 - Draw a line or an area on the map from Your lists.
@@ -252,32 +252,32 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
 
 ## Privacy controls
 
-- No account, no ads, no analytics and no Vela server.
+- No account, no ads, no analytics and no OpenMaps server.
 - The first run asks whether to use Google, and can open the list of what Google is used for.
   The same page asks whether to route around plate cameras and warn near them, and shows the
   badge the map uses for them; the camera settings show their badges too.
 - Settings > Privacy has every switch that decides what Google is asked, in one list.
-- "Use Vela without Google" stops every request to Google. Reviews, photos, live traffic and Street
+- "Use OpenMaps without Google" stops every request to Google. Reviews, photos, live traffic and Street
   View go away.
 - "Open shared Google Maps links" still lets a short link resolve when Google is off.
-- With "Place icons on the map" on Vela data, panning sends nothing to Google where Vela has place
+- With "Place icons on the map" on OpenMaps data, panning sends nothing to Google where OpenMaps has place
   data.
-- "Look up tapped places on Google" off keeps taps to Vela's own data.
+- "Look up tapped places on Google" off keeps taps to OpenMaps's own data.
 - "Google session" starts a new anonymous session weekly, daily or at every launch.
 - "Block Google's page telemetry" stops the background reports Google's pages send.
 - "Requests to Google" counts what the phone sent today and this week, by purpose.
 - "Live traffic re-checks while navigating" off stops position updates to Google during a drive.
 - "Clear history" wipes recent searches, recent places, parking history and recorded trips.
 - Location is optional for browsing and search. Navigation asks for precise location.
-- "Google Maps links" shows whether Android hands such links to Vela.
+- "Google Maps links" shows whether Android hands such links to OpenMaps.
 
 ## Look and settings
 
 - Themes are follow the system, Light, Dark, "AMOLED black" and "Day and night". "Day and night
   while navigating" applies it to drives only.
 - "Map" sets the map light or dark apart from the app. "Map look" picks the basemap style: the
-  Vela look on OpenFreeMap Liberty, or OpenFreeMap's Bright, Positron, Fiord or Dark as served,
-  on the same tiles. "Map colors" is Modern or Classic, for the Vela look.
+  OpenMaps look on OpenFreeMap Liberty, or OpenFreeMap's Bright, Positron, Fiord or Dark as served,
+  on the same tiles. "Map colors" is Modern or Classic, for the OpenMaps look.
 - "Material You colors" tints buttons and accents from your wallpaper. With "AMOLED black" the
   backgrounds stay black.
 - "Font" is Google Sans Flex, the system font or your own font file. "Interface size" scales the
@@ -289,7 +289,7 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
 
 ## Android Auto
 
-- Vela can appear in the car's launcher, depending on how it was installed. See the [Android Auto
+- OpenMaps can appear in the car's launcher, depending on how it was installed. See the [Android Auto
   guide](docs/ANDROID-AUTO.md).
 - The home list has Home, Work, recent and saved places, then nearby gas, charging, food, coffee and
   parking. Nearby results are numbered on the list and on the map.
@@ -307,7 +307,7 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
   traffic layer.
 - The phone and the car share one drive. A trip started on either shows on both.
 - A car with an instrument-cluster display gets the turns there.
-- A car that runs Android itself can show Vela in its map panel.
+- A car that runs Android itself can show OpenMaps in its map panel.
 
 ## Phones without a touchscreen
 
@@ -320,15 +320,15 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
 
 ## Updates and install
 
-- Vela needs no Google Play services. Location comes from the phone's own GPS.
-- Install from Vela's F-Droid repository, with Obtainium, or from the APK.
+- OpenMaps needs no Google Play services. Location comes from the phone's own GPS.
+- Install from OpenMaps's F-Droid repository, with Obtainium, or from the APK.
 - The app checks for a release about once a day. "Check for updates on launch" turns that off.
 - "Update channel" is Stable (weekly), Nightly (daily) or Canary (development builds).
 - The update card lists each skipped release's changes. "Show what's new after updates" shows them
   afterward.
-- About shows the version and which app installed Vela.
+- About shows the version and which app installed OpenMaps.
 - Project notices, such as "search is down", reach the map without an app update.
-- "Support Vela" opens the donation page. The app asks once, after a week.
+- "Support OpenMaps" opens the donation page. The app asks once, after a week.
 
 ## Recorded trips and diagnostics
 
@@ -344,9 +344,9 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
   car screen too.
 - "Nav smoothness trace" and "Building overlay debug" are developer aids.
 
-## Not in Vela
+## Not in OpenMaps
 
-These need a Google sign-in or a Vela server, and Vela has neither.
+These need a Google sign-in or a OpenMaps server, and OpenMaps has neither.
 
 - Contributing reviews, photos or map edits.
 - Live location sharing and shared arrival times.

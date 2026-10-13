@@ -1,4 +1,4 @@
-# Runs Vela's data bakes one at a time, hands off (scripts/bake-conductor.py, tools/bake-schedule.json).
+# Runs OpenMaps's data bakes one at a time, hands off (scripts/bake-conductor.py, tools/bake-schedule.json).
 # The bakes have no crons of their own: on their own clocks they overlapped, spent the repository's
 # 1,000 API requests an hour between them and failed CI's releases and each other with HTTP 403.
 # Once an hour this starts at most ONE bake (a retry of the regions that failed last time first,

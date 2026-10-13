@@ -19,4 +19,4 @@ We also encourage you to join our Placemaker community (https://opensource.fours
 
 
 ---
-Vela note: only the closed dates of this dataset are read, during the monthly places bake, to leave out places Foursquare marks closed. No Foursquare record is included in what Vela publishes.
+OpenMaps note: only the closed dates of this dataset are read, during the monthly places bake, to leave out places Foursquare marks closed. No Foursquare record is included in what OpenMaps publishes.

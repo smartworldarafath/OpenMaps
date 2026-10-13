@@ -47,16 +47,16 @@ object VelaLinks {
     const val PAINTED_ROADS = "paintedRoads"
 
     private val DEFAULTS: Map<String, String> = mapOf(
-        REPO to "https://github.com/PimpinPumpkin/Vela",
-        API to "https://api.github.com/repos/PimpinPumpkin/Vela",
-        RELEASES to "https://github.com/PimpinPumpkin/Vela/releases/download",
-        RAW to "https://raw.githubusercontent.com/PimpinPumpkin/Vela/main",
-        SITE to "https://velamaps.org",
+        REPO to "https://github.com/smartworldarafath/OpenMaps",
+        API to "https://api.github.com/repos/smartworldarafath/OpenMaps",
+        RELEASES to "https://github.com/smartworldarafath/OpenMaps/releases/download",
+        RAW to "https://raw.githubusercontent.com/smartworldarafath/OpenMaps/main",
+        SITE to "https://openmaps.org",
         // The GitHub Pages address: the map fonts, the F-Droid repository and the docs. It is not
         // the website and must not become a redirect to it; installed apps and F-Droid clients
         // point here.
-        PAGES to "https://pimpinpumpkin.github.io/Vela",
-        DONATE to "https://buymeacoffee.com/PimpinPumpkin",
+        PAGES to "https://smartworldarafath.github.io/OpenMaps",
+        DONATE to "https://buymeacoffee.com/Arafath",
     )
 
     /** Key to (base key, path appended to the base). */

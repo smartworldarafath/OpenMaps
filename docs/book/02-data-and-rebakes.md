@@ -58,7 +58,7 @@ Regions come from four files in `tools/` that share ids.
 | `address-regions.json` | 52 | House numbers |
 
 The routing catalog has every country-level extract Geofabrik publishes, plus sub-areas for the
-countries Geofabrik divides (groups such as `germany-sub`) and four parts of Texas that Vela
+countries Geofabrik divides (groups such as `germany-sub`) and four parts of Texas that OpenMaps
 cuts itself (`texas-sub`). Twelve whole-country and whole-state rows carry `skip_obf: true`.
 Their sub-area rows cover them, so the routing, basemap and grid-cell bakes skip them and the
 places catalog leaves them out. A workflow matrix holds at most

@@ -17,7 +17,7 @@ set -euo pipefail
 
 WHISPER_URL="https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-whisper-tiny.tar.bz2"
 VAD_URL="https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx"
-REPO="PimpinPumpkin/Vela"
+REPO="smartworldarafath/OpenMaps"
 OUT="${OUT:-out}"
 
 mkdir -p "$OUT" && cd "$OUT"

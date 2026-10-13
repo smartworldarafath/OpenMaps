@@ -2,12 +2,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        This is for questions about using Vela. Something that is broken goes in a
-        [bug report](https://github.com/PimpinPumpkin/Vela/issues/new?template=bug_report.yml), and something you
-        want added goes in a [feature request](https://github.com/PimpinPumpkin/Vela/issues/new?template=feature_request.yml).
+        This is for questions about using OpenMaps. Something that is broken goes in a
+        [bug report](https://github.com/smartworldarafath/OpenMaps/issues/new?template=bug_report.yml), and something you
+        want added goes in a [feature request](https://github.com/smartworldarafath/OpenMaps/issues/new?template=feature_request.yml).
         Those are tracked and closed when they are done. A question here is not.
 
-        The [FAQ](https://pimpinpumpkin.github.io/Vela/docs/) answers the common ones.
+        The [FAQ](https://smartworldarafath.github.io/OpenMaps/docs/) answers the common ones.
   - type: checkboxes
     id: kind
     attributes:
@@ -27,7 +27,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Vela version
+      label: OpenMaps version
       description: Settings > About. Optional, but it often changes the answer.
     validations:
       required: false

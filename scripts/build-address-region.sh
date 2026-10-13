@@ -14,7 +14,7 @@
 set -euo pipefail
 
 ID="${1:?region id}"; NAME="${2:?display name}"; SRC="${3:?openaddresses source e.g. us/de/statewide}"; BBOX_CSV="${4:?bbox S,W,N,E}"
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 TAG="address-overlays"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 

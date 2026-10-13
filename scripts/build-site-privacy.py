@@ -16,7 +16,7 @@ import sys
 import markdown
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BLOB = "https://github.com/PimpinPumpkin/Vela/blob/main/"
+BLOB = "https://github.com/smartworldarafath/OpenMaps/blob/main/"
 
 HEAD = """<!doctype html>
 <html lang="en">
@@ -39,7 +39,7 @@ HEAD = """<!doctype html>
     <a href="./#install">Install</a>
     <a href="./#docs">Docs</a>
     <a href="press.html">Press</a>
-    <a href="https://github.com/PimpinPumpkin/Vela">GitHub</a>
+    <a href="https://github.com/smartworldarafath/OpenMaps">GitHub</a>
   </nav>
 </header>
 
@@ -49,13 +49,13 @@ HEAD = """<!doctype html>
 """
 
 FOOT = """
-  <p class="small">This page is built from <a href="https://github.com/PimpinPumpkin/Vela/blob/main/PRIVACY.md"><code>PRIVACY.md</code></a> in the repository, which is where a correction goes.</p>
+  <p class="small">This page is built from <a href="https://github.com/smartworldarafath/OpenMaps/blob/main/PRIVACY.md"><code>PRIVACY.md</code></a> in the repository, which is where a correction goes.</p>
 </div>
 </main>
 
 <footer>
   <div class="col">
-    <p>Vela Maps is free software under the <a href="https://github.com/PimpinPumpkin/Vela/blob/main/LICENSE">GPLv3</a>. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.</p>
+    <p>Vela Maps is free software under the <a href="https://github.com/smartworldarafath/OpenMaps/blob/main/LICENSE">GPLv3</a>. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.</p>
     <p>Vela is not affiliated with or endorsed by Google. Google Maps is a trademark of Google LLC.</p>
     <p>This site sets no cookies and loads nothing from anyone else.</p>
   </div>

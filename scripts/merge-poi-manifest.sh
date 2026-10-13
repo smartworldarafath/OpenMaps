@@ -9,7 +9,7 @@
 set -euo pipefail
 
 DIR="${1:?dir of *.json entry files}"
-REPO="${VELA_REPO:-PimpinPumpkin/Vela}"
+REPO="${VELA_REPO:-smartworldarafath/OpenMaps}"
 TAG="poi-packs"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 

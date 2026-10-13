@@ -68,7 +68,7 @@ jobs:
           gh release view building-overlays --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
             gh release create building-overlays --repo "$GITHUB_REPOSITORY" --prerelease \
               --title "Open building overlays" \
-              --notes "Microsoft Building Footprints (US + Global ML, ODbL) as PMTiles for Vela's gap-fill building overlay. Data assets, not a code release. Buildings © Microsoft, licensed ODbL."
+              --notes "Microsoft Building Footprints (US + Global ML, ODbL) as PMTiles for OpenMaps's gap-fill building overlay. Data assets, not a code release. Buildings © Microsoft, licensed ODbL."
 
   build:
     needs: prep

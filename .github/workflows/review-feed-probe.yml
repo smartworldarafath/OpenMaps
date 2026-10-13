@@ -37,7 +37,7 @@ jobs:
       - name: Fetch obf routing runtime jars
         run: |
           mkdir -p core/libs
-          for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-vela.jar; do
+          for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-OpenMaps.jar; do
             curl -fSL -o "core/libs/$f" "https://github.com/${{ github.repository }}/releases/download/obf-runtime/$f"
           done
 

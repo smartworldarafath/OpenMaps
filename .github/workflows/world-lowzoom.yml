@@ -2,7 +2,7 @@ name: World low-zoom probe
 
 # MEASUREMENT, not a published artifact. Organic Maps ships a ~39 MB world overview so a fresh
 # install is never a blank screen; the question is what the same thing costs in the OpenMapTiles
-# schema Vela already renders, and where the zoom line should sit.
+# schema OpenMaps already renders, and where the zoom line should sit.
 #
 # The trick is that at low zoom the OpenMapTiles layers that matter (water, boundary, place) come
 # from planetiler's NATURAL EARTH base data, which is global and downloaded anyway, NOT from the
@@ -91,7 +91,7 @@ jobs:
             echo "| --- | --- |"
             echo "| size | **$(numfmt --to=iec --suffix=B "$BYTES")** ($BYTES bytes) |"
             echo "| for comparison, Organic Maps World.mwm | about 39 MB |"
-            echo "| Vela APK today | about 100 MB |"
+            echo "| OpenMaps APK today | about 100 MB |"
             echo
             echo "Natural Earth supplies water, boundaries and places globally here; roads are"
             echo "OSM-derived and only present around the tiny input extract, which is why this is"

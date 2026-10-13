@@ -2,7 +2,7 @@
 
 ## What you see
 
-When a newer build is out, a card on the bare map says "Vela 0.4.1830 is available", with Not now
+When a newer build is out, a card on the bare map says "OpenMaps 0.4.1830 is available", with Not now
 and Update and a fold that shows what changed. Update downloads the file, then Android's install
 dialog takes over. The first launch of the new build shows its release notes once, in a "What's
 new" dialog.
@@ -11,12 +11,12 @@ Settings > About has a Check for updates on launch switch (on by default), the U
 choice (Stable, Nightly or Canary), a Check for updates button, a row that reopens What's new, a
 switch that turns that dialog off, and a line saying which app Android recorded as the installer.
 
-Obtainium and Vela's own F-Droid repository deliver the same builds. Every channel and source
+Obtainium and OpenMaps's own F-Droid repository deliver the same builds. Every channel and source
 carries APKs signed with the same key, so moving between them never needs a reinstall.
 
 ## Where the data comes from
 
-Every build is a GitHub release on `PimpinPumpkin/Vela`, built by GitHub Actions from this
+Every build is a GitHub release on `smartworldarafath/OpenMaps`, built by GitHub Actions from this
 repository. There is no update server.
 
 | Channel | Release | Tag | Cut by |
@@ -33,7 +33,7 @@ optional `sha` that `main` must be at. It ends by dispatching `fdroid-repo.yml`:
 the workflow's own token starts no other workflow, so the index would not rebuild on its own.
 
 The F-Droid repository is a copy of the same APKs, served from GitHub Pages at
-`https://pimpinpumpkin.github.io/Vela/repo`. The full list of rules and constants is
+`https://smartworldarafath.github.io/OpenMaps/repo`. The full list of rules and constants is
 [SPEC section 15](../../SPEC.md).
 
 ## How it is decided
@@ -67,7 +67,7 @@ someone reading them in the app can tell the channel.
 
 The promotion compares the newest prerelease and the newest full release whose tags match
 `^v0\.[0-9]+\.[0-9]+$`, and stops unless the nightly has the higher run number. It then edits the
-nightly in place: title `Vela <version>`, prerelease off, marked Latest, notes regenerated to
+nightly in place: title `OpenMaps <version>`, prerelease off, marked Latest, notes regenerated to
 cover everything since the previous stable. Nothing is rebuilt.
 
 Stables are never deleted. They are the changelog and the bisect range, and a deleted release
@@ -103,8 +103,8 @@ a code of 20000 or more by ten, which drops the chip digit: 38222 and 38220 both
 ### One APK per chip type
 
 With the repository variable `ABI_SPLITS` set to `true`, a release carries one APK per chip type
-(`vela-maps-arm64.apk`, `-armv7.apk`, `-x86.apk`, `-x86_64.apk`) and the all-in-one
-`vela-maps-all.apk`. The switch is still off ([ROADMAP](../../ROADMAP.md)), so a release carries
+(`OpenMaps-maps-arm64.apk`, `-armv7.apk`, `-x86.apk`, `-x86_64.apk`) and the all-in-one
+`OpenMaps-maps-all.apk`. The switch is still off ([ROADMAP](../../ROADMAP.md)), so a release carries
 one APK.
 
 - `ApkChoice.pick` walks `Build.SUPPORTED_ABIS` in the phone's order and takes the first asset
@@ -113,7 +113,7 @@ one APK.
   the all-in-one APK to a chip APK of the same build is then an upgrade, and an F-Droid index gets
   the distinct code it needs for every APK.
 - GitHub lists assets by name, and updaters older than `ApkChoice` take the first `.apk`.
-  `vela-maps-all.apk` sorts first, so an old build keeps getting a file that runs on every chip.
+  `OpenMaps-maps-all.apk` sorts first, so an old build keeps getting a file that runs on every chip.
   The switch can go on once a build with `ApkChoice` has been the stable for a few weeks.
 - An arm64 phone then downloads 74.3 MB in place of 108.4.
 
@@ -179,9 +179,9 @@ Download and install:
 - The APK goes to the system installer through the FileProvider. Android requires the same package
   and the same signing certificate, and the user confirms.
 
-The updater holds the update back when Android records Play as the app that installed Vela or
+The updater holds the update back when Android records Play as the app that installed OpenMaps or
 started the install (`InstallSource.setForCar`). A tool sets that record so that Android Auto will
-list Vela, and a self-install would replace it. A dialog offers Save the file, for that tool, or
+list OpenMaps, and a self-install would replace it. A dialog offers Save the file, for that tool, or
 Update anyway. [Chapter 10](10-android-auto.md#the-install-gate) explains the gate.
 
 ### What's new
@@ -206,15 +206,15 @@ created where GitHub sorts them last ([SPEC section 7.6](../../SPEC.md)).
 
 ### The F-Droid repository
 
-`fdroid-repo.yml` builds a signed F-Droid repository from the releases. It is Vela's own
-repository, because f-droid.org builds every app from source and Vela bundles prebuilt libraries.
+`fdroid-repo.yml` builds a signed F-Droid repository from the releases. It is OpenMaps's own
+repository, because f-droid.org builds every app from source and OpenMaps bundles prebuilt libraries.
 [FDROID.md](../../FDROID.md) is the user guide.
 
 - It serves the newest stable, plus the newest nightly when that is ahead.
 - The build reads the versionCode off each stable APK and writes the highest into the app metadata
   as `CurrentVersionCode`. Clients suggest versions up to that code and treat higher ones as
   unstable, so a default user updates weekly and the nightly reaches only someone who turns on
-  unstable updates for Vela.
+  unstable updates for OpenMaps.
 - It runs after a nightly cut or a promotion through `workflow_run`, because a release created by
   CI's own token fires no release event for other workflows.
 
@@ -255,7 +255,7 @@ Without the CI properties a build is versionName `0.3.0`, versionCode 1. Keep a 
 1000, so that a phone that ran a local build is never ahead of the release line.
 
 To test the updater without touching the installed app, build a second package with a high code
-(`-PappId=app.vela.dev -PappVersionCode=37000`), check for updates, and look for `installed=3700`
+(`-PappId=app.OpenMaps.dev -PappVersionCode=37000`), check for updates, and look for `installed=3700`
 under `VelaUpdate`.
 
 ## Limits

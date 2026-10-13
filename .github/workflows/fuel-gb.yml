@@ -49,7 +49,7 @@ jobs:
           source scripts/bake-lib.sh # CELLS_RELEASE_TARGET, the root commit data releases sit on
           source scripts/gh-retry.sh
           export GH_RETRY_TRIES=3
-          UA="VelaMaps-bake (${{ github.server_url }}/${{ github.repository }})"
+          UA="OpenMaps-bake (${{ github.server_url }}/${{ github.repository }})"
           GOV="https://www.fuel-finder.service.gov.uk/internal/v1.0.2/csv/get-latest-fuel-prices-csv"
           ARCHIVE="https://raw.githubusercontent.com/matthewgall/fuelfinder-archive/main/data.csv"
           REL="https://github.com/$REPO/releases/download/fuel-gb"
@@ -127,7 +127,7 @@ jobs:
             exit 1
           }
 
-          NOTES="UK fuel prices for Vela Maps: the UK government's Fuel Finder data, from matthewgall/fuelfinder-archive, trimmed by tools/build-fuel-gb.py and checked hourly by fuel-gb.yml. Contains public sector information licensed under the Open Government Licence v3.0. Data files for the app; do not delete."
+          NOTES="UK fuel prices for OpenMaps: the UK government's Fuel Finder data, from matthewgall/fuelfinder-archive, trimmed by tools/build-fuel-gb.py and checked hourly by fuel-gb.yml. Contains public sector information licensed under the Open Government Licence v3.0. Data files for the app; do not delete."
           if ! view_err="$(gh release view fuel-gb --repo "$REPO" --json tagName 2>&1 >/dev/null)"; then
             if grep -qi "not found" <<<"$view_err"; then
               gh_retry gh release create fuel-gb --repo "$REPO" --prerelease --target "$CELLS_RELEASE_TARGET" \

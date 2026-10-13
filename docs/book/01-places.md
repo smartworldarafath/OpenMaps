@@ -9,7 +9,7 @@ reviews, photos and phone.
 The pins are open data baked in this repository. The sheet is Google, asked when you tap.
 Settings > Places > "Place icons on the map" picks what draws the pins:
 
-- Vela data (the default): the baked places archive. Browsing does not reach Google where an
+- OpenMaps data (the default): the baked places archive. Browsing does not reach Google where an
   archive covers the view, and a downloaded region works offline.
 - Both: the archive, plus one Google fan-out per settled view.
 - Google: Google's answer for the view, refetched on every pan. Nothing draws offline.
@@ -250,14 +250,14 @@ Shinjuku pans from 20 to 45 fps to 35 to 58. An older archive has no landmarks, 
 those layers keep drawing, less the points the archive already shows by name. The dial must
 never go below the oldest archive that carries landmarks.
 
-Vela's zoom number reads about one lower than Google's for the same area, because of 512 px
+OpenMaps's zoom number reads about one lower than Google's for the same area, because of 512 px
 tiles.
 
 ### Google's own ranking, when Google is drawing
 
 In Google or Both mode, and wherever no archive covers the view, the pins come from a fan-out
 of 15 category searches (8 on a low-RAM or low-data device). Each is ordered by its own
-relevance, so Vela computes one ranking:
+relevance, so OpenMaps computes one ranking:
 
 ```
 prominence = ln(reviewCount + 1) * (0.6 + rating / 10)
@@ -413,7 +413,7 @@ ids persist in `open_place_closed.json`, capped at `CLOSED_OPEN_PLACES_CAP` (2,0
 Each tap that searched logs one `VelaTap` line with no coordinates: the pool sizes, the three
 nearest answers, the pick and the timings.
 
-Offline, or with "Use Vela without Google" on, an archive pin shows its tile data plus the pack
+Offline, or with "Use OpenMaps without Google" on, an archive pin shows its tile data plus the pack
 row, or the remembered listing. With only "Look up tapped places on Google" off, an archive pin
 stays on its tile data, but a basemap tap has nothing else to show and still resolves.
 

@@ -21,9 +21,9 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "build", "docs-src")
 OUT = os.path.join(ROOT, "build", "docs-site")
-BLOB = "https://github.com/PimpinPumpkin/Vela/blob/main/"
-TREE = "https://github.com/PimpinPumpkin/Vela/tree/main/"
-HOME = "https://pimpinpumpkin.github.io/Vela/"
+BLOB = "https://github.com/smartworldarafath/OpenMaps/blob/main/"
+TREE = "https://github.com/smartworldarafath/OpenMaps/tree/main/"
+HOME = "https://smartworldarafath.github.io/OpenMaps/"
 
 # repository path -> published path (relative to the docs root)
 PAGES = {

@@ -55,7 +55,7 @@ jobs:
           gh release view address-overlays --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
             gh release create address-overlays --repo "$GITHUB_REPOSITORY" --prerelease \
               --title "Open address (house-number) overlays" \
-              --notes "OpenAddresses address points as PMTiles for Vela's house-number labels. Data assets, not a code release. Addresses © OpenAddresses contributors, per-source open licenses."
+              --notes "OpenAddresses address points as PMTiles for OpenMaps's house-number labels. Data assets, not a code release. Addresses © OpenAddresses contributors, per-source open licenses."
 
   build:
     needs: prep

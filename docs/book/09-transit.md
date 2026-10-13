@@ -30,13 +30,13 @@ board you opened before still shows it, marked with when it was last seen.
 
 Transitous (`api.transitous.org`) is a community-run service with no key or account. It serves
 the GTFS and GTFS-Realtime feeds that agencies publish, through the MOTIS engine. Every call
-carries Vela's real version string (`VelaConfig.VELA_UA`) and the app language, so stop names
+carries OpenMaps's real version string (`VelaConfig.VELA_UA`) and the app language, so stop names
 come back in that language where a feed has them.
 
 The Google pieces are read from Google's pages in a hidden WebView
-([chapter 7](07-talking-to-google.md)). "Use Vela without Google" skips them.
+([chapter 7](07-talking-to-google.md)). "Use OpenMaps without Google" skips them.
 
-Vela bakes and hosts nothing for transit. The offline copies are caches filled by normal use
+OpenMaps bakes and hosts nothing for transit. The offline copies are caches filled by normal use
 ([Offline copies](#offline-copies)), unlike the region downloads in
 [chapter 2](02-data-and-rebakes.md).
 
@@ -91,7 +91,7 @@ calibration can move, and then by shape. Its parts are matched by shape, so one 
 a single line.
 
 A stop named for its corner can resolve to Google's "Intersection" entity, which has no board.
-Vela then takes the nearest open transit listing within 250 m, because a junction's point sits
+OpenMaps then takes the nearest open transit listing within 250 m, because a junction's point sits
 back from the stops on its approaches.
 
 ### Stops on the map
@@ -134,7 +134,7 @@ Some agencies publish one trip for a whole day of laps (one Davis Unitrans trip 
 had 589 stops). Every stop within 30 m (`LAP_SAME_STOP_M`) of the nearest counts as a pass, and
 the timeline shows the one lap whose pass is nearest in time to the tapped departure.
 
-Google's boards carry no run ids. For those, and when the trip request fails, Vela geocodes the
+Google's boards carry no run ids. For those, and when the trip request fails, OpenMaps geocodes the
 headsign near the stop, asks for transit directions there, and takes the ride on the tapped line
 that boards nearest. The label must equal the line's name or its first token, so "1" does not
 match "10". This list has no earlier stops and no canceled flags.

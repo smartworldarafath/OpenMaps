@@ -88,40 +88,40 @@ jobs:
       - name: Cache the bake toolchain
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: ~/vela-bin
+          path: ~/OpenMaps-bin
           key: cells-tools-${{ runner.os }}-pmtiles-1.31.2-mapcreator-obf-tools
       - name: Install tools
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool jq zip unzip
-          mkdir -p "$HOME/vela-bin"
-          if [ ! -x "$HOME/vela-bin/pmtiles" ]; then
+          mkdir -p "$HOME/OpenMaps-bin"
+          if [ ! -x "$HOME/OpenMaps-bin/pmtiles" ]; then
             curl -fsSL --retry 3 https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_x86_64.tar.gz | tar -xz pmtiles
-            mv pmtiles "$HOME/vela-bin/pmtiles"
+            mv pmtiles "$HOME/OpenMaps-bin/pmtiles"
           fi
-          if ! unzip -tq "$HOME/vela-bin/mapcreator.zip" >/dev/null 2>&1; then
-            curl -fSL --retry 3 -o "$HOME/vela-bin/mapcreator.zip" "https://github.com/$GITHUB_REPOSITORY/releases/download/obf-tools/mapcreator.zip"
+          if ! unzip -tq "$HOME/OpenMaps-bin/mapcreator.zip" >/dev/null 2>&1; then
+            curl -fSL --retry 3 -o "$HOME/OpenMaps-bin/mapcreator.zip" "https://github.com/$GITHUB_REPOSITORY/releases/download/obf-tools/mapcreator.zip"
           fi
-          sudo cp "$HOME/vela-bin/pmtiles" /usr/local/bin/
+          sudo cp "$HOME/OpenMaps-bin/pmtiles" /usr/local/bin/
           pmtiles version | head -1; osmium --version | head -1
       - name: Scratch space on the big disk
         run: |
-          sudo mkdir -p /mnt/vela-work && sudo chown "$(id -u):$(id -g)" /mnt/vela-work
+          sudo mkdir -p /mnt/OpenMaps-work && sudo chown "$(id -u):$(id -g)" /mnt/OpenMaps-work
           df -h / /mnt | sed 's/^/  /'
       - name: Bake + upload ${{ matrix.id }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VELA_REPO: ${{ github.repository }}
-          TMPDIR: /mnt/vela-work
-          OUT_DIR: /mnt/vela-work/out
-          MAPCREATOR_ZIP: /home/runner/vela-bin/mapcreator.zip
+          TMPDIR: /mnt/OpenMaps-work
+          OUT_DIR: /mnt/OpenMaps-work/out
+          MAPCREATOR_ZIP: /home/runner/OpenMaps-bin/mapcreator.zip
           CELL_JOBS: "3"
           CELL_HEAP: 4g
           CELLS_UPLOAD: "1"
         run: |
           bash scripts/build-cells-region.sh "${{ matrix.id }}"
-          mkdir -p fragments && cp "/mnt/vela-work/out/cells-${{ matrix.id }}.json" fragments/
+          mkdir -p fragments && cp "/mnt/OpenMaps-work/out/cells-${{ matrix.id }}.json" fragments/
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: cells-fragment-${{ matrix.id }}

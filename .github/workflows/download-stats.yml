@@ -1,6 +1,6 @@
 name: Reach snapshot
 
-# The numbers GitHub keeps about Vela's reach all EXPIRE: the nightly prune deletes a release and
+# The numbers GitHub keeps about OpenMaps's reach all EXPIRE: the nightly prune deletes a release and
 # its download counter together, the traffic API is a rolling fourteen days, and a re-baked asset
 # starts counting from zero. None of it is telemetry - it is a byproduct of hosting files, counted
 # whether anyone looks or not - but it is gone unless somebody writes it down on the day.

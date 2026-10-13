@@ -3,7 +3,7 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Vela mark: two-tone nav chevron (white left, teal right). Drawn in the
+    <!-- OpenMaps mark: two-tone nav chevron (white left, teal right). Drawn in the
          512-space of docs/logo.svg, scaled into the adaptive-icon safe zone. -->
     <group
         android:scaleX="0.18"

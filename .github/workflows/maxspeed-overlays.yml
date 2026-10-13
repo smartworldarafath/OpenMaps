@@ -66,7 +66,7 @@ jobs:
           gh release view maxspeed-overlays --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
             gh release create maxspeed-overlays --repo "$GITHUB_REPOSITORY" --prerelease \
               --title "Posted speed-limit overlays" \
-              --notes "OSM maxspeed road ways as PMTiles for Vela's keyless posted speed-limit source. Data assets, not a code release. Speed limits © OpenStreetMap contributors, ODbL."
+              --notes "OSM maxspeed road ways as PMTiles for OpenMaps's keyless posted speed-limit source. Data assets, not a code release. Speed limits © OpenStreetMap contributors, ODbL."
 
   build:
     needs: prep

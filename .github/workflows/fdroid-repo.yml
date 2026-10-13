@@ -1,6 +1,6 @@
 name: F-Droid repo
 
-# Publishes Vela's own F-Droid repository to GitHub Pages. Users add the repo URL
+# Publishes OpenMaps's own F-Droid repository to GitHub Pages. Users add the repo URL
 # (see FDROID.md) to any F-Droid client and get updates like from any other repo.
 # Runs on every release event (nightly prereleases and weekly stable promotions
 # both fire "published"/"edited") and on manual dispatch.
@@ -8,7 +8,7 @@ name: F-Droid repo
 # The repo serves the latest STABLE release plus the newest NIGHTLY when it is
 # ahead, so both channels are installable. The index is signed with a dedicated
 # repo key (secrets FDROID_KEYSTORE_BASE64 / FDROID_KEYSTORE_PASS); the APKs
-# keep the normal Vela app signature.
+# keep the normal OpenMaps app signature.
 
 on:
   # NOT `edited`: marking a release Latest or tweaking its notes is a metadata change that
@@ -111,9 +111,9 @@ jobs:
           # Remember the stable's version for the metadata pin below: the repo SUGGESTS the
           # stable, so default F-Droid users only ever see weekly releases; the newer nightly
           # in the index is treated as unstable and shown only to users who opt into
-          # unstable/beta updates for Vela in their client.
+          # unstable/beta updates for OpenMaps in their client.
           # Each release is fetched into its own folder and renamed by tag: per-chip releases
-          # (2026-09-23) use the same file names every time (vela-maps-arm64.apk), which would
+          # (2026-09-23) use the same file names every time (OpenMaps-maps-arm64.apk), which would
           # collide between the stable and the nightly. Where a release has per-chip APKs the
           # all-in-one one is left out: F-Droid clients pick the APK for their chip themselves,
           # and GitHub Pages has a 1 GB budget.
@@ -154,11 +154,11 @@ jobs:
           set -e
           echo "$FDROID_KEYSTORE_BASE64" | base64 -d > fdroid/keystore.p12
           cat > fdroid/config.yml <<EOF
-          repo_url: https://pimpinpumpkin.github.io/Vela/repo
-          repo_name: Vela Maps
+          repo_url: https://smartworldarafath.github.io/OpenMaps/repo
+          repo_name: OpenMaps
           repo_icon: icon.png
           repo_description: >-
-            Official repository for Vela Maps, the degoogled Google Maps
+            Official repository for OpenMaps, the degoogled Google Maps
             replacement. Serves the latest stable release and the newest
             nightly build.
           archive_older: 0
@@ -173,7 +173,7 @@ jobs:
           {
             echo "CurrentVersion: $STABLE_NAME"
             echo "CurrentVersionCode: $STABLE_CODE"
-          } >> fdroid/metadata/app.vela.yml
+          } >> fdroid/metadata/app.OpenMaps.yml
 
       - name: Build the signed repo index
         run: |
@@ -186,7 +186,7 @@ jobs:
       - name: Add map font glyphs to the site
         # The basemap's Roboto glyph set (ui/map/MapFonts; built by
         # scripts/build-map-fonts.sh) is served from this same Pages site at
-        # /Vela/fonts/. The zip lives on the fixed-tag `map-fonts` release; skip
+        # /OpenMaps/fonts/. The zip lives on the fixed-tag `map-fonts` release; skip
         # quietly if that release doesn't exist yet so the F-Droid repo still
         # deploys (the app probes the URL and falls back to Noto on a 404).
         run: |
@@ -201,7 +201,7 @@ jobs:
       - name: Add the website to the site root
         # The landing page, the press page and the privacy page (site/*.html, site/style.css,
         # site/assets, and privacy.html built from PRIVACY.md) serve at
-        # https://pimpinpumpkin.github.io/Vela/ alongside /repo and /fonts. The press kit is
+        # https://smartworldarafath.github.io/OpenMaps/ alongside /repo and /fonts. The press kit is
         # zipped here from files already in the repository, so no archive is committed.
         run: |
           cp site/index.html site/press.html site/style.css fdroid/
@@ -209,19 +209,18 @@ jobs:
           # The privacy page is PRIVACY.md in the site's layout, so the two cannot drift.
           pip install -r site/requirements-docs.txt
           python3 scripts/build-site-privacy.py fdroid/privacy.html
-          kit=build/vela-press-kit
+          kit=build/OpenMaps-press-kit
           mkdir -p "$kit/screenshots" "$kit/logo"
           cp docs/screenshots/*.png "$kit/screenshots/"
-          cp docs/logo.svg "$kit/logo/vela-logo.svg"
-          cp fdroid/icon.png "$kit/logo/vela-icon.png"
-          cp docs/not-google-maps.png site/press-kit/FACTS.md "$kit/"
-          (cd build && zip -qr ../fdroid/vela-press-kit.zip vela-press-kit)
+          cp docs/logo.svg "$kit/logo/OpenMaps-logo.svg"
+          cp fdroid/icon.png "$kit/logo/OpenMaps-icon.png"
+                    (cd build && zip -qr ../fdroid/OpenMaps-press-kit.zip OpenMaps-press-kit)
           ls fdroid
 
-      - name: Publish the website to velamaps.org
+      - name: Publish the website to openmaps.org
         # The same landing page, press page and press kit, on Cloudflare Pages (project
-        # `velamaps`). GitHub Pages keeps serving them too, and stays the only home of /repo,
-        # /fonts and /docs: site/_redirects sends velamaps.org/docs there. Skipped until the
+        # `OpenMaps`). GitHub Pages keeps serving them too, and stays the only home of /repo,
+        # /fonts and /docs: site/_redirects sends openmaps.org/docs there. Skipped until the
         # two secrets exist, so a fork or a fresh clone still deploys its GitHub Pages site.
         # The signed settings file and its signature ride along: installed apps read this copy
         # when GitHub does not answer (`VelaLinks.CALIBRATION_MIRROR`), so a closed account can
@@ -231,19 +230,19 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "Cloudflare secrets not set; velamaps.org not deployed"
+            echo "Cloudflare secrets not set; openmaps.org not deployed"
             exit 0
           fi
-          out=build/velamaps-site
+          out=build/OpenMaps-site
           mkdir -p "$out"
-          cp site/index.html site/press.html site/style.css site/_redirects fdroid/privacy.html fdroid/vela-press-kit.zip "$out/"
+          cp site/index.html site/press.html site/style.css site/_redirects fdroid/privacy.html fdroid/OpenMaps-press-kit.zip "$out/"
           cp calibration.json calibration.json.sig "$out/"
           cp -r site/assets "$out/assets"
-          npx --yes wrangler@4.143.0 pages deploy "$out" --project-name velamaps --branch main --commit-dirty=true
+          npx --yes wrangler@4.143.0 pages deploy "$out" --project-name OpenMaps --branch main --commit-dirty=true
 
       - name: Build the docs site
         # Every doc (the book, SPEC, FAQ, features, roadmap, contributor guides) as a searchable
-        # site at https://pimpinpumpkin.github.io/Vela/docs/ (scripts/build-docs-site.py,
+        # site at https://smartworldarafath.github.io/OpenMaps/docs/ (scripts/build-docs-site.py,
         # site/mkdocs.yml). No request leaves the site: system fonts, local search index.
         run: |
           pip install -r site/requirements-docs.txt

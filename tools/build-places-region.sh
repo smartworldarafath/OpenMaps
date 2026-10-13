@@ -215,7 +215,7 @@ if [ "${WD_CLOSED:-on}" != "off" ] && { [ -n "$OSM_NDJSON" ] || [ -n "$MARKS_NDJ
     split -l 300 "$WORK/qids.txt" "$WORK/qidpart."
     for part in "$WORK"/qidpart.*; do
       vals=$(sed 's/^/wd:/' "$part" | tr '\n' ' ')
-      curl -s -m 60 -A "VelaMaps-bake (https://github.com/PimpinPumpkin/Vela)" -H 'Accept: text/csv' \
+      curl -s -m 60 -A "VelaMaps-bake (https://github.com/smartworldarafath/OpenMaps)" -H 'Accept: text/csv' \
         --data-urlencode "query=SELECT DISTINCT ?q WHERE { VALUES ?q { $vals } ?q wdt:P576 ?d . FILTER(?d <= NOW()) }" \
         https://query.wikidata.org/sparql 2>/dev/null | { grep -oE 'Q[0-9]+' || true; } >> "$WORK/wdgone.txt"
       sleep 1

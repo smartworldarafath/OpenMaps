@@ -106,7 +106,7 @@ jobs:
           fi
           # Drop the "nightly" from the title: the same release is the stable now.
           gh_retry gh release edit "$NIGHTLY" \
-            --title "Vela $VER" \
+            --title "OpenMaps $VER" \
             --prerelease=false \
             --latest \
             --notes "$NOTES"

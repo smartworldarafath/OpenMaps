@@ -91,28 +91,28 @@ jobs:
           KEYSTORE_B64: ${{ secrets.VELA_KEYSTORE_BASE64 }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
-            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/vela-release.jks"
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/OpenMaps-release.jks"
             echo "Decoded release keystore."
           else
             echo "No keystore secret — release APK will be debug-signed."
           fi
 
       - name: Fetch obf routing runtime jars
-        # OsmAnd's Java router + obf reader (:core's offline routing engine, GPLv3 like Vela).
+        # OsmAnd's Java router + obf reader (:core's offline routing engine, GPLv3 like OpenMaps).
         # No Maven artifacts exist, so they live on the fixed-tag `obf-runtime` release,
         # gitignored out of the repo - same arrangement as the TTS AAR above.
         run: |
           mkdir -p core/libs
-          for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-vela.jar; do
+          for f in osmand-java.jar osmand-shared-jvm.jar gnu-trove-osmand.jar kxml2-OpenMaps.jar; do
             curl -fSL -o "core/libs/$f" \
               "https://github.com/${{ github.repository }}/releases/download/obf-runtime/$f" \
             || curl -fSL -o "core/libs/$f" \
-              "https://github.com/PimpinPumpkin/Vela/releases/download/obf-runtime/$f"
+              "https://github.com/smartworldarafath/OpenMaps/releases/download/obf-runtime/$f"
           done
           test "$(stat -c%s core/libs/osmand-java.jar)" -gt 10000000
           test "$(stat -c%s core/libs/osmand-shared-jvm.jar)" -gt 1000000
           test "$(stat -c%s core/libs/gnu-trove-osmand.jar)" -gt 100000
-          test "$(stat -c%s core/libs/kxml2-vela.jar)" -gt 10000
+          test "$(stat -c%s core/libs/kxml2-OpenMaps.jar)" -gt 10000
 
       - name: Unit tests
         run: ./gradlew :core:test --no-daemon
@@ -159,11 +159,11 @@ jobs:
         # AAR (gitignored). From the `cronet-runtime` infra release, else the upstream repo's, else
         # packed right here from Chromium's bucket by the same script the release uses.
         run: |
-          v=$(sed -n 's/^vela.cronetVersion=//p' gradle.properties)
+          v=$(sed -n 's/^OpenMaps.cronetVersion=//p' gradle.properties)
           f="app/libs/cronet-$v.aar"
           mkdir -p app/libs
           curl -fsSL -o "$f" "https://github.com/${{ github.repository }}/releases/download/cronet-runtime/cronet-$v.aar" \
-          || curl -fsSL -o "$f" "https://github.com/PimpinPumpkin/Vela/releases/download/cronet-runtime/cronet-$v.aar" \
+          || curl -fsSL -o "$f" "https://github.com/smartworldarafath/OpenMaps/releases/download/cronet-runtime/cronet-$v.aar" \
           || bash scripts/build-cronet-aar.sh "$v" app/libs
           test "$(stat -c%s "$f")" -gt 10000000
 
@@ -179,12 +179,12 @@ jobs:
           curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
             "https://github.com/${{ github.repository }}/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar" \
           || curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
-            "https://github.com/PimpinPumpkin/Vela/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar"
+            "https://github.com/smartworldarafath/OpenMaps/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar"
           test "$(stat -c%s app/libs/sherpa-onnx-1.13.3.aar)" -gt 50000000
 
       - name: Build release APK
         env:
-          VELA_KEYSTORE_PATH: ${{ runner.temp }}/vela-release.jks
+          VELA_KEYSTORE_PATH: ${{ runner.temp }}/OpenMaps-release.jks
           VELA_KEYSTORE_PASSWORD: ${{ secrets.VELA_KEYSTORE_PASSWORD }}
           VELA_KEY_ALIAS: ${{ secrets.VELA_KEY_ALIAS }}
         run: >
@@ -197,7 +197,7 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: vela-maps-apk
+          name: OpenMaps-maps-apk
           path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
 
@@ -212,7 +212,7 @@ jobs:
         run: |
           VER="${{ steps.ver.outputs.name }}"
           CODE="${{ steps.ver.outputs.code }}"
-          mapfile -t APKS < <(bash scripts/stage-apks.sh vela-maps-canary vela-maps-canary.apk)
+          mapfile -t APKS < <(bash scripts/stage-apks.sh OpenMaps-maps-canary OpenMaps-maps-canary.apk)
           # The newest change a USER can see (docs-only and comment-only commits are skipped,
           # scripts/changelog.sh), falling back to the plain subject when nothing qualifies.
           SUBJ="$(bash scripts/changelog.sh --latest HEAD)"
@@ -245,7 +245,7 @@ jobs:
               return 0
             fi
             gh release delete canary --yes --cleanup-tag 2>/dev/null || true
-            gh release create canary --prerelease --target "$GITHUB_SHA" --title "Vela $VER" --notes "$NOTES" "${APKS[@]}"
+            gh release create canary --prerelease --target "$GITHUB_SHA" --title "OpenMaps $VER" --notes "$NOTES" "${APKS[@]}"
           }
           gh_retry publish_canary
 
@@ -269,7 +269,7 @@ jobs:
             exit 0
           fi
           VER="0.5.${{ github.run_number }}"
-          mapfile -t APKS < <(bash scripts/stage-apks.sh vela-maps "vela-maps-v${VER}.apk")
+          mapfile -t APKS < <(bash scripts/stage-apks.sh OpenMaps-maps "OpenMaps-maps-v${VER}.apk")
           # Build the changelog from the commit subjects since the previous release. Our commit
           # subjects are written as plain-language changelog lines, so this reads as real release
           # notes (what Obtainium shows people), not a raw hash dump.
@@ -283,7 +283,7 @@ jobs:
           fi
           [ -z "$LOG" ] && LOG="- Maintenance and internal changes"
           # The title and the first line say NIGHTLY: the release page listed nightlies and
-          # stables with the same "Vela 0.5.N" title and only the prerelease badge apart, and the
+          # stables with the same "OpenMaps 0.5.N" title and only the prerelease badge apart, and the
           # in-app What's new dialog shows the body verbatim, so people could not tell which
           # channel they were reading (user 2026-09-21). promote-stable.yml retitles and rewrites.
           NOTES="$(printf 'Nightly build.\n\nWhat'\''s changed in %s\n\n%s\n\n%s\n' "$VER" "$LOG" "$COMPARE")"
@@ -292,7 +292,7 @@ jobs:
             # A try refused half way (release made, an upload refused) is cleared before the next.
             gh release delete "v${VER}" --yes --cleanup-tag 2>/dev/null || true
             gh release create "v${VER}" \
-              --title "Vela $VER nightly" \
+              --title "OpenMaps $VER nightly" \
               --target "$GITHUB_SHA" \
               --prerelease \
               --notes "$NOTES" \
