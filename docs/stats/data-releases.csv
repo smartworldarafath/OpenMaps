@@ -977,3 +977,13 @@ snapshot,tag,assets,downloads,kind
 2026-10-12,poi-packs,633,19194,downloaded
 2026-10-12,road-features,462,32215,downloaded
 2026-10-12,tts-runtime,1,2788,ci
+2026-10-19,bake-conductor,1,0,downloaded
+2026-10-19,basemap-tiles,451,456,downloaded
+2026-10-19,building-overlays,52,0,streamed
+2026-10-19,cronet-runtime,1,0,downloaded
+2026-10-19,fuel-gb,2,0,downloaded
+2026-10-19,grid-cells,1,0,downloaded
+2026-10-19,obf-regions,0,0,downloaded
+2026-10-19,places-overlays,66,0,streamed
+2026-10-19,poi-packs,463,0,downloaded
+2026-10-19,road-features,463,0,downloaded
