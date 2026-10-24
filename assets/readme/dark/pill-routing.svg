@@ -13,5 +13,5 @@
       </g>
       <g transform="translate(-8.5, -8.5) scale(0.7083333333333334)"><path fill="#FFFFFF" d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></g>
     </g>
-    <text x="42" y="26" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="14.5" font-weight="600" fill="#d9ebe7">OSRM & Valhalla</text>
+    <text x="42" y="26" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="14.5" font-weight="600" fill="#d9ebe7">OSRM &amp; Valhalla</text>
   </svg>

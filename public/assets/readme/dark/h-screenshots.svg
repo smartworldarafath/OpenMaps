@@ -13,11 +13,11 @@
       </g>
       <g transform="translate(-18, -18) scale(1.5)"><path fill="#FFFFFF" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></g>
     </g>
-    <text x="114" y="47" font-family="system-ui, -apple-system, 'Google Sans', Roboto, sans-serif" font-size="32" font-weight="700" fill="#ffffff">Screenshots & UI</text>
-    <text x="114" y="74" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="15" font-weight="400" fill="#99bcb4">Turn-by-turn navigation, lane guidance, place sheets & live departure boards</text>
+    <text x="114" y="47" font-family="system-ui, -apple-system, 'Google Sans', Roboto, sans-serif" font-size="32" font-weight="700" fill="#ffffff">Screenshots &amp; UI</text>
+    <text x="114" y="74" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="15" font-weight="400" fill="#99bcb4">Turn-by-turn navigation, lane guidance, place sheets &amp; live departure boards</text>
     <g transform="translate(848, 36)">
         <rect width="122" height="32" rx="16" fill="#263733"/>
-        <text x="61" y="20.5" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Dark & Light</text>
+        <text x="61" y="20.5" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Dark &amp; Light</text>
       </g><g transform="translate(756, 36)">
         <rect width="82" height="32" rx="16" fill="#263733"/>
         <text x="41" y="20.5" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Transit</text>

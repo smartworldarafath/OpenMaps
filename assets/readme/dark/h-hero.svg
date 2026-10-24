@@ -9,7 +9,7 @@
     <path d="M0,0 L1000,0 C980,100 800,260 600,260 L0,260 Z" fill="#162523" opacity="0.6"/>
     <circle cx="850" cy="130" r="180" fill="#1d3531" opacity="0.4"/>
     
-    <!-- Hero Rotating Flower & Mark -->
+    <!-- Hero Rotating Flower &amp; Mark -->
     <g transform="translate(130, 130)">
       <g class="m3e-flower-spin">
         <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="14s" repeatCount="indefinite"/>

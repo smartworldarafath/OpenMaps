@@ -17,7 +17,7 @@
       </g>
       <g transform="translate(-15, -15) scale(1.25)"><path fill="#351500" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></g>
     </g>
-    <text x="36" y="125" font-family="system-ui, -apple-system, 'Google Sans', Roboto, sans-serif" font-size="21" font-weight="700" fill="#10201d">Open Places & Live Info</text>
+    <text x="36" y="125" font-family="system-ui, -apple-system, 'Google Sans', Roboto, sans-serif" font-size="21" font-weight="700" fill="#10201d">Open Places &amp; Live Info</text>
     <text x="36" y="152" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="13.5" font-weight="400" fill="#446a62">
       <tspan x="36" dy="0">Pins drawn from Overture Maps and AllThePlaces.</tspan><tspan x="36" dy="20">Tapping a place queries hours, holiday times,</tspan><tspan x="36" dy="20">photos and reviews anonymously.</tspan>
     </text>

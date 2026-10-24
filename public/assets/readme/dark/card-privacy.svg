@@ -17,7 +17,7 @@
       </g>
       <g transform="translate(-15, -15) scale(1.25)"><path fill="#FFFFFF" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/></g>
     </g>
-    <text x="36" y="125" font-family="system-ui, -apple-system, 'Google Sans', Roboto, sans-serif" font-size="21" font-weight="700" fill="#ffffff">Zero Tracking & Telemetry</text>
+    <text x="36" y="125" font-family="system-ui, -apple-system, 'Google Sans', Roboto, sans-serif" font-size="21" font-weight="700" fill="#ffffff">Zero Tracking &amp; Telemetry</text>
     <text x="36" y="152" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="13.5" font-weight="400" fill="#9dbfb6">
       <tspan x="36" dy="0">No Google login, no Play Services, and no ad</tspan><tspan x="36" dy="20">identities. Your GPS trail, history and saved</tspan><tspan x="36" dy="20">places never leave your phone.</tspan>
     </text>

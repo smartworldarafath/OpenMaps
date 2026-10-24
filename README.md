@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/logo.svg" width="120" alt="OpenMaps logo">
+
 <picture>
   <source media="(prefers-color-scheme: dark) and (max-width: 640px)" srcset="assets/readme/dark/hm-hero.svg">
   <source media="(prefers-color-scheme: dark)" srcset="assets/readme/dark/h-hero.svg">
@@ -113,9 +115,26 @@ OpenMaps acts as a self-contained client. It does not run Google Play Services o
       <sub>Compare alternate routes, avoid tolls or highways, and inspect real-time traffic delays.</sub>
     </td>
     <td width="33%" align="center" valign="top">
+      <img src="docs/screenshots/02-search.png" alt="Smart Place Search" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" /><br><br>
+      <b>🔍 Smart Search</b><br>
+      <sub>Instant search across restaurants, landmarks, addresses, and local services.</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="docs/screenshots/06-transit.png" alt="Public Transit Navigation" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" /><br><br>
+      <b>🚆 Transit Routing</b><br>
+      <sub>Subway, train, and bus transit routing with live line badges and transfer instructions.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center" valign="top">
       <img src="docs/screenshots/07-bus-stop.png" alt="Public Transit Live Board" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" /><br><br>
       <b>🚍 Transit Departures</b><br>
       <sub>Real-time departure boards and stop sequences from Transitous open timetable networks.</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="docs/screenshots/11-stop-list.png" alt="Stop Sequences & Timetable" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" /><br><br>
+      <b>📋 Stop Schedules</b><br>
+      <sub>Complete line stop list, intermediate platform timing, and connecting options.</sub>
     </td>
     <td width="33%" align="center" valign="top">
       <img src="docs/screenshots/08-map-light.png" alt="Light Theme Basemap" width="100%" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" /><br><br>

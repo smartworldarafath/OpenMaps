@@ -13,6 +13,6 @@
       </g>
       <g transform="translate(-12, -12) scale(1)"><path fill="#3B071F" d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-10 4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4h-2v4H4V9h4V7H4z"/></g>
     </g>
-    <text x="74" y="27" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="10" font-weight="700" fill="#3f675e" letter-spacing="0.08em">NIGHTLY & CANARY</text>
+    <text x="74" y="27" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="10" font-weight="700" fill="#3f675e" letter-spacing="0.08em">NIGHTLY &amp; CANARY</text>
     <text x="74" y="47" font-family="system-ui, -apple-system, Roboto, sans-serif" font-size="16" font-weight="700" fill="#10201d">All Releases</text>
   </svg>
