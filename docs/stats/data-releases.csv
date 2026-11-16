@@ -1026,3 +1026,16 @@ snapshot,tag,assets,downloads,kind
 2026-11-09,places-overlays,552,49,streamed
 2026-11-09,poi-packs,463,0,downloaded
 2026-11-09,road-features,463,0,downloaded
+2026-11-16,address-overlays,52,5,streamed
+2026-11-16,bake-conductor,1,0,downloaded
+2026-11-16,basemap-tiles,516,459,downloaded
+2026-11-16,building-overlays,361,6,streamed
+2026-11-16,cronet-runtime,5,0,downloaded
+2026-11-16,flock-cameras,2,5,downloaded
+2026-11-16,fuel-gb,2,0,downloaded
+2026-11-16,grid-cells,1,0,downloaded
+2026-11-16,maxspeed-overlays,454,3,streamed
+2026-11-16,obf-regions,0,0,downloaded
+2026-11-16,places-overlays,654,7,streamed
+2026-11-16,poi-packs,921,1,downloaded
+2026-11-16,road-features,463,0,downloaded
